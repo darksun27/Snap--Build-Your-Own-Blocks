@@ -1514,6 +1514,50 @@ NetsBloxMorph.prototype.simpleNotification = function (msg, sticky) {
     notification.drawNew();
 };
 
+IDE_Morph.prototype.findBlock = function(query) {
+    query = query || {};
+    let ide = this;
+    let allSprites = ide.stage.children
+        .filter(m => m instanceof SpriteMorph);
+    allSprites.push(ide.stage); // also look into stage scripts
+
+    let allTopBlocks = allSprites
+        .map(sp => sp.scripts)
+        .map(sc => sc.children)
+        .reduce((a, b) => a.concat(b));
+
+    // find interesting blocks
+    let impBlocks = [];
+    while (allTopBlocks.length !== 0) {
+        b = allTopBlocks.shift();
+        if (b.definition) {
+            // TODO remember the parent? recurse?
+            let blk = b.definition.scriptsModel();
+            blk = blk.children[0];
+            if (blk.children.length > 1) { // has contents
+                let topChild = blk.children[1];
+                topChild.parent = b; // parent custom block
+                allTopBlocks.push(topChild); // add the top child
+            }
+        }
+        SnapActions.traverse(b, block => {
+            if (query.selectors && query.selectors.includes(block.selector)) {
+                impBlocks.push(block);
+            } else if (query.specs) {
+                // OPT break early
+                query.specs.forEach(spec => {
+                    if (block.blockSpec.toLowerCase().indexOf(spec) !== -1) {
+                        impBlocks.push(block);
+                    }
+                });
+            }
+        });
+    }
+
+    return new Set(impBlocks);
+};
+
+
 NetsBloxMorph.prototype.showUpdateNotification = function () {
     this.simpleNotification('Newer Version of NetsBlox Available: Please Save and Refresh', true);
 };
