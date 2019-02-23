@@ -1570,6 +1570,19 @@ NetsBloxMorph.prototype.findBlocks = function(query) {
     return Array.from(new Set(impBlocks));
 };
 
+NetsBloxMorph.prototype.blockAddress = function(b) {
+    let location = [];
+    const getStepName = function(morph) {
+        return morph.name || `${morph.selector}[${morph.blockSpec.replace(/%/g,'')}]`;
+    };
+    while (b.upperLevel) {
+        let upperLevel = b.upperLevel;
+        location.unshift(getStepName(upperLevel));
+        b = upperLevel;
+    }
+    return location;
+};
+
 
 NetsBloxMorph.prototype.showUpdateNotification = function () {
     this.simpleNotification('Newer Version of NetsBlox Available: Please Save and Refresh', true);
