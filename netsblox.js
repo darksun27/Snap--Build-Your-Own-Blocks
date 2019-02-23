@@ -1514,21 +1514,29 @@ NetsBloxMorph.prototype.simpleNotification = function (msg, sticky) {
     notification.drawNew();
 };
 
-IDE_Morph.prototype.findBlock = function(query) {
+NetsBloxMorph.prototype.findBlocks = function(query) {
     query = query || {};
     let ide = this;
     let allSprites = ide.stage.children
         .filter(m => m instanceof SpriteMorph);
     allSprites.push(ide.stage); // also look into stage scripts
 
+    const trackPath = function(b, upperLevel) {
+        console.log(b.selector, 'is inside', parent.selector || parent.name);
+        if (b.upperLevel !== undefined) throw new Error('upper level already set');
+        b.upperLevel = upperLevel;
+        return b;
+    };
+
     let allTopBlocks = allSprites
         .map(sp => sp.scripts)
-        .map(sc => sc.children)
+        .map((script, idx) => {
+            return script.children.map(b => trackPath(b, allSprites[idx]));
+        })
         .reduce((a, b) => a.concat(b));
 
     // find interesting blocks
-    let impBlocks = [];
-    while (allTopBlocks.length !== 0) {
+    let impBlocks = []; while (allTopBlocks.length !== 0) {
         b = allTopBlocks.shift();
         if (b.definition) {
             // TODO remember the parent? recurse?
@@ -1536,25 +1544,30 @@ IDE_Morph.prototype.findBlock = function(query) {
             blk = blk.children[0];
             if (blk.children.length > 1) { // has contents
                 let topChild = blk.children[1];
-                topChild.parent = b; // parent custom block
+                trackPath(topChild, b);
                 allTopBlocks.push(topChild); // add the top child
             }
         }
         SnapActions.traverse(b, block => {
+            let include = false;
             if (query.selectors && query.selectors.includes(block.selector)) {
-                impBlocks.push(block);
+                include = true;
             } else if (query.specs) {
                 // OPT break early
                 query.specs.forEach(spec => {
                     if (block.blockSpec.toLowerCase().indexOf(spec) !== -1) {
-                        impBlocks.push(block);
+                        include = true;
                     }
                 });
+            }
+            if (include) {
+                if (block !== b) trackPath(block, b);
+                impBlocks.push(block);
             }
         });
     }
 
-    return new Set(impBlocks);
+    return Array.from(new Set(impBlocks));
 };
 
 
