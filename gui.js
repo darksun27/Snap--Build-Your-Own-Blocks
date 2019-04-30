@@ -242,6 +242,10 @@ IDE_Morph.prototype.init = function (isAutoFill) {
 
     this.logoURL = this.resourceURL('snap_logo_sm.png');
     this.logo = null;
+    this.agentURL = this.resourceURL('Hello4.png');
+    this.agent = null;
+    this.instructionURL = this.resourceURL('Activity4Instruction.png');
+    this.instruction = null;
     this.controlBar = null;
     this.categories = null;
     this.palette = null;
@@ -252,6 +256,11 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.stageHandle = null;
     this.corralBar = null;
     this.corral = null;
+    this.agentGreetingURL = this.resourceURL('Bye4.png');
+    this.greeting = null;
+    this.agentByeUrL = this.resourceURL('agentBye.png');
+    this.agentHintUrl = this.resourceURL('hint4.png');
+    this.checkUrl = this.resourceURL('check.png');
 
     this.isAutoFill = isAutoFill === undefined ? true : isAutoFill;
     this.isAppMode = false;
@@ -616,6 +625,95 @@ IDE_Morph.prototype.buildPanes = function () {
     this.createCorralBar();
     this.createCorral();
     this.createReplayControls();
+    this.createAgent();
+    this.createInstruction();
+    
+};
+
+IDE_Morph.prototype.createAgent = function(){
+    var myself = this;
+
+    if (this.Agent){
+        this.Agent.destroy();
+    }
+    this.agent = new Morph();
+    this.agent.texture = this.agentURL
+
+   
+    this.agent.drawNew = function () {
+        this.image = newCanvas(this.extent());
+        var context = this.image.getContext('2d'),
+            gradient = context.createLinearGradient(
+                0,
+                0,
+                this.width(),
+                0
+            );
+        //gradient.addColorStop(0, 'black');
+        gradient.addColorStop(0.5, myself.frameColor.toString());
+        context.fillStyle = MorphicPreferences.isFlat ?
+                myself.frameColor.toString() : gradient;
+        context.fillRect(50000 , -700000, this.width(), this.height());
+        if (this.texture) {
+            this.drawTexture(this.texture);
+        }
+    };
+
+    this.agent.drawCachedTexture = function () {
+        var context = this.image.getContext('2d');
+        context.drawImage(
+            this.cachedTexture,
+            5,
+            Math.round((this.height() - this.cachedTexture.height) / 2)
+        );
+        this.changed();
+    };
+
+    //this.agent.color = new Color();
+    this.agent.setExtent(new Point(200, 28)); // dimensions are fixed
+    this.add(this.agent);
+};
+
+IDE_Morph.prototype.createInstruction = function(){
+    var myself = this;
+
+    if (this.instruction){
+        this.instruction.destroy();
+    }
+    this.instruction = new Morph();
+    this.instruction.texture = this.instructionURL;
+    this.instruction.drawNew = function () {
+        this.image = newCanvas(this.extent());
+        var context = this.image.getContext('2d'),
+            gradient = context.createLinearGradient(
+                0,
+                0,
+                this.width(),
+                0
+            );
+        //gradient.addColorStop(0, 'black');
+        gradient.addColorStop(0.5, myself.frameColor.toString());
+        context.fillStyle = MorphicPreferences.isFlat ?
+                myself.frameColor.toString() : gradient;
+        context.fillRect(50000 , -700000, this.width(), this.height());
+        if (this.texture) {
+            this.drawTexture(this.texture);
+        }
+    };
+
+    this.instruction.drawCachedTexture = function () {
+        var context = this.image.getContext('2d');
+        context.drawImage(
+            this.cachedTexture,
+            5,
+            Math.round((this.height() - this.cachedTexture.height) / 2)
+        );
+        this.changed();
+    };
+
+    //this.agent.color = new Color();
+    this.instruction.setExtent(new Point(200, 28)); // dimensions are fixed
+    this.add(this.instruction);
 };
 
 IDE_Morph.prototype.createLogo = function () {
@@ -731,6 +829,8 @@ IDE_Morph.prototype.createControlBar = function () {
         appModeButton,
         steppingButton,
         cloudButton,
+        doneButton,
+        hintButton,
         x,
         colors = [
             this.groupColor,
@@ -1042,9 +1142,63 @@ IDE_Morph.prototype.createControlBar = function () {
     this.controlBar.add(cloudButton);
     this.controlBar.cloudButton = cloudButton; // for menu positioning
 
+    //hint button
+    button = new PushButtonMorph(
+        this,
+        'pressHint',
+        new SymbolMorph('speechBubble', 14)
+    )
+
+    button.corner = 12;
+    button.color = colors[0];
+    button.highlightColor = colors[1];
+    button.pressColor = colors[2];
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = new Color(158, 165, 231);
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.fixLayout();
+    hintButton = button;
+    this.controlBar.add(hintButton);
+    this.controlBar.hintButton = hintButton;
+
+  
+    
+
+
+    //Done button
+    button = new PushButtonMorph(
+        this,
+        'pressDone',
+        new SymbolMorph('turtle', 14)
+       
+    ),
+        function () {  // query
+            return myself.pressDone();
+        }
+    
+    button.corner = 12;
+    button.color = colors[0];
+    button.highlightColor = colors[1];
+    button.pressColor = colors[2];
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = new Color(51, 172, 255);
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.fixLayout();
+    doneButton = button;
+    this.controlBar.add(doneButton);
+    this.controlBar.doneButton = doneButton;
+
     this.controlBar.fixLayout = function () {
         x = this.right() - padding;
-        [stopButton, pauseButton, startButton].forEach(
+        [stopButton, pauseButton, startButton, doneButton, hintButton].forEach(
             function (button) {
                 button.setCenter(myself.controlBar.center());
                 button.setRight(x);
@@ -1216,16 +1370,16 @@ IDE_Morph.prototype.createCategories = function () {
             i += 1;
             row = Math.ceil(i / 2);
             col = 2 - (i % 2);
-            button.setPosition(new Point(
+            /*button.setPosition(new Point(
                 l + (col * xPadding + ((col - 1) * buttonWidth)),
                 t + (row * yPadding + ((row - 1) * buttonHeight) + border)
-            ));
+            ));*/
         });
 
         myself.categories.setHeight(
-            (rows + 1) * yPadding
-                + rows * buttonHeight
-                + 2 * border
+           (rows + 1) * yPadding
+            + rows * buttonHeight
+            + 2 * border
         );
     }
 
@@ -1857,12 +2011,21 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.categories.setLeft(this.logo.left());
         this.categories.setTop(this.logo.bottom());
         this.categories.setWidth(this.paletteWidth);
+        this.instruction.setTop(this.logo.bottom());
+        this.instruction.setWidth(this.paletteWidth);
+        this.instruction.setLeft(-6);
+        this.instruction.setHeight(460);
+        this.agent.setTop(this.instruction.bottom()- 200);
+        this.agent.setWidth(this.paletteWidth);
+        this.agent.setLeft(-5);
+        this.agent.setHeight(700);
+        
     }
 
     // palette
     this.palette.setLeft(this.logo.left());
     this.palette.setTop(this.categories.bottom());
-    this.palette.setHeight(this.bottom() - this.palette.top());
+    this.palette.setHeight(0);//this.bottom() - this.palette.top());
     this.palette.setWidth(this.paletteWidth);
 
     if (situation !== 'refreshPalette') {
@@ -2136,6 +2299,105 @@ IDE_Morph.prototype.pressStart = function () {
     }
 };
 
+IDE_Morph.prototype.createGreeting = function(){
+    var myself = this;
+
+    if (this.greeting){
+        this.greeting.destroy();
+    }
+    this.greeting = new Morph();
+    this.greeting.texture = this.agentGreetingURL
+
+   
+    this.greeting.drawNew = function () {
+        this.image = newCanvas(this.extent());
+        var context = this.image.getContext('2d'),
+            gradient = context.createLinearGradient(
+                0,
+                0,
+                this.width(),
+                0
+            );
+        //gradient.addColorStop(0, 'black');
+        gradient.addColorStop(0.5, myself.frameColor.toString());
+        context.fillStyle = MorphicPreferences.isFlat ?
+                myself.frameColor.toString() : gradient;
+        context.fillRect(50000 , -700000, this.width(), this.height());
+        if (this.texture) {
+            this.drawTexture(this.texture);
+        }
+    };
+
+    this.greeting.drawCachedTexture = function () {
+        var context = this.image.getContext('2d');
+        context.drawImage(
+            this.cachedTexture,
+            5,
+            Math.round((this.height() - this.cachedTexture.height) / 2)
+        );
+        this.changed();
+    };
+
+    /*this.greeting.setTop(this.instruction.bottom()+500);
+    this.greeting.setWidth(this.paletteWidth+1000);
+    this.greeting.setLeft(-5);
+    this.greeting.setHeight(1000);*/
+
+    this.greeting.setExtent(new Point(200, 28)); // dimensions are fixed
+    this.add(this.greeting);
+    this.greeting.setTop(this.instruction.bottom()- 200);
+        this.greeting.setWidth(this.paletteWidth);
+        this.greeting.setLeft(-5);
+        this.greeting.setHeight(700);
+};
+
+IDE_Morph.prototype.createHelp = function(){
+    var myself = this;
+
+    if (this.help){
+        this.help.destroy();
+    }
+    this.help = new Morph();
+    this.help.texture = this.agentHintUrl
+
+   
+    this.help.drawNew = function () {
+        this.image = newCanvas(this.extent());
+        var context = this.image.getContext('2d'),
+            gradient = context.createLinearGradient(
+                0,
+                0,
+                this.width(),
+                0
+            );
+        //gradient.addColorStop(0, 'black');
+        gradient.addColorStop(0.5, myself.frameColor.toString());
+        context.fillStyle = MorphicPreferences.isFlat ?
+                myself.frameColor.toString() : gradient;
+        context.fillRect(50000 , -700000, this.width(), this.height());
+        if (this.texture) {
+            this.drawTexture(this.texture);
+        }
+    };
+
+    this.help.drawCachedTexture = function () {
+        var context = this.image.getContext('2d');
+        context.drawImage(
+            this.cachedTexture,
+            5,
+            Math.round((this.height() - this.cachedTexture.height) / 2)
+        );
+        this.changed();
+    };
+
+
+    this.help.setExtent(new Point(200, 28)); // dimensions are fixed
+    this.add(this.help);
+    this.help.setTop(this.instruction.bottom()- 200);
+        this.help.setWidth(this.paletteWidth);
+        this.help.setLeft(-5);
+        this.help.setHeight(700);
+};
 IDE_Morph.prototype.toggleFastTracking = function () {
     if (this.stage.isFastTracked) {
         this.stopFastTracking();
@@ -2174,6 +2436,8 @@ IDE_Morph.prototype.toggleCollaborativeEditing = function () {
     }
 };
 
+
+
 IDE_Morph.prototype.toggleSingleStepping = function () {
     this.stage.threads.toggleSingleStepping();
     this.controlBar.steppingButton.refresh();
@@ -2208,6 +2472,7 @@ IDE_Morph.prototype.togglePauseResume = function () {
         this.stage.threads.pauseAll(this.stage);
     }
     this.controlBar.pauseButton.refresh();
+    this.createHelp();
 };
 
 IDE_Morph.prototype.isPaused = function () {
@@ -2225,6 +2490,7 @@ IDE_Morph.prototype.stopAllScripts = function () {
     }
     this.controlBar.stopButton.refresh();
     this.stage.fireStopAllEvent();
+    this.createGreeting();
 };
 
 IDE_Morph.prototype.selectSprite = function (sprite) {
