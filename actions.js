@@ -179,7 +179,13 @@ ActionManager.prototype.initializeEventMethods = function() {
 
 ActionManager.prototype.initializeRecords = function() {
     this.currentBatch = null;
+
+    // THIS MAY BE USED TO ALLOW REALIGNMENT
+    //
     this.lastSeen = -1;
+    //
+    //
+
     this.lastSent = null;
     this.idCount = 0;
 
@@ -283,6 +289,8 @@ ActionManager.prototype.initialize = function() {
 ActionManager.prototype.completeAction = function(err, result) {
     var action = this.currentEvent;
 
+    // THIS MIGHT BE WHERE A BACKLOG IS PROCESSED
+    // OR PROCESSES PARENT AND CHILDREN IN SUCCESSION (RANGE ERROR???)
     if (this.currentBatch) {
         var currentIndex = this.currentBatch.args.indexOf(action),
             nextEvent = this.currentBatch.args[currentIndex + 1];
