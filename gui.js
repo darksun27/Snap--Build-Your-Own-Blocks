@@ -252,6 +252,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.stageHandle = null;
     this.corralBar = null;
     this.corral = null;
+    this.agentPanel = null;
 
     this.isAutoFill = isAutoFill === undefined ? true : isAutoFill;
     this.isAppMode = false;
@@ -607,6 +608,7 @@ IDE_Morph.prototype.buildPanes = function () {
     this.createSpriteBar();
     this.createSpriteEditor();
     this.createCorralBar();
+    this.createAgentPanel();
     this.createCorral();
     this.createReplayControls();
 };
@@ -1088,7 +1090,7 @@ IDE_Morph.prototype.createControlBar = function () {
         }
         this.refreshResumeSymbol();
     };
-    
+
     this.controlBar.refreshResumeSymbol = function () {
         var pauseSymbols;
         if (Process.prototype.enableSingleStepping &&
@@ -1536,6 +1538,30 @@ IDE_Morph.prototype.createSpriteBar = function () {
     tab.fixLayout();
     tabBar.add(tab);
 
+    /* start testing sprites and stage tab */
+    tab = new TabMorph(
+        tabColors,
+        null, // target
+        function () {
+            SnapActions.selectTab('sprites');
+            tabBar.tabTo('sprites');
+        },
+        localize('Sprites'), // label
+        function () {  // query
+            return myself.currentTab === 'sprites';
+        }
+    );
+    tab.padding = 3;
+    tab.corner = tabCorner;
+    tab.edge = 1;
+    tab.labelShadowOffset = new Point(-1, -1);
+    tab.labelShadowColor = tabColors[1];
+    tab.labelColor = this.buttonLabelColor;
+    tab.drawNew();
+    tab.fixLayout();
+    tabBar.add(tab);
+    /* end testing sprites and stage tab */
+
     tabBar.fixLayout();
     tabBar.children.forEach(function (each) {
         each.refresh();
@@ -1553,7 +1579,14 @@ IDE_Morph.prototype.createSpriteBar = function () {
 IDE_Morph.prototype.createSpriteEditor = function () {
     // assumes that the logo pane and the stage have already been created
     var scripts = this.currentSprite.scripts,
-        myself = this;
+        spritesGUI = this.sprites.asArray(),
+        myself = this,
+        template,
+        frame,
+        padding = 5;
+
+    //console.log("Scripts: " + scripts);
+    //console.log("Sprites: " + spritesGUI);
 
     if (this.spriteEditor) {
         this.spriteEditor.destroy();
@@ -1600,6 +1633,9 @@ IDE_Morph.prototype.createSpriteEditor = function () {
         this.spriteEditor.updateSelection();
         this.spriteEditor.acceptDrops = false;
         this.spriteEditor.contents.acceptsDrops = false;
+    } else if (this.currentTab === 'sprites') {
+
+
     } else {
         this.spriteEditor = new Morph();
         this.spriteEditor.color = this.groupColor;
@@ -1619,11 +1655,17 @@ IDE_Morph.prototype.createSpriteEditor = function () {
     this.activeEditor.onSetActive();
 };
 
+IDE_Morph.prototype.createAgentPanel = function () {
+  console.log("In IDE_Morph.prototype.createAgentPanel");
+}
+
 IDE_Morph.prototype.createCorralBar = function () {
     // assumes the stage has already been created
     var padding = 5,
         newbutton,
         paintbutton,
+        agentbutton,
+        myself = this,
         colors = [
             this.groupColor,
             this.frameColor.darker(50),
@@ -1662,7 +1704,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     newbutton.setLeft(this.corralBar.left() + padding);
     this.corralBar.add(newbutton);
 
-    paintbutton = new PushButtonMorph(
+    /*paintbutton = new PushButtonMorph(
         this,
         "paintNewSprite",
         new SymbolMorph("brush", 15)
@@ -1684,7 +1726,43 @@ IDE_Morph.prototype.createCorralBar = function () {
     paintbutton.setLeft(
         this.corralBar.left() + padding + newbutton.width() + padding
     );
-    this.corralBar.add(paintbutton);
+    this.corralBar.add(paintbutton);*/
+
+    //testing toggle agent
+    agentbutton = new ToggleButtonMorph(
+        null, //colors,
+        myself, // the IDE is the target
+        'toggleAgentSize',
+        [
+            new SymbolMorph('robot', 14),
+            new SymbolMorph('robot', 14)
+        ],
+        function () {  // query
+            return myself.isSmallStage;
+        }
+    );
+
+    agentbutton.corner = 12;
+    agentbutton.color = colors[0];
+    agentbutton.highlightColor = colors[1];
+    agentbutton.pressColor = colors[2];
+    agentbutton.labelMinExtent = new Point(36, 18);
+    agentbutton.padding = 0;
+    agentbutton.labelShadowOffset = new Point(-1, -1);
+    agentbutton.labelShadowColor = colors[1];
+    agentbutton.labelColor = this.buttonLabelColor;
+    agentbutton.contrast = this.buttonContrast;
+    agentbutton.drawNew();
+    // button.hint = 'stage size\nsmall & normal';
+    agentbutton.fixLayout();
+    agentbutton.setCenter(this.corralBar.center());
+    agentbutton.setLeft(
+        this.corralBar.left() + padding + newbutton.width() + padding
+    );
+    agentbutton.refresh();
+    agentSizeButton = agentbutton;
+    this.corralBar.add(agentSizeButton);
+    this.corralBar.agentSizeButton = agentbutton; // for refreshing
 };
 
 IDE_Morph.prototype.createCorral = function () {
@@ -1721,6 +1799,7 @@ IDE_Morph.prototype.createCorral = function () {
     frame.alpha = 0;
 
     this.sprites.asArray().forEach(function (morph) {
+        console.log("Morph is: " + morph);
         if (!morph.isClone) {
             template = new SpriteIconMorph(morph, template);
             frame.contents.add(template);
@@ -1760,6 +1839,9 @@ IDE_Morph.prototype.createCorral = function () {
         });
         this.frame.contents.adjustBounds();
     };
+
+    //create agentPanel that isn't visible and keep corral the same size
+    //then, when button is pressed, make corral invisible and agent panel larger
 
     this.corral.addSprite = function (sprite) {
         this.frame.contents.add(new SpriteIconMorph(sprite));
@@ -1918,11 +2000,18 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.corralBar.setWidth(this.stage.width());
 
         // corral
+        // Jen note: this affects the sprite and stage under the corral
         if (!contains(['selectSprite', 'tabEditor'], situation)) {
-            this.corral.setPosition(this.corralBar.bottomLeft());
-            this.corral.setWidth(this.stage.width());
+            this.corral.setPosition(this.spriteBar.bottomLeft());
+            this.corral.setWidth(this.spriteBar.width());
+            //this.corral.setPosition(this.corralBar.bottomLeft());
+            //this.corral.setWidth(this.stage.width());
             this.corral.setHeight(this.bottom() - this.corral.top());
             this.corral.fixLayout();
+            //this.agentPanel.setPosition(this.agentPanel.bottomLeft());
+            //this.agentPanel.setWidth(this.stage.width());
+            //this.agentPanel.setHeight(this.bottom() - this.agentPanel.top());
+            //this.agentPanel.fixLayout();
         }
     }
 
@@ -2408,7 +2497,7 @@ IDE_Morph.prototype.addNewSprite = function () {
     // randomize sprite properties
     sprite.setHue(rnd.call(this, 0, 100));
     sprite.setBrightness(rnd.call(this, 50, 100));
-    sprite.turn(rnd.call(this, 1, 360));
+    sprite.turn(0);
     sprite.setXPosition(rnd.call(this, -220, 220));
     sprite.setYPosition(rnd.call(this, -160, 160));
 
@@ -3030,7 +3119,7 @@ IDE_Morph.prototype.settingsMenu = function () {
                 if (myself.isPreviousVersion()) {
                     myself.confirm(
                         'Exiting replay mode now will revert the project to\n' +
-                        'the current point in history (losing any unapplied ' + 
+                        'the current point in history (losing any unapplied ' +
                         'changes)\n\nAre you sure you want to exit replay mode?',
                         'Exit Replay Mode?',
                         function () {
@@ -4741,7 +4830,7 @@ IDE_Morph.prototype.saveFileAs = function (
 IDE_Morph.prototype.saveCanvasAs = function (canvas, fileName) {
     // Export a Canvas object as a PNG image
     // Note: This commented out due to poor browser support.
-    // cavas.toBlob() is currently supported in Firefox, IE, Chrome but 
+    // cavas.toBlob() is currently supported in Firefox, IE, Chrome but
     // browsers prevent easily saving the generated files.
     // Do not re-enable without revisiting issue #1191
     // if (canvas.toBlob) {
@@ -4751,7 +4840,7 @@ IDE_Morph.prototype.saveCanvasAs = function (canvas, fileName) {
     //     });
     //     return;
     // }
-    
+
     this.saveFileAs(canvas.toDataURL(), 'image/png', fileName);
 };
 
@@ -5028,6 +5117,61 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
 };
 
 IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
+    var myself = this,
+        smallRatio = forcedRatio || 0.5,
+        msecs = this.isAnimating ? 100 : 0,
+        world = this.world(),
+        shiftClicked = (world.currentKey === 16),
+        altClicked = (world.currentKey === 18);
+
+    function toggle() {
+        myself.isSmallStage = isNil(isSmall) ? !myself.isSmallStage : isSmall;
+    }
+
+    function zoomTo(targetRatio) {
+        myself.isSmallStage = true;
+        world.animations.push(new Animation(
+            function (ratio) {
+                myself.stageRatio = ratio;
+                myself.setExtent(world.extent());
+            },
+            function () {
+                return myself.stageRatio;
+            },
+            targetRatio - myself.stageRatio,
+            msecs,
+            null, // easing
+            function () {
+                myself.isSmallStage = (targetRatio !== 1);
+                myself.controlBar.stageSizeButton.refresh();
+            }
+        ));
+    }
+
+    if (shiftClicked) {
+        smallRatio = SpriteIconMorph.prototype.thumbSize.x * 3 /
+            this.stage.dimensions.x;
+        if (!this.isSmallStage || (smallRatio === this.stageRatio)) {
+            toggle();
+        }
+    } else if (altClicked) {
+        smallRatio = this.width() / 2 /
+            this.stage.dimensions.x;
+        if (!this.isSmallStage || (smallRatio === this.stageRatio)) {
+            toggle();
+        }
+    } else {
+        toggle();
+    }
+    if (this.isSmallStage) {
+        zoomTo(smallRatio);
+    } else {
+        zoomTo(1);
+    }
+};
+
+IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
+    //decrease the size of the corral and increase the size of agentpanel
     var myself = this,
         smallRatio = forcedRatio || 0.5,
         msecs = this.isAnimating ? 100 : 0,
@@ -6244,7 +6388,7 @@ ProjectDialogMorph.prototype.buildFilterField = function () {
     this.filterField.reactToKeystroke = function (evt) {
         var text = this.getValue();
 
-        myself.listField.elements = 
+        myself.listField.elements =
             myself.projectList.filter(function (aProject) {
                 var name,
                     notes;
@@ -6984,7 +7128,7 @@ ProjectDialogMorph.prototype.fixLayout = function () {
 
 // LibraryImportDialogMorph ///////////////////////////////////////////
 // I am preview dialog shown before importing a library.
-// I inherit from a DialogMorph but look similar to 
+// I inherit from a DialogMorph but look similar to
 // ProjectDialogMorph, and BlockImportDialogMorph
 
 LibraryImportDialogMorph.prototype = new DialogBoxMorph();
@@ -7219,7 +7363,7 @@ LibraryImportDialogMorph.prototype.fixLayout = function () {
     Morph.prototype.trackChanges = oldFlag;
     this.changed();
 };
-    
+
 // Library Cache Utilities.
 LibraryImportDialogMorph.prototype.hasCached = function (key) {
     return this.libraryCache.hasOwnProperty(key);
