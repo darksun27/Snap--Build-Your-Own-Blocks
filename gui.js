@@ -89,6 +89,7 @@ var SoundIconMorph;
 var JukeboxMorph;
 var StageHandleMorph;
 var PaletteHandleMorph;
+var AgentMorph;
 
 var SERVER_URL = SERVER_URL || window.location.origin;
 var SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, '');
@@ -143,6 +144,7 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.rotationStyleColors = IDE_Morph.prototype.tabColors;
     IDE_Morph.prototype.appModeColor = new Color();
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
+    IDE_Morph.prototype.agentPanelTexture = this.agentTexture();
     IDE_Morph.prototype.padding = 5;
 
     SpriteIconMorph.prototype.labelColor
@@ -193,6 +195,21 @@ IDE_Morph.prototype.setFlatDesign = function () {
         = IDE_Morph.prototype.buttonLabelColor;
     TurtleIconMorph.prototype.labelColor
         = IDE_Morph.prototype.buttonLabelColor;
+};
+
+IDE_Morph.prototype.agentTexture = function () {
+    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image,0,0,480,360);
+    };
+    image.src="./agents.png";
+
+    return pic;
 };
 
 IDE_Morph.prototype.scriptsTexture = function () {
@@ -259,6 +276,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.isReplayMode = false;
     this.preReplayUndoState = null;
     this.isSmallStage = false;
+    this.isLargeAgent = false;
     this.filePicker = null;
     this.hasChangedMedia = false;
 
@@ -1579,7 +1597,6 @@ IDE_Morph.prototype.createSpriteBar = function () {
 IDE_Morph.prototype.createSpriteEditor = function () {
     // assumes that the logo pane and the stage have already been created
     var scripts = this.currentSprite.scripts,
-        spritesGUI = this.sprites.asArray(),
         myself = this,
         template,
         frame,
@@ -1634,8 +1651,6 @@ IDE_Morph.prototype.createSpriteEditor = function () {
         this.spriteEditor.acceptDrops = false;
         this.spriteEditor.contents.acceptsDrops = false;
     } else if (this.currentTab === 'sprites') {
-
-
     } else {
         this.spriteEditor = new Morph();
         this.spriteEditor.color = this.groupColor;
@@ -1657,6 +1672,32 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 
 IDE_Morph.prototype.createAgentPanel = function () {
   console.log("In IDE_Morph.prototype.createAgentPanel");
+
+  if (this.agentPanel) {this.agentPanel.destroy(); }
+  this.agentPanel = new FrameMorph();
+  this.agentPanel.cachedTexture = this.agentPanelTexture;
+  this.add(this.agentPanel);
+
+  console.log("agentPanel: " + this.agentPanel);
+
+  /*this.agentPanel= new ScrollFrameMorph(
+      null,
+      null,
+      this.sliderColor
+  );
+  this.agentPanel.color = this.groupColor;
+  this.agentPanel.padding = 10;
+  this.agentPanel.growth = 50;
+  this.agentPanel.isDraggable = false;
+  this.agentPanel.acceptsDrops = false;
+  this.agentPanel.contents.acceptsDrops = false;
+
+  var image = new Image();
+  image.src = "./agents.png";
+
+  this.add(this.agentPanel);
+  this.agentPanel.scrollX(this.agentPanel.padding);
+  this.agentPanel.scrollY(this.agentPanel.padding);*/
 }
 
 IDE_Morph.prototype.createCorralBar = function () {
@@ -1994,6 +2035,11 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             ));
         }
 
+        //agentPanel
+        this.agentPanel.setPosition(this.corralBar.bottomLeft());
+        this.agentPanel.setWidth(this.stage.width());
+        this.agentPanel.setHeight(this.bottom() - this.agentPanel.top());
+
         // corralBar
         this.corralBar.setLeft(this.stage.left());
         this.corralBar.setTop(this.stage.bottom() + padding);
@@ -2008,7 +2054,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             //this.corral.setWidth(this.stage.width());
             this.corral.setHeight(this.bottom() - this.corral.top());
             this.corral.fixLayout();
-            //this.agentPanel.setPosition(this.agentPanel.bottomLeft());
+            //this.agentPanel.setPosition(this.corralBar.bottomLeft());
             //this.agentPanel.setWidth(this.stage.width());
             //this.agentPanel.setHeight(this.bottom() - this.agentPanel.top());
             //this.agentPanel.fixLayout();
@@ -5171,58 +5217,18 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
 };
 
 IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
-    //decrease the size of the corral and increase the size of agentpanel
-    var myself = this,
-        smallRatio = forcedRatio || 0.5,
-        msecs = this.isAnimating ? 100 : 0,
-        world = this.world(),
-        shiftClicked = (world.currentKey === 16),
-        altClicked = (world.currentKey === 18);
+    //decrease the size of the stage and increase the size of agentpanel
 
-    function toggle() {
-        myself.isSmallStage = isNil(isSmall) ? !myself.isSmallStage : isSmall;
-    }
+    this.isLargeAgent = !this.isLargeAgent;
 
-    function zoomTo(targetRatio) {
-        myself.isSmallStage = true;
-        world.animations.push(new Animation(
-            function (ratio) {
-                myself.stageRatio = ratio;
-                myself.setExtent(world.extent());
-            },
-            function () {
-                return myself.stageRatio;
-            },
-            targetRatio - myself.stageRatio,
-            msecs,
-            null, // easing
-            function () {
-                myself.isSmallStage = (targetRatio !== 1);
-                myself.controlBar.stageSizeButton.refresh();
-            }
-        ));
-    }
+    console.log(this.isLargeAgent);
 
-    if (shiftClicked) {
-        smallRatio = SpriteIconMorph.prototype.thumbSize.x * 3 /
-            this.stage.dimensions.x;
-        if (!this.isSmallStage || (smallRatio === this.stageRatio)) {
-            toggle();
-        }
-    } else if (altClicked) {
-        smallRatio = this.width() / 2 /
-            this.stage.dimensions.x;
-        if (!this.isSmallStage || (smallRatio === this.stageRatio)) {
-            toggle();
-        }
+    if (this.isLargeAgent) {
+      SnapActions.setStageSize(0, 0);
     } else {
-        toggle();
+      SnapActions.setStageSize(480, 360);
     }
-    if (this.isSmallStage) {
-        zoomTo(smallRatio);
-    } else {
-        zoomTo(1);
-    }
+
 };
 
 IDE_Morph.prototype.setPaletteWidth = function (newWidth) {
@@ -8803,6 +8809,45 @@ JukeboxMorph.prototype.undoOwnerId =
 
 JukeboxMorph.prototype.definitionOrSprite = function() {
     return this.sprite;
+};
+
+//AlignmentMorph
+AgentMorph.prototype = new Morph();
+AgentMorph.prototype.constructor = AgentMorph;
+AgentMorph.uber = Morph.prototype;
+
+function AgentMorph(target) {
+    this.init(target);
+}
+
+AgentMorph.prototype.init = function (target) {
+    this.target = target || null;
+    this.isDraggable = false;
+    this.noticesTransparentClick = true;
+    this.setExtent(new Point(0 , 0));
+};
+
+AgentMorph.prototype.drawNew = function () {
+  console.log("In AgentMorph.prototype.drawNew");
+  var ctx;
+  var image = new Image();
+  var canvas = newCanvas(this.extent());
+
+  ctx = this.image.getContext('2d');
+  image.onload = function() {
+    console.log("In onload");
+    ctx.drawImage(image,300,0);
+  };
+  image.src="./agents.png";
+  console.log(image.src);
+};
+
+AgentMorph.prototype.fixLayout = function () {
+    if (!this.target) {return; }
+    var ide = this.target.parentThatIsA(IDE_Morph);
+    this.setTop(this.target.top() + 10);
+    this.setRight(this.target.left());
+    if (ide) {ide.add(this); } // come to front
 };
 
 // StageHandleMorph ////////////////////////////////////////////////////////
