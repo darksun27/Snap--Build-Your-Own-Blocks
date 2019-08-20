@@ -270,6 +270,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.corralBar = null;
     this.corral = null;
     this.agentPanel = null;
+    this.speechBubblePanel = null;
 
     this.isAutoFill = isAutoFill === undefined ? true : isAutoFill;
     this.isAppMode = false;
@@ -626,7 +627,6 @@ IDE_Morph.prototype.buildPanes = function () {
     this.createSpriteBar();
     this.createSpriteEditor();
     this.createCorralBar();
-    this.createAgentPanel();
     this.createCorral();
     this.createReplayControls();
 };
@@ -1619,6 +1619,7 @@ IDE_Morph.prototype.createSpriteEditor = function () {
             null,
             this.sliderColor
         );
+
         this.spriteEditor.padding = 10;
         this.spriteEditor.growth = 50;
         this.spriteEditor.isDraggable = false;
@@ -1670,15 +1671,126 @@ IDE_Morph.prototype.createSpriteEditor = function () {
     this.activeEditor.onSetActive();
 };
 
+IDE_Morph.prototype.createSpeechBubblePanel = function () {
+  if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
+  this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
+  this.speechBubblePanel.cachedTexture = this.scriptsPaneTexture;
+  this.speechBubblePanel.drawCachedTexture();
+  this.add(this.speechBubblePanel);
+  this.speechBubblePanel.acceptsDrops = false;
+  this.speechBubblePanel.contents.acceptsDrops = false;
+
+  //var text = new TextMorph('lsdjflsjdfljsdlj');
+  //this.speechBubblePanel.addContents(text);
+
+  var conversation = ["Oh, it looks like you're really close to a solution!",
+    "Maybe it would help to talk to your partner.",
+    "Do you want to share what you are thinking about?",
+    "Great explanation!",
+    "Keep up the good work!",
+    "Do you both understand the code?",
+    "What do you think the next step is?",
+    "You guys are great!",
+    "What block did you add?",
+    "Great idea!",
+    "Let's brainstorm new ideas together!",
+    "Two heads are better than one!"];
+
+  for (var i = 0; i < conversation.length; i++) {
+    var speechbubble = new SpeechBubbleMorph(conversation[i]);
+    speechbubble.setTop(this.speechBubblePanel.top() + 30*i);
+    this.speechBubblePanel.addContents(speechbubble);
+  }
+
+  //var speechbubble = new SpeechBubbleMorph("Oh, it looks like you're really close to a solution!");
+  //this.speechBubblePanel.addContents(speechbubble);
+  //var speechbubble2 = new SpeechBubbleMorph("Maybe it would help to talk to your partner.");
+  //speechbubble2.setBottom(this.speechBubblePanel.bottom());
+  //this.speechBubblePanel.addContents(speechbubble2);
+
+  /*this.speechBubblePanel.drawNew = function () {
+    var ctx;
+    var image = new Image();
+
+    image.onload = function () {
+      canvas = newCanvas(new Point(200, 200), true); // nonRetina
+      ctx = canvas.getContext('2d');
+      ctx.drawImage(image,0,0,300,300);
+
+      new DialogBoxMorph().switchRoles('Switch Roles', world, canvas);
+    };
+
+    image.src="./Speech1.png";
+  };*/
+  //this.frame.contents.add(ctx);
+
+  /*this.speechBubblePanel.fixLayout = function () {
+      this.stageIcon.setCenter(this.center());
+      this.stageIcon.setLeft(this.left() + padding);
+      this.frame.setLeft(this.stageIcon.right() + padding);
+      this.frame.setExtent(new Point(
+          this.right() - this.frame.left(),
+          this.height()
+      ));
+      this.arrangeIcons();
+      this.refresh();
+  };
+
+  this.speechBubblePanel.arrangeIcons = function () {
+      var x = this.frame.left(),
+          y = this.frame.top(),
+          max = this.frame.right(),
+          start = this.frame.left();
+
+      this.frame.contents.children.forEach(function (icon) {
+          var w = icon.width();
+
+          if (x + w > max) {
+              x = start;
+              y += icon.height(); // they're all the same
+          }
+          icon.setPosition(new Point(x, y));
+          x += w;
+      });
+      this.frame.contents.adjustBounds();
+  };
+
+  //create agentPanel that isn't visible and keep corral the same size
+  //then, when button is pressed, make corral invisible and agent panel larger
+
+  this.speechBubblePanel.addSprite = function (sprite) {
+      this.frame.contents.add(new SpriteIconMorph(sprite));
+      this.fixLayout();
+  };
+
+  this.speechBubblePanel.refresh = function () {
+      this.stageIcon.refresh();
+      this.frame.contents.children.forEach(function (icon) {
+          icon.refresh();
+      });
+  };*/
+}
+
 IDE_Morph.prototype.createAgentPanel = function () {
   console.log("In IDE_Morph.prototype.createAgentPanel");
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
   this.agentPanel = new FrameMorph();
   this.agentPanel.cachedTexture = this.agentPanelTexture;
+  this.agentPanel.drawCachedTexture();
   this.add(this.agentPanel);
+  this.agentPanel.acceptsDrops = false;
+  //this.agentPanel.contents.acceptsDrops = false;
 
-  console.log("agentPanel: " + this.agentPanel);
+  this.agentPanel.drawCachedTexture = function () {
+      var context = this.image.getContext('2d');
+      var width = this.cachedTexture.width,
+          height = this.cachedTexture.height;
+
+      //console.log("Corral: " + this.corralBar.left);
+      context.drawImage(this.cachedTexture, 0, 0,
+          width, height);
+  };
 
   /*this.agentPanel= new ScrollFrameMorph(
       null,
@@ -1813,6 +1925,9 @@ IDE_Morph.prototype.createCorral = function () {
     this.createStageHandle();
     this.createPaletteHandle();
 
+    this.createAgentPanel();
+    this.createSpeechBubblePanel();
+
     if (this.corral) {
         this.corral.destroy();
     }
@@ -1840,7 +1955,6 @@ IDE_Morph.prototype.createCorral = function () {
     frame.alpha = 0;
 
     this.sprites.asArray().forEach(function (morph) {
-        console.log("Morph is: " + morph);
         if (!morph.isClone) {
             template = new SpriteIconMorph(morph, template);
             frame.contents.add(template);
@@ -2036,9 +2150,18 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
         //agentPanel
-        this.agentPanel.setPosition(this.corralBar.bottomLeft());
+        //this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
+        this.agentPanel.setBottom(this.bottom());
+        this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight(this.bottom() - this.agentPanel.top());
+        this.agentPanel.setHeight(200);//this.bottom() - this.agentPanel.top());
+
+        //speechBubblePanel
+        this.speechBubblePanel.setTop(this.corralBar.bottom());
+        this.speechBubblePanel.setLeft(this.stage.left());
+        //this.speechBubblePanel.setHeight(0);//this.corralBar.bottom() - this.agentPanel.top())
+        //this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
+        this.speechBubblePanel.setWidth(this.stage.width());
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
@@ -5225,8 +5348,10 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
+      this.speechBubblePanel.setHeight(300);
     } else {
       SnapActions.setStageSize(480, 360);
+      this.speechBubblePanel.setHeight(0);
     }
 
 };
@@ -6189,6 +6314,8 @@ ProjectDialogMorph.prototype.buildContents = function () {
             ),
             width = scale * this.cachedTexture.width,
             height = scale * this.cachedTexture.height;
+
+        console.log("Preview height: " + this.height);
 
         context.drawImage(this.cachedTexture, this.edge, this.edge,
             width, height);
@@ -8811,7 +8938,7 @@ JukeboxMorph.prototype.definitionOrSprite = function() {
     return this.sprite;
 };
 
-//AlignmentMorph
+/*//AlignmentMorph
 AgentMorph.prototype = new Morph();
 AgentMorph.prototype.constructor = AgentMorph;
 AgentMorph.uber = Morph.prototype;
@@ -8848,7 +8975,7 @@ AgentMorph.prototype.fixLayout = function () {
     this.setTop(this.target.top() + 10);
     this.setRight(this.target.left());
     if (ide) {ide.add(this); } // come to front
-};
+};*/
 
 // StageHandleMorph ////////////////////////////////////////////////////////
 
