@@ -1701,74 +1701,6 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     speechbubble.setTop(this.speechBubblePanel.top() + 30*i);
     this.speechBubblePanel.addContents(speechbubble);
   }
-
-  //var speechbubble = new SpeechBubbleMorph("Oh, it looks like you're really close to a solution!");
-  //this.speechBubblePanel.addContents(speechbubble);
-  //var speechbubble2 = new SpeechBubbleMorph("Maybe it would help to talk to your partner.");
-  //speechbubble2.setBottom(this.speechBubblePanel.bottom());
-  //this.speechBubblePanel.addContents(speechbubble2);
-
-  /*this.speechBubblePanel.drawNew = function () {
-    var ctx;
-    var image = new Image();
-
-    image.onload = function () {
-      canvas = newCanvas(new Point(200, 200), true); // nonRetina
-      ctx = canvas.getContext('2d');
-      ctx.drawImage(image,0,0,300,300);
-
-      new DialogBoxMorph().switchRoles('Switch Roles', world, canvas);
-    };
-
-    image.src="./Speech1.png";
-  };*/
-  //this.frame.contents.add(ctx);
-
-  /*this.speechBubblePanel.fixLayout = function () {
-      this.stageIcon.setCenter(this.center());
-      this.stageIcon.setLeft(this.left() + padding);
-      this.frame.setLeft(this.stageIcon.right() + padding);
-      this.frame.setExtent(new Point(
-          this.right() - this.frame.left(),
-          this.height()
-      ));
-      this.arrangeIcons();
-      this.refresh();
-  };
-
-  this.speechBubblePanel.arrangeIcons = function () {
-      var x = this.frame.left(),
-          y = this.frame.top(),
-          max = this.frame.right(),
-          start = this.frame.left();
-
-      this.frame.contents.children.forEach(function (icon) {
-          var w = icon.width();
-
-          if (x + w > max) {
-              x = start;
-              y += icon.height(); // they're all the same
-          }
-          icon.setPosition(new Point(x, y));
-          x += w;
-      });
-      this.frame.contents.adjustBounds();
-  };
-
-  //create agentPanel that isn't visible and keep corral the same size
-  //then, when button is pressed, make corral invisible and agent panel larger
-
-  this.speechBubblePanel.addSprite = function (sprite) {
-      this.frame.contents.add(new SpriteIconMorph(sprite));
-      this.fixLayout();
-  };
-
-  this.speechBubblePanel.refresh = function () {
-      this.stageIcon.refresh();
-      this.frame.contents.children.forEach(function (icon) {
-          icon.refresh();
-      });
-  };*/
 }
 
 IDE_Morph.prototype.createAgentPanel = function () {
@@ -5351,7 +5283,7 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
       this.speechBubblePanel.setHeight(300);
     } else {
       SnapActions.setStageSize(480, 360);
-      this.speechBubblePanel.setHeight(0);
+      this.speechBubblePanel.setHeight(50);
     }
 
 };
@@ -8937,45 +8869,6 @@ JukeboxMorph.prototype.undoOwnerId =
 JukeboxMorph.prototype.definitionOrSprite = function() {
     return this.sprite;
 };
-
-/*//AlignmentMorph
-AgentMorph.prototype = new Morph();
-AgentMorph.prototype.constructor = AgentMorph;
-AgentMorph.uber = Morph.prototype;
-
-function AgentMorph(target) {
-    this.init(target);
-}
-
-AgentMorph.prototype.init = function (target) {
-    this.target = target || null;
-    this.isDraggable = false;
-    this.noticesTransparentClick = true;
-    this.setExtent(new Point(0 , 0));
-};
-
-AgentMorph.prototype.drawNew = function () {
-  console.log("In AgentMorph.prototype.drawNew");
-  var ctx;
-  var image = new Image();
-  var canvas = newCanvas(this.extent());
-
-  ctx = this.image.getContext('2d');
-  image.onload = function() {
-    console.log("In onload");
-    ctx.drawImage(image,300,0);
-  };
-  image.src="./agents.png";
-  console.log(image.src);
-};
-
-AgentMorph.prototype.fixLayout = function () {
-    if (!this.target) {return; }
-    var ide = this.target.parentThatIsA(IDE_Morph);
-    this.setTop(this.target.top() + 10);
-    this.setRight(this.target.left());
-    if (ide) {ide.add(this); } // come to front
-};*/
 
 // StageHandleMorph ////////////////////////////////////////////////////////
 
