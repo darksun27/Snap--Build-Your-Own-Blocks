@@ -1674,8 +1674,9 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 IDE_Morph.prototype.createSpeechBubblePanel = function () {
   if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
   this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
-  this.speechBubblePanel.cachedTexture = this.scriptsPaneTexture;
-  this.speechBubblePanel.drawCachedTexture();
+  //this.speechBubblePanel.cachedTexture = this.scriptsPaneTexture;
+  this.speechBubblePanel.color = "#f8e2cd";
+  //this.speechBubblePanel.drawCachedTexture();
   this.add(this.speechBubblePanel);
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
@@ -1696,9 +1697,12 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     "Let's brainstorm new ideas together!",
     "Two heads are better than one!"];
 
+//Blue shirt #1e2757
+//Purple shirt #392044
+//Beige wall #f8e2cd
   for (var i = 0; i < conversation.length; i++) {
-    var speechbubble = new SpeechBubbleMorph(conversation[i]);
-    speechbubble.setTop(this.speechBubblePanel.top() + 30*i);
+    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
+    speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
     this.speechBubblePanel.addContents(speechbubble);
   }
 }
@@ -2082,7 +2086,6 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
         //agentPanel
-        //this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
         this.agentPanel.setBottom(this.bottom());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
@@ -2091,9 +2094,10 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         //speechBubblePanel
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
-        //this.speechBubblePanel.setHeight(0);//this.corralBar.bottom() - this.agentPanel.top())
-        //this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
         this.speechBubblePanel.setWidth(this.stage.width());
+        console.log("Corral Bar: " + this.corralBar.bottom());
+        console.log("Agent Panel: " + this.agentPanel.top());
+        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom());
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
@@ -5280,10 +5284,8 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
-      this.speechBubblePanel.setHeight(300);
     } else {
       SnapActions.setStageSize(480, 360);
-      this.speechBubblePanel.setHeight(50);
     }
 
 };
