@@ -6220,7 +6220,7 @@ function AgentSpeechBubbleMorph(
     padding,
     isThought
 ) {
-    this.init(contents, color, edge, border, borderColor, padding, isThought);
+    this.init(contents, color, pointRight, edge, border, borderColor, padding, isThought);
 }
 
 AgentSpeechBubbleMorph.prototype.init = function (
@@ -6233,7 +6233,7 @@ AgentSpeechBubbleMorph.prototype.init = function (
     padding,
     isThought
 ) {
-    this.isPointingRight = pointRight || true; // orientation of text
+    this.isPointingRight = pointRight; // orientation of text
     this.contents = contents || '';
     this.padding = padding || 0; // additional vertical pixels
     this.isThought = isThought || false; // draw "think" bubble
@@ -6248,26 +6248,6 @@ AgentSpeechBubbleMorph.prototype.init = function (
     this.drawNew();
 };
 
-// AgentSpeechBubbleMorph invoking:
-
-AgentSpeechBubbleMorph.prototype.popUp = function (world, pos, isClickable) {
-    this.drawNew();
-    this.setPosition(pos.subtract(new Point(0, this.height())));
-    this.addShadow(new Point(2, 2), 80);
-    this.keepWithin(world);
-    world.add(this);
-    this.fullChanged();
-    world.hand.destroyTemporaries();
-    world.hand.temporaries.push(this);
-
-    if (!isClickable) {
-        this.mouseEnter = function () {
-            this.destroy();
-        };
-    } else {
-        this.isClickable = true;
-    }
-};
 
 // AgentSpeechBubbleMorph drawing:
 
@@ -6285,7 +6265,12 @@ AgentSpeechBubbleMorph.prototype.drawNew = function () {
             null,
             false,
             true,
-            'center'
+            'center',
+            null,
+            null,
+            null,
+            null,
+            new Color(255, 255, 255)
         );
     } else if (this.contents instanceof HTMLCanvasElement) {
         this.contentsMorph = new Morph();
@@ -6299,9 +6284,15 @@ AgentSpeechBubbleMorph.prototype.drawNew = function () {
             null,
             false,
             true,
-            'center'
+            'center',
+            null,
+            null,
+            null,
+            null,
+            new Color(255, 255, 255)
         );
     }
+
     this.add(this.contentsMorph);
 
     // adjust my layout
@@ -9001,7 +8992,8 @@ function TextMorph(
     width,
     fontName,
     shadowOffset,
-    shadowColor
+    shadowColor,
+    color
 ) {
     this.init(text,
         fontSize,
@@ -9012,7 +9004,8 @@ function TextMorph(
         width,
         fontName,
         shadowOffset,
-        shadowColor);
+        shadowColor,
+        color);
 }
 
 TextMorph.prototype.init = function (
@@ -9025,7 +9018,8 @@ TextMorph.prototype.init = function (
     width,
     fontName,
     shadowOffset,
-    shadowColor
+    shadowColor,
+    color
 ) {
     // additional properties:
     this.text = text || (text === '' ? text : 'TextMorph');
@@ -9060,7 +9054,7 @@ TextMorph.prototype.init = function (
     TextMorph.uber.init.call(this);
 
     // override inherited properites:
-    this.color = new Color(0, 0, 0);
+    this.color = color || new Color(0, 0, 0);
     this.noticesTransparentClick = true;
     this.drawNew();
 };

@@ -1696,13 +1696,21 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     "Great idea!",
     "Let's brainstorm new ideas together!",
     "Two heads are better than one!"];
+  var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
 
 //Blue shirt #1e2757
 //Purple shirt #392044
 //Beige wall #f8e2cd
   for (var i = 0; i < conversation.length; i++) {
-    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
+    if (speaker[i] == 'l') {
+      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#392044', true);
+    } else {
+      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
+      speechbubble.setRight(this.stage.right() - 15);
+      console.log(conversation[i]);
+    }
     speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
+
     this.speechBubblePanel.addContents(speechbubble);
   }
 }
