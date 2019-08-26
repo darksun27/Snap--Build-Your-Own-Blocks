@@ -1681,9 +1681,6 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
 
-  //var text = new TextMorph('lsdjflsjdfljsdlj');
-  //this.speechBubblePanel.addContents(text);
-
   var conversation = ["Oh, it looks like you're really close to a solution!",
     "Maybe it would help to talk to your partner.",
     "Do you want to share what you are thinking about?",
@@ -1701,13 +1698,27 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
 //Blue shirt #1e2757
 //Purple shirt #392044
 //Beige wall #f8e2cd
+  var recent = false;
+  var lColor = "#2B1634";
+  var rColor = "#1E2757";
   for (var i = 0; i < conversation.length; i++) {
-    if (speaker[i] == 'l') {
-      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#392044', true);
+    if (i >= conversation.length - 2) {
+      recent = true;
+    }
+
+    if (recent) {
+      lColor = "#8745a3";
+      rColor = "#4558c4";
     } else {
-      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
+      lColor = "#2B1634";
+      rColor = "#1E2757";
+    }
+
+    if (speaker[i] == 'l') {
+      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], lColor, true);
+    } else {
+      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], rColor, false);
       speechbubble.setRight(this.stage.right() - 15);
-      console.log(conversation[i]);
     }
     speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
 
@@ -1735,25 +1746,6 @@ IDE_Morph.prototype.createAgentPanel = function () {
       context.drawImage(this.cachedTexture, 0, 0,
           width, height);
   };
-
-  /*this.agentPanel= new ScrollFrameMorph(
-      null,
-      null,
-      this.sliderColor
-  );
-  this.agentPanel.color = this.groupColor;
-  this.agentPanel.padding = 10;
-  this.agentPanel.growth = 50;
-  this.agentPanel.isDraggable = false;
-  this.agentPanel.acceptsDrops = false;
-  this.agentPanel.contents.acceptsDrops = false;
-
-  var image = new Image();
-  image.src = "./agents.png";
-
-  this.add(this.agentPanel);
-  this.agentPanel.scrollX(this.agentPanel.padding);
-  this.agentPanel.scrollY(this.agentPanel.padding);*/
 }
 
 IDE_Morph.prototype.createCorralBar = function () {
@@ -1831,8 +1823,8 @@ IDE_Morph.prototype.createCorralBar = function () {
         myself, // the IDE is the target
         'toggleAgentSize',
         [
-            new SymbolMorph('robot', 14),
-            new SymbolMorph('robot', 14)
+            new SymbolMorph('speechBubble', 14),
+            new SymbolMorph('speechBubble', 14)
         ],
         function () {  // query
             return myself.isSmallStage;
@@ -2103,9 +2095,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
-        console.log("Corral Bar: " + this.corralBar.bottom());
-        console.log("Agent Panel: " + this.agentPanel.top());
-        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom());
+        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom() + 2);
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());

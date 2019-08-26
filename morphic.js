@@ -6894,6 +6894,7 @@ SliderMorph.prototype.unitSize = function (size) {
 };
 
 SliderMorph.prototype.drawNew = function () {
+    console.log("In SliderMorph.prototype.drawNew");
     var bw, bh, posX, posY;
 
     SliderMorph.uber.drawNew.call(this);
@@ -6955,6 +6956,7 @@ SliderMorph.prototype.drawNew = function () {
 };
 
 SliderMorph.prototype.updateValue = function () {
+    console.log("In SliderMorph.prototype.updateValue");
     var relPos;
     if (this.orientation === 'vertical') {
         relPos = this.button.top() - this.top();
@@ -10287,12 +10289,14 @@ ScrollFrameMorph.prototype.init = function (scroller, size, sliderColor) {
             )
         );
     };
+    console.log(this.vBar.action);
     this.vBar.isDraggable = false;
     this.add(this.vBar);
     this.toolBar = null; // optional slot
 };
 
 ScrollFrameMorph.prototype.adjustScrollBars = function () {
+    console.log("In ScrollFrameMorph.prototype.adjustScrollBars");
     var hWidth = this.width() - this.scrollBarSize,
         vHeight = this.height() - this.scrollBarSize;
 
@@ -10338,6 +10342,7 @@ ScrollFrameMorph.prototype.adjustScrollBars = function () {
         this.vBar.size =
             this.height() / this.contents.height() * this.vBar.stop;
         this.vBar.value = this.top() - this.contents.top();
+        console.log(this.vBar.value);
         this.vBar.drawNew();
     } else {
         this.vBar.hide();
@@ -10361,6 +10366,7 @@ ScrollFrameMorph.prototype.addContents = function (aMorph) {
 };
 
 ScrollFrameMorph.prototype.setContents = function (aMorph) {
+    console.log("In ScrollFrameMorph.prototype.setContents");
     this.contents.children.forEach(function (m) {
         m.destroy();
     });
@@ -10399,11 +10405,14 @@ ScrollFrameMorph.prototype.scrollX = function (steps) {
 };
 
 ScrollFrameMorph.prototype.scrollY = function (steps) {
+    console.log("In ScrollFrameMorph.prototype.scrollY");
     var ct = this.contents.top(),
         t = this.top(),
         ch = this.contents.height(),
         b = this.bottom(),
         newY;
+
+    console.log("This.contents.top(): " + this.contents.top());
 
     newY = ct + steps;
     if (newY + ch < b) {
@@ -10420,6 +10429,7 @@ ScrollFrameMorph.prototype.scrollY = function (steps) {
 ScrollFrameMorph.prototype.step = nop;
 
 ScrollFrameMorph.prototype.mouseDownLeft = function (pos) {
+    console.log("In ScrollFrameMorph.prototype.mouseDownLeft");
     if (!this.isScrollingByDragging) {
         return null;
     }
