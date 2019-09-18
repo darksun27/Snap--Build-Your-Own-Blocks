@@ -106,6 +106,31 @@ function ensureFullUrl(url) {
     return url;
 }
 
+var conversationHistory;
+var futureConversation;
+
+var speakerHistory;
+var futureSpeaker;
+
+conversationHistory = ["Oh, it looks like you're really close to a solution!",
+  "Maybe it would help to talk to your partner.",
+  "Do you want to share what you are thinking about?",
+  "Great explanation!",
+  "Keep up the good work!",
+  "Do you both understand the code?",
+  "What do you think the next step is?",
+  "You guys are great!",
+  "What block did you add?",
+  "Great idea!"];
+
+futureConversation = ["Let's brainstorm new ideas together!",
+    "Two heads are better than one!"];
+
+speakerHistory = ['l','r','l','r','l','r','l','l','r','l'];
+futureSpeaker = ['r','r'];
+
+var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
+
 // IDE_Morph ///////////////////////////////////////////////////////////
 
 // I am SNAP's top-level frame, the Editor window
@@ -145,6 +170,8 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.appModeColor = new Color();
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
     IDE_Morph.prototype.agentPanelTexture = this.agentTexture();
+    IDE_Morph.prototype.agentPanelTexture2 = this.agentTexture2();
+
     IDE_Morph.prototype.padding = 5;
 
     SpriteIconMorph.prototype.labelColor
@@ -212,6 +239,21 @@ IDE_Morph.prototype.agentTexture = function () {
     return pic;
 };
 
+IDE_Morph.prototype.agentTexture2 = function () {
+    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image,0,0,480,360);
+    };
+    image.src="./agentsFlipped.png";
+
+    return pic;
+};
+
 IDE_Morph.prototype.scriptsTexture = function () {
     var pic = newCanvas(new Point(100, 100)), // bigger scales faster
         ctx = pic.getContext('2d'),
@@ -258,6 +300,8 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.projectNotes = '';
 
     this.logoURL = this.resourceURL('snap_logo_sm.png');
+    this.originalAgentURL = this.resourceURL('agents.png');
+    this.flippedAgentURL = this.resourceURL('agentsFlipped.png');
     this.logo = null;
     this.controlBar = null;
     this.categories = null;
@@ -278,6 +322,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.preReplayUndoState = null;
     this.isSmallStage = false;
     this.isLargeAgent = false;
+    this.isOriginalAgent = true;
     this.filePicker = null;
     this.hasChangedMedia = false;
 
@@ -1681,28 +1726,14 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
 
-  var conversation = ["Oh, it looks like you're really close to a solution!",
-    "Maybe it would help to talk to your partner.",
-    "Do you want to share what you are thinking about?",
-    "Great explanation!",
-    "Keep up the good work!",
-    "Do you both understand the code?",
-    "What do you think the next step is?",
-    "You guys are great!",
-    "What block did you add?",
-    "Great idea!",
-    "Let's brainstorm new ideas together!",
-    "Two heads are better than one!"];
-  var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
-
 //Blue shirt #1e2757
 //Purple shirt #392044
 //Beige wall #f8e2cd
   var recent = false;
   var lColor = "#2B1634";
   var rColor = "#1E2757";
-  for (var i = 0; i < conversation.length; i++) {
-    if (i >= conversation.length - 2) {
+  for (var i = 0; i < conversationHistory.length; i++) {
+    if (i >= conversationHistory.length - 2) {
       recent = true;
     }
 
@@ -1714,16 +1745,39 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       rColor = "#1E2757";
     }
 
-    if (speaker[i] == 'l') {
-      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], lColor, true);
+    if (speakerHistory[i] == 'l') {
+      this.addUtterance(conversationHistory[i], lColor, i, 'l');
     } else {
-      var speechbubble = new AgentSpeechBubbleMorph(conversation[i], rColor, false);
+      this.addUtterance(conversationHistory[i], rColor, i, 'r');
+    }
+
+    /*var speechBubble;
+
+    if (speaker[i] == 'l') {
+      console.log("left");
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], lColor, true);
+    } else {
+      console.log("right");
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
       speechbubble.setRight(this.stage.right() - 15);
     }
     speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
 
-    this.speechBubblePanel.addContents(speechbubble);
+    this.speechBubblePanel.addContents(speechbubble);*/
   }
+}
+
+IDE_Morph.prototype.addUtterance = function (utterance, bubbleColor, location, speaker) {
+  var speechBubble;
+
+  speechbubble = new AgentSpeechBubbleMorph(utterance, bubbleColor, true);
+  if (speaker == 'r') {
+    //TODO: figure out why the stage's left and right change aftr the button is pressed
+    speechbubble.setRight(this.stage.width() - 15);
+  }
+  speechbubble.setTop(this.speechBubblePanel.top() + 35 * location);
+
+  this.speechBubblePanel.addContents(speechbubble);
 }
 
 IDE_Morph.prototype.createAgentPanel = function () {
@@ -1731,6 +1785,8 @@ IDE_Morph.prototype.createAgentPanel = function () {
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
   this.agentPanel = new FrameMorph();
+
+  console.log("this.agentPanelTexture");
   this.agentPanel.cachedTexture = this.agentPanelTexture;
   this.agentPanel.drawCachedTexture();
   this.add(this.agentPanel);
@@ -1742,8 +1798,29 @@ IDE_Morph.prototype.createAgentPanel = function () {
       var width = this.cachedTexture.width,
           height = this.cachedTexture.height;
 
-      //console.log("Corral: " + this.corralBar.left);
-      context.drawImage(this.cachedTexture, 0, 0,
+        context.drawImage(this.cachedTexture, 0, 0,
+          width, height);
+  };
+}
+
+IDE_Morph.prototype.createAgentPanelFlipped = function () {
+  console.log("In IDE_Morph.prototype.createAgentPanelFlipped");
+
+  if (this.agentPanel) {this.agentPanel.destroy(); }
+  this.agentPanel = new FrameMorph();
+
+  this.agentPanel.cachedTexture = this.agentPanelTexture2;
+  this.agentPanel.drawCachedTexture();
+  this.add(this.agentPanel);
+  this.agentPanel.acceptsDrops = false;
+  //this.agentPanel.contents.acceptsDrops = false;
+
+  this.agentPanel.drawCachedTexture = function () {
+      var context = this.image.getContext('2d');
+      var width = this.cachedTexture.width,
+          height = this.cachedTexture.height;
+
+        context.drawImage(this.cachedTexture, 0, 0,
           width, height);
   };
 }
@@ -1754,6 +1831,7 @@ IDE_Morph.prototype.createCorralBar = function () {
         newbutton,
         paintbutton,
         agentbutton,
+        switchagentbutton,
         myself = this,
         colors = [
             this.groupColor,
@@ -1793,30 +1871,6 @@ IDE_Morph.prototype.createCorralBar = function () {
     newbutton.setLeft(this.corralBar.left() + padding);
     this.corralBar.add(newbutton);
 
-    /*paintbutton = new PushButtonMorph(
-        this,
-        "paintNewSprite",
-        new SymbolMorph("brush", 15)
-    );
-    paintbutton.corner = 12;
-    paintbutton.color = colors[0];
-    paintbutton.highlightColor = colors[1];
-    paintbutton.pressColor = colors[2];
-    paintbutton.labelMinExtent = new Point(36, 18);
-    paintbutton.padding = 0;
-    paintbutton.labelShadowOffset = new Point(-1, -1);
-    paintbutton.labelShadowColor = colors[1];
-    paintbutton.labelColor = this.buttonLabelColor;
-    paintbutton.contrast = this.buttonContrast;
-    paintbutton.drawNew();
-    paintbutton.hint = "paint a new sprite";
-    paintbutton.fixLayout();
-    paintbutton.setCenter(this.corralBar.center());
-    paintbutton.setLeft(
-        this.corralBar.left() + padding + newbutton.width() + padding
-    );
-    this.corralBar.add(paintbutton);*/
-
     //testing toggle agent
     agentbutton = new ToggleButtonMorph(
         null, //colors,
@@ -1852,6 +1906,38 @@ IDE_Morph.prototype.createCorralBar = function () {
     agentSizeButton = agentbutton;
     this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
+
+
+    //testing toggle agent
+    switchagentbutton = new ToggleButtonMorph(
+        null, //colors,
+        myself, // the IDE is the target
+        'toggleAgentImage',
+        new SymbolMorph('stepForward', 14),
+        null
+    );
+
+    switchagentbutton.corner = 12;
+    switchagentbutton.color = colors[0];
+    switchagentbutton.highlightColor = colors[1];
+    switchagentbutton.pressColor = colors[2];
+    switchagentbutton.labelMinExtent = new Point(36, 18);
+    switchagentbutton.padding = 0;
+    switchagentbutton.labelShadowOffset = new Point(-1, -1);
+    switchagentbutton.labelShadowColor = colors[1];
+    switchagentbutton.labelColor = this.buttonLabelColor;
+    switchagentbutton.contrast = this.buttonContrast;
+    switchagentbutton.drawNew();
+    // button.hint = 'stage size\nsmall & normal';
+    switchagentbutton.fixLayout();
+    switchagentbutton.setCenter(this.corralBar.center());
+    switchagentbutton.setLeft(
+        this.corralBar.left() + padding + newbutton.width() + padding + newbutton.width() + padding
+    );
+    switchagentbutton.refresh();
+    agentSwitchButton = switchagentbutton;
+    this.corralBar.add(agentSwitchButton);
+    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing
 };
 
 IDE_Morph.prototype.createCorral = function () {
@@ -2087,6 +2173,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
         //agentPanel
         this.agentPanel.setBottom(this.bottom());
+        console.log("this.bottom: " + this.bottom());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
         this.agentPanel.setHeight(200);//this.bottom() - this.agentPanel.top());
@@ -2107,14 +2194,8 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         if (!contains(['selectSprite', 'tabEditor'], situation)) {
             this.corral.setPosition(this.spriteBar.bottomLeft());
             this.corral.setWidth(this.spriteBar.width());
-            //this.corral.setPosition(this.corralBar.bottomLeft());
-            //this.corral.setWidth(this.stage.width());
             this.corral.setHeight(this.bottom() - this.corral.top());
             this.corral.fixLayout();
-            //this.agentPanel.setPosition(this.corralBar.bottomLeft());
-            //this.agentPanel.setWidth(this.stage.width());
-            //this.agentPanel.setHeight(this.bottom() - this.agentPanel.top());
-            //this.agentPanel.fixLayout();
         }
     }
 
@@ -5278,14 +5359,39 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
 
     this.isLargeAgent = !this.isLargeAgent;
 
-    console.log(this.isLargeAgent);
-
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
     } else {
       SnapActions.setStageSize(480, 360);
     }
 
+};
+
+IDE_Morph.prototype.toggleAgentImage = function () {
+    console.log("In IDE_Morph.prototype.toggleAgentImage");
+
+    this.isOriginalAgent = !this.isOriginalAgent;
+
+    if (this.isOriginalAgent) {
+      this.createAgentPanel();
+    } else {
+      this.createAgentPanelFlipped();
+    }
+
+    if (futureConversation.length > 0) {
+      var currentUtterance = futureConversation[0];
+      futureConversation.shift();
+      conversationHistory.push(currentUtterance);
+    }
+
+    if (futureSpeaker.length > 0) {
+      var currentSpeaker = futureSpeaker[0];
+      futureSpeaker.shift();
+      speakerHistory.push(currentSpeaker);
+    }
+
+    this.createSpeechBubblePanel();
+    this.fixLayout();
 };
 
 IDE_Morph.prototype.setPaletteWidth = function (newWidth) {
