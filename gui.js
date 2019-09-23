@@ -1393,7 +1393,8 @@ IDE_Morph.prototype.createSpriteBar = function () {
         tab,
         symbols = ['\u2192', '\u21BB', '\u2194'],
         labels = ['don\'t rotate', 'can rotate', 'only face left/right'],
-        myself = this;
+        myself = this,
+        subtaskTxt;
 
     if (this.spriteBar) {
         this.spriteBar.destroy();
@@ -1403,7 +1404,14 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.spriteBar.color = this.frameColor;
     this.add(this.spriteBar);
 
-    function addRotationStyleButton(rotationStyle) {
+    //CHANGES Starting here
+    subtaskTxt = new TextMorph("subtask 1: ...");
+    subtaskTxt.fontSize = 12;
+    subtaskTxt.setColor(SpriteMorph.prototype.paletteTextColor);
+
+    this.spriteBar.add(subtaskTxt);
+
+    /*function addRotationStyleButton(rotationStyle) {
         var colors = myself.rotationStyleColors,
             button;
 
@@ -1518,7 +1526,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.spriteBar.padlock = padlock;
     if (this.currentSprite instanceof StageMorph) {
         padlock.hide();
-    }
+    }*/
 
     // tab bar
     tabBar.tabTo = function (tabString) {
