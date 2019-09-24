@@ -5395,6 +5395,10 @@ IDE_Morph.prototype.toggleAgentImage = function () {
       var currentSpeaker = futureSpeaker[0];
       futureSpeaker.shift();
       speakerHistory.push(currentSpeaker);
+
+      BlockMorph.prototype.snapSound = document.createElement('audio');
+      BlockMorph.prototype.snapSound.src = 'click.wav';
+      BlockMorph.prototype.snapSound.play();
     }
 
     this.createSpeechBubblePanel();
