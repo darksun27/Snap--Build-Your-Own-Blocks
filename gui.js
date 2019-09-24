@@ -1393,7 +1393,8 @@ IDE_Morph.prototype.createSpriteBar = function () {
         tab,
         symbols = ['\u2192', '\u21BB', '\u2194'],
         labels = ['don\'t rotate', 'can rotate', 'only face left/right'],
-        myself = this;
+        myself = this,
+        subtaskTxt;
 
     if (this.spriteBar) {
         this.spriteBar.destroy();
@@ -1403,7 +1404,14 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.spriteBar.color = this.frameColor;
     this.add(this.spriteBar);
 
-    function addRotationStyleButton(rotationStyle) {
+    //CHANGES Starting here
+    subtaskTxt = new TextMorph("subtask 1: ...");
+    subtaskTxt.fontSize = 12;
+    subtaskTxt.setColor(SpriteMorph.prototype.paletteTextColor);
+
+    this.spriteBar.add(subtaskTxt);
+
+    /*function addRotationStyleButton(rotationStyle) {
         var colors = myself.rotationStyleColors,
             button;
 
@@ -1518,7 +1526,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.spriteBar.padlock = padlock;
     if (this.currentSprite instanceof StageMorph) {
         padlock.hide();
-    }
+    }*/
 
     // tab bar
     tabBar.tabTo = function (tabString) {
@@ -2092,6 +2100,7 @@ IDE_Morph.prototype.createReplayControls = function () {
 // IDE_Morph layout
 
 IDE_Morph.prototype.fixLayout = function (situation) {
+    console.log("In fixlayout");
     // situation is a string, i.e.
     // 'selectSprite' or 'refreshPalette' or 'tabEditor'
     var padding = this.padding,
@@ -2179,9 +2188,13 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.agentPanel.setHeight(200);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
+        this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
         this.speechBubblePanel.setTop(this.corralBar.bottom());
-        this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
+        /*this.speechBubblePanel.setExtent(new Point(
+            this.corralBar.width(),
+            this.palette.bottom()
+        ));*/
         this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom() + 2);
 
         // corralBar
@@ -5372,12 +5385,6 @@ IDE_Morph.prototype.toggleAgentImage = function () {
 
     this.isOriginalAgent = !this.isOriginalAgent;
 
-    if (this.isOriginalAgent) {
-      this.createAgentPanel();
-    } else {
-      this.createAgentPanelFlipped();
-    }
-
     if (futureConversation.length > 0) {
       var currentUtterance = futureConversation[0];
       futureConversation.shift();
@@ -5388,9 +5395,26 @@ IDE_Morph.prototype.toggleAgentImage = function () {
       var currentSpeaker = futureSpeaker[0];
       futureSpeaker.shift();
       speakerHistory.push(currentSpeaker);
+
+      BlockMorph.prototype.snapSound = document.createElement('audio');
+      BlockMorph.prototype.snapSound.src = 'click.wav';
+      BlockMorph.prototype.snapSound.play();
     }
 
     this.createSpeechBubblePanel();
+
+    if (this.isOriginalAgent) {
+      this.createAgentPanel();
+    } else {
+      this.createAgentPanelFlipped();
+    }
+
+    if (this.isLargeAgent) {
+      SnapActions.setStageSize(0, 0);
+    } else {
+      SnapActions.setStageSize(480, 360);
+    }
+
     this.fixLayout();
 };
 
