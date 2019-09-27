@@ -131,6 +131,9 @@ futureSpeaker = ['r','r'];
 
 var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
 
+var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
+var subTaskIndex = 0;
+
 // IDE_Morph ///////////////////////////////////////////////////////////
 
 // I am SNAP's top-level frame, the Editor window
@@ -1394,7 +1397,9 @@ IDE_Morph.prototype.createSpriteBar = function () {
         symbols = ['\u2192', '\u21BB', '\u2194'],
         labels = ['don\'t rotate', 'can rotate', 'only face left/right'],
         myself = this,
-        subtaskTxt;
+        subtaskTxt,
+        colors = myself.rotationStyleColors,
+        padding = 5;
 
     if (this.spriteBar) {
         this.spriteBar.destroy();
@@ -1405,128 +1410,32 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.add(this.spriteBar);
 
     //CHANGES Starting here
-    subtaskTxt = new TextMorph("subtask 1: ...");
-    subtaskTxt.fontSize = 12;
+    subtaskTxt = new TextMorph(subTasks[subTaskIndex]);
+    subtaskTxt.fontSize = 14;
     subtaskTxt.setColor(SpriteMorph.prototype.paletteTextColor);
+    subtaskTxt.setPosition(this.spriteBar.topLeft().add(30));
 
     this.spriteBar.add(subtaskTxt);
 
-    /*function addRotationStyleButton(rotationStyle) {
-        var colors = myself.rotationStyleColors,
-            button;
-
-        button = new ToggleButtonMorph(
-            colors,
-            myself, // the IDE is the target
-            function () {
-                if (myself.currentSprite instanceof SpriteMorph) {
-                    SnapActions.setRotationStyle(myself.currentSprite, rotationStyle);
-                }
-            },
-            symbols[rotationStyle], // label
-            function () {  // query
-                return myself.currentSprite instanceof SpriteMorph
-                    && myself.currentSprite.rotationStyle === rotationStyle;
-            },
-            null, // environment
-            localize(labels[rotationStyle])
-        );
-
-        button.corner = 8;
-        button.labelMinExtent = new Point(11, 11);
-        button.padding = 0;
-        button.labelShadowOffset = new Point(-1, -1);
-        button.labelShadowColor = colors[1];
-        button.labelColor = myself.buttonLabelColor;
-        button.fixLayout();
-        button.refresh();
-        rotationStyleButtons.push(button);
-        button.setPosition(myself.spriteBar.position().add(2));
-        button.setTop(button.top()
-            + ((rotationStyleButtons.length - 1) * (button.height() + 2))
-            );
-        myself.spriteBar.add(button);
-        if (myself.currentSprite instanceof StageMorph) {
-            button.hide();
-        }
-        return button;
-    }
-
-    addRotationStyleButton(1);
-    addRotationStyleButton(2);
-    addRotationStyleButton(0);
-    this.rotationStyleButtons = rotationStyleButtons;
-
-    thumbnail = new Morph();
-    thumbnail.setExtent(thumbSize);
-    thumbnail.image = this.currentSprite.thumbnail(thumbSize);
-    thumbnail.setPosition(
-        rotationStyleButtons[0].topRight().add(new Point(5, 3))
+    nexttask = new PushButtonMorph(
+        this,
+        "switchTasks",
+        new SymbolMorph("turtle", 14)
     );
-    this.spriteBar.add(thumbnail);
-
-    thumbnail.fps = 3;
-
-    thumbnail.step = function () {
-        if (thumbnail.version !== myself.currentSprite.version) {
-            thumbnail.image = myself.currentSprite.thumbnail(thumbSize);
-            thumbnail.changed();
-            thumbnail.version = myself.currentSprite.version;
-        }
-    };
-
-    nameField = new InputFieldMorph(this.currentSprite.name);
-    nameField.setWidth(100); // fixed dimensions
-    nameField.contrast = 90;
-    nameField.setPosition(thumbnail.topRight().add(new Point(10, 3)));
-    this.spriteBar.add(nameField);
-    nameField.drawNew();
-    nameField.accept = function () {
-        var newName = nameField.getValue(),
-            currentName = myself.currentSprite.name,
-            safeName = myself.newSpriteName(newName, myself.currentSprite);
-
-        if (safeName !== currentName) {
-            return SnapActions.renameSprite(myself.currentSprite, safeName);
-        } else {
-            nameField.setContents(safeName);
-        }
-    };
-    this.spriteBar.nameField = nameField;
-    this.spriteBar.reactToEdit = nameField.accept;
-
-    // padlock
-    padlock = new ToggleMorph(
-        'checkbox',
-        null,
-        function () {
-            SnapActions.toggleDraggable(myself.currentSprite, !myself.currentSprite.isDraggable);
-        },
-        localize('draggable'),
-        function () {
-            return myself.currentSprite.isDraggable;
-        }
-    );
-    padlock.label.isBold = false;
-    padlock.label.setColor(this.buttonLabelColor);
-    padlock.color = tabColors[2];
-    padlock.highlightColor = tabColors[0];
-    padlock.pressColor = tabColors[1];
-
-    padlock.tick.shadowOffset = MorphicPreferences.isFlat ?
-            new Point() : new Point(-1, -1);
-    padlock.tick.shadowColor = new Color(); // black
-    padlock.tick.color = this.buttonLabelColor;
-    padlock.tick.isBold = false;
-    padlock.tick.drawNew();
-
-    padlock.setPosition(nameField.bottomLeft().add(2));
-    padlock.drawNew();
-    this.spriteBar.add(padlock);
-    this.spriteBar.padlock = padlock;
-    if (this.currentSprite instanceof StageMorph) {
-        padlock.hide();
-    }*/
+    nexttask.corner = 12;
+    nexttask.color = colors[0];
+    nexttask.highlightColor = colors[1];
+    nexttask.pressColor = colors[2];
+    nexttask.labelMinExtent = new Point(36, 18);
+    nexttask.padding = 0;
+    nexttask.labelShadowOffset = new Point(-1, -1);
+    nexttask.labelShadowColor = colors[1];
+    nexttask.labelColor = this.buttonLabelColor;
+    nexttask.contrast = this.buttonContrast;
+    nexttask.drawNew();
+    nexttask.fixLayout();
+    nexttask.setPosition(this.spriteBar.topLeft().add(new Point(350, 50)));
+    this.spriteBar.add(nexttask);
 
     // tab bar
     tabBar.tabTo = function (tabString) {
@@ -2680,6 +2589,13 @@ IDE_Morph.prototype.removeSetting = function (key) {
         delete localStorage['-snap-setting-' + key];
     }
 };
+
+IDE_Morph.prototype.switchTasks = function() {
+  console.log("switching tasks");
+  subTaskIndex++;
+  this.createSpriteBar();
+  this.fixLayout();
+}
 
 // IDE_Morph sprite list access
 
