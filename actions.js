@@ -6,6 +6,8 @@ var logger = {
     error: console.error.bind(console)
 };
 
+var firstAction = true;
+
 // If not the leader, send operations to the leader for approval
 function ActionManager() {
     this.id = CLIENT_ID;
@@ -406,6 +408,13 @@ ActionManager.prototype.applyEvent = function(event) {
     event.username = SnapCloud.username;
     event.id = this.lastSeen + 1;
     event.time = event.time || Date.now();
+
+    var ide = this.ide();
+
+    if (firstAction && event.type !=  "openProject") {
+      firstAction = false;
+      ide.saveProjectsBrowser();
+    }
 
     // Skip duplicate undo/redo events
     if (event.replayType && this.lastSent === event.id) {

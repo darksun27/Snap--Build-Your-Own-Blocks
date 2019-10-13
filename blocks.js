@@ -1525,6 +1525,15 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
                     new Point() : this.embossing;
             part.drawNew();
             break;
+        case '%nexttask':
+            part = new SymbolMorph('nexttask');
+            part.size = this.fontSize * 1.2;
+            part.color = new Color(255, 255, 255);
+            part.shadowColor = this.color.darker(this.labelContrast);
+            part.shadowOffset = MorphicPreferences.isFlat ?
+                    new Point() : this.embossing;
+            part.drawNew();
+            break;
         case '%turtleOutline':
             part = new SymbolMorph('turtleOutline');
             part.size = this.fontSize;
@@ -9633,6 +9642,7 @@ SymbolMorph.prototype.names = [
     'smallStage',
     'normalStage',
     'turtle',
+    'nexttask',
     'stage',
     'turtleOutline',
     'pause',
@@ -9780,6 +9790,8 @@ SymbolMorph.prototype.symbolCanvasColored = function (aColor) {
         return this.drawSymbolNormalStage(canvas, aColor);
     case 'turtle':
         return this.drawSymbolTurtle(canvas, aColor);
+    case 'nexttask':
+        return this.drawNextTask(canvas, aColor);
     case 'stage':
         return this.drawSymbolStop(canvas, aColor);
     case 'turtleOutline':
@@ -9883,6 +9895,8 @@ SymbolMorph.prototype.symbolWidth = function () {
         return size * 1.2;
     case 'turtle':
     case 'turtleOutline':
+    case 'nexttask':
+        return size * 0.8;
     case 'mail':
     case 'stage':
         return size * 1.3;
@@ -10260,6 +10274,41 @@ SymbolMorph.prototype.drawSymbolTurtle = function (canvas, color) {
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(canvas.width, canvas.height / 2);
+    ctx.lineTo(0, canvas.height);
+    ctx.lineTo(canvas.height / 2, canvas.height / 2);
+    ctx.closePath();
+    ctx.fill();
+    return canvas;
+};
+
+SymbolMorph.prototype.drawNextTask = function (canvas, color) {
+    var ctx = canvas.getContext('2d'),
+        w = canvas.width;
+    ctx.save();
+
+    //this.drawSymbolTurtle(canvas, color);
+    //ctx.translate(w, 0);
+    //this.drawSymbolTurtle(canvas, color);
+    //ctx.rotate(radians(180));
+    //this.drawSymbolArrowUp(canvas, color);
+    //ctx.restore();
+    /*var ctx = canvas.getContext('2d');*/
+
+    ctx.fillStyle = color.toString();
+    ctx.strokeStyle = color.toString();
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(w, canvas.height / 2);
+    ctx.lineTo(0, canvas.height);
+    ctx.lineTo(canvas.height / 2, canvas.height / 2);
+    ctx.closePath();
+    ctx.fill();
+
+
+    ctx.translate(w/2, 0);
+
+    ctx.beginPath();
+    ctx.lineTo(w/3, canvas.height / 2);
     ctx.lineTo(0, canvas.height);
     ctx.lineTo(canvas.height / 2, canvas.height / 2);
     ctx.closePath();
