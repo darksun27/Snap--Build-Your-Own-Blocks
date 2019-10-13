@@ -112,16 +112,13 @@ var futureConversation;
 var speakerHistory;
 var futureSpeaker;
 
-conversationHistory = ["Oh, it looks like you're really close to a solution!",
-  "Maybe it would help to talk to your partner.",
-  "Do you want to share what you are thinking about?",
-  "Great explanation!",
-  "Keep up the good work!",
-  "Do you both understand the code?",
-  "What do you think the next step is?",
-  "You guys are great!",
-  "What block did you add?",
-  "Great idea!"];
+conversationHistory = ["Hi! I’m Viviana. But my friends call me Vivi.",
+  "And I’m Jeremy! But you can call me Jay if you want.",
+  "We heard you were going to learn coding today!",
+  "Yeah! Coding’s a lot of fun! Viviana and I went to coding camp during the summer. We learned to do a lot of cool stuff!",
+  "We were paired together, just like you and your partner. Our teacher told us to work together to solve a lot of tough problems.",
+  "But things got pretty easy because we helped each other out. Having a good partner to help you is super important to be a great coder. ",
+  "I bet you guys will make a great team too!"];
 
 futureConversation = ["Let's brainstorm new ideas together!",
     "Two heads are better than one!"];
@@ -6178,6 +6175,8 @@ function ProjectDialogMorph(ide, label) {
 ProjectDialogMorph.prototype.init = function (ide, task) {
     var myself = this;
 
+    var timeout1;
+
     // additional properties:
     this.ide = ide;
     this.task = task || 'open'; // String describing what do do (open, save)
@@ -6953,10 +6952,12 @@ ProjectDialogMorph.prototype.saveProject = function () {
                 'Replace Project',
                 function () {
                     myself.saveCloudProject(name);
+                    timeout1 = window.setTimeout(function() {myself.saveProject();}, 30000);
                 }
             );
         } else {
             myself.saveCloudProject(name);
+            timeout1 = window.setTimeout(function() {myself.saveProject();}, 30000);
         }
     } else { // 'local'
         if (detect(
