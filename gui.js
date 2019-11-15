@@ -1692,7 +1692,8 @@ IDE_Morph.prototype.addUtterance = function (utterance, bubbleColor, location, s
   if (speaker == 'r') {
     //TODO: figure out why the stage's left and right change aftr the button is pressed
 
-    speechbubble.setRight(speechRight-500);
+    //speechbubble.setRight(speechRight-500);
+    speechbubble.setRight(this.stage.right() - 15);
 
   }
 
@@ -1700,6 +1701,23 @@ IDE_Morph.prototype.addUtterance = function (utterance, bubbleColor, location, s
 
   this.speechBubblePanel.addContents(speechbubble);
 }
+
+
+
+/*for (var i = 0; i < conversation.length; i++) {
+  if (speaker[i] == 'l') {
+    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#392044', true);
+  } else {
+    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
+    speechbubble.setRight(this.stage.right() - 15);
+    console.log(conversation[i]);
+  }
+  speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
+
+  this.speechBubblePanel.addContents(speechbubble);
+}
+})
+*/
 
 IDE_Morph.prototype.createAgentPanel = function () {
   console.log("In IDE_Morph.prototype.createAgentPanel");
