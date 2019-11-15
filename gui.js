@@ -112,15 +112,15 @@ var futureConversation;
 var speakerHistory;
 var futureSpeaker;
 
-conversationHistory = ["Hi! I’m Viviana. But my friends call me Vivi.",
-  "And I’m Jeremy! But you can call me Jay if you want.",
-  "We heard you were going to learn coding today!",
-  "Yeah! Coding’s a lot of fun! Viviana and I went to coding camp during the summer. We learned to do a lot of cool stuff!",
-  "We were paired together, just like you and your partner. Our teacher told us to work together to solve a lot of tough problems.",
-  "But things got pretty easy because we helped each other out. Having a good partner to help you is super important to be a great coder. ",
-  "I bet you guys will make a great team too!"];
+conversationHistory = ["Hi! I’m Viviana. But my friends call me Vivi."];
 
-futureConversation = ["Let's brainstorm new ideas together!",
+futureConversation = ["And I’m Jeremy! But you can call me Jay if you want.",
+"We heard you were going to learn coding today!",
+"Yeah! Coding’s a lot of fun! Viviana and I went to coding camp during the summer. We learned to do a lot of cool stuff!",
+"We were paired together, just like you and your partner. Our teacher told us to work together to solve a lot of tough problems.",
+"But things got pretty easy because we helped each other out. Having a good partner to help you is super important to be a great coder. ",
+"I bet you guys will make a great team too!",
+"Let's brainstorm new ideas together!",
     "Two heads are better than one!"];
 
 speakerHistory = ['l','r','l','r','l','r','l','l','r','l'];
@@ -130,6 +130,10 @@ var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
 
 var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
 var subTaskIndex = 0;
+
+var speechRight;
+var speechLeft;
+var firstInterfaceCreation=true;
 
 // IDE_Morph ///////////////////////////////////////////////////////////
 
@@ -1687,8 +1691,11 @@ IDE_Morph.prototype.addUtterance = function (utterance, bubbleColor, location, s
   speechbubble = new AgentSpeechBubbleMorph(utterance, bubbleColor, true);
   if (speaker == 'r') {
     //TODO: figure out why the stage's left and right change aftr the button is pressed
-    speechbubble.setRight(this.stage.width() - 15);
+
+    speechbubble.setRight(speechRight-500);
+
   }
+
   speechbubble.setTop(this.speechBubblePanel.top() + 35 * location);
 
   this.speechBubblePanel.addContents(speechbubble);
@@ -2096,7 +2103,10 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         //speechBubblePanel
         this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
         this.speechBubblePanel.setTop(this.corralBar.bottom());
-        this.speechBubblePanel.setWidth(this.stage.width());
+        this.speechBubblePanel.setWidth(this.corralBar.width());
+        this.speechBubblePanel.setLeft(this.corralBar.left());
+        this.speechBubblePanel.setRight(this.corralBar.right());
+
         /*this.speechBubblePanel.setExtent(new Point(
             this.corralBar.width(),
             this.palette.bottom()
@@ -2107,6 +2117,15 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.corralBar.setLeft(this.stage.left());
         this.corralBar.setTop(this.stage.bottom() + padding);
         this.corralBar.setWidth(this.stage.width());
+
+        console.log(speechLeft + " , " + speechRight + " , " + firstInterfaceCreation);
+
+        if (firstInterfaceCreation) {
+          speechLeft = this.corralBar.left();
+          speechRight = this.corralBar.right();
+          firstInterfaceCreation=false;
+        }
+
 
         // corral
         // Jen note: this affects the sprite and stage under the corral
@@ -5316,11 +5335,11 @@ IDE_Morph.prototype.toggleAgentImage = function () {
 
     this.createSpeechBubblePanel();
 
-    if (this.isOriginalAgent) {
+    /*if (this.isOriginalAgent) {
       this.createAgentPanel();
     } else {
       this.createAgentPanelFlipped();
-    }
+    }*/
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);

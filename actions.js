@@ -403,6 +403,15 @@ Action.prototype.equals = function(data) {
     }, true);
 };
 
+ActionManager.prototype.pressStartAgent = function () {
+    console.log("In ActionManager.prototype.pressStartAgent");
+    var myself = this,
+        world = this.world(),
+        ide = this.ide();
+
+    ide.toggleAgentImage();
+};
+
 ActionManager.prototype.applyEvent = function(event) {
     event.user = this.id;
     event.username = SnapCloud.username;
@@ -414,6 +423,11 @@ ActionManager.prototype.applyEvent = function(event) {
     if (firstAction && event.type !=  "openProject") {
       firstAction = false;
       ide.saveProjectsBrowser();
+    }
+
+    if (event.type == "pressStart") {
+      console.log("pressStart");
+      this.pressStartAgent();
     }
 
     // Skip duplicate undo/redo events
