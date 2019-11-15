@@ -6175,7 +6175,7 @@ function ProjectDialogMorph(ide, label) {
 ProjectDialogMorph.prototype.init = function (ide, task) {
     var myself = this;
 
-    var timeout1;
+    var timeout;
 
     // additional properties:
     this.ide = ide;
@@ -6952,12 +6952,12 @@ ProjectDialogMorph.prototype.saveProject = function () {
                 'Replace Project',
                 function () {
                     myself.saveCloudProject(name);
-                    timeout1 = window.setTimeout(function() {myself.saveProject();}, 30000);
+                    timeout = window.setTimeout(function() {myself.saveProject();}, 30000);
                 }
             );
         } else {
             myself.saveCloudProject(name);
-            timeout1 = window.setTimeout(function() {myself.saveProject();}, 30000);
+            timeout = window.setTimeout(function() {myself.saveProject();}, 30000);
         }
     } else { // 'local'
         if (detect(
