@@ -1650,6 +1650,8 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   var recent = false;
   var lColor = "#2B1634";
   var rColor = "#1E2757";
+  var prevSpeechBubbleHeight=35;
+  var prevSpeechBubbleBottom=0;
   for (var i = 0; i < conversationHistory.length; i++) {
     if (i >= conversationHistory.length - 2) {
       recent = true;
@@ -1664,60 +1666,19 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     }
 
     if (speakerHistory[i] == 'l') {
-      this.addUtterance(conversationHistory[i], lColor, i, 'l');
-    } else {
-      this.addUtterance(conversationHistory[i], rColor, i, 'r');
-    }
-
-    /*var speechBubble;
-
-    if (speaker[i] == 'l') {
-      console.log("left");
+      //this.addUtterance(conversationHistory[i], lColor, i, 'l');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], lColor, true);
     } else {
-      console.log("right");
+      //this.addUtterance(conversationHistory[i], rColor, i, 'r');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
-      speechbubble.setRight(this.stage.right() - 15);
+      speechbubble.setRight(this.stage.right() - 635);
     }
-    speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
-
-    this.speechBubblePanel.addContents(speechbubble);*/
+    speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
+    prevSpeechBubbleHeight=speechbubble.height();
+    prevSpeechBubbleBottom=speechbubble.bottom();
+    this.speechBubblePanel.addContents(speechbubble);
   }
 }
-
-IDE_Morph.prototype.addUtterance = function (utterance, bubbleColor, location, speaker) {
-  var speechBubble;
-
-  speechbubble = new AgentSpeechBubbleMorph(utterance, bubbleColor, true);
-  if (speaker == 'r') {
-    //TODO: figure out why the stage's left and right change aftr the button is pressed
-
-    //speechbubble.setRight(speechRight-500);
-    speechbubble.setRight(this.stage.right() - 15);
-
-  }
-
-  speechbubble.setTop(this.speechBubblePanel.top() + 35 * location);
-
-  this.speechBubblePanel.addContents(speechbubble);
-}
-
-
-
-/*for (var i = 0; i < conversation.length; i++) {
-  if (speaker[i] == 'l') {
-    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#392044', true);
-  } else {
-    var speechbubble = new AgentSpeechBubbleMorph(conversation[i], '#1e2757', false);
-    speechbubble.setRight(this.stage.right() - 15);
-    console.log(conversation[i]);
-  }
-  speechbubble.setTop(this.speechBubblePanel.top() + 35*i);
-
-  this.speechBubblePanel.addContents(speechbubble);
-}
-})
-*/
 
 IDE_Morph.prototype.createAgentPanel = function () {
   console.log("In IDE_Morph.prototype.createAgentPanel");
@@ -2119,11 +2080,15 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.agentPanel.setHeight(200);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
-        this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
+        /*this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setWidth(this.corralBar.width());
         this.speechBubblePanel.setLeft(this.corralBar.left());
-        this.speechBubblePanel.setRight(this.corralBar.right());
+        this.speechBubblePanel.setRight(this.corralBar.right());*/
+        this.speechBubblePanel.setTop(this.corralBar.bottom());
+        this.speechBubblePanel.setLeft(this.stage.left());
+        this.speechBubblePanel.setWidth(this.stage.width());
+        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom() + 2);
 
         /*this.speechBubblePanel.setExtent(new Point(
             this.corralBar.width(),
@@ -5345,6 +5310,10 @@ IDE_Morph.prototype.toggleAgentImage = function () {
       var currentSpeaker = futureSpeaker[0];
       futureSpeaker.shift();
       speakerHistory.push(currentSpeaker);
+
+      BlockMorph.prototype.agentVideo = document.createElement('video');
+      BlockMorph.prototype.agentVideo.src = 'sampleVideo.m4v';
+      BlockMorph.prototype.agentVideo.play();
 
       BlockMorph.prototype.snapSound = document.createElement('audio');
       BlockMorph.prototype.snapSound.src = 'click.wav';
