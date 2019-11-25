@@ -7,6 +7,7 @@ var logger = {
 };
 
 var firstAction = true;
+var convoNum = 1;
 
 // If not the leader, send operations to the leader for approval
 function ActionManager() {
@@ -409,7 +410,17 @@ ActionManager.prototype.pressStartAgent = function () {
         world = this.world(),
         ide = this.ide();
 
-    ide.toggleAgentImage();
+    var moreConvo = false;
+
+    moreConvo = ide.toggleAgentImage(convoNum);
+    if (moreConvo) {
+      window.setTimeout(function(){myself.pressStartAgent()},3000);
+    } else {
+      if (convoNum < 4) {
+        convoNum++;
+        window.setTimeout(function(){myself.pressStartAgent()}, 360000);
+      }
+    }
 };
 
 ActionManager.prototype.applyEvent = function(event) {
@@ -422,13 +433,15 @@ ActionManager.prototype.applyEvent = function(event) {
 
     if (firstAction && event.type !=  "openProject") {
       firstAction = false;
-      ide.saveProjectsBrowser();
+      //window.setTimeout(function(){self.switchRoles()},SWITCH_TIME);
+      this.pressStartAgent();
+      //ide.saveProjectsBrowser();
     }
 
-    if (event.type == "pressStart") {
+    /*if (event.type == "pressStart") {
       console.log("pressStart");
       this.pressStartAgent();
-    }
+    }*/
 
     // Skip duplicate undo/redo events
     if (event.replayType && this.lastSent === event.id) {

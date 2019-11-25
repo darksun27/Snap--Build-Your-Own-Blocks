@@ -106,27 +106,60 @@ function ensureFullUrl(url) {
     return url;
 }
 
+/* Conversation 1 */
 var conversationHistory;
 var futureConversation;
 
 var speakerHistory;
 var futureSpeaker;
 
-conversationHistory = ["Hi! I’m Viviana. But my friends call me Vivi."];
+conversationHistory = [];
 
-futureConversation = ["And I’m Jeremy! But you can call me Jay if you want.",
-"We heard you were going to learn coding today!",
-"Yeah! Coding’s a lot of fun! Viviana and I went to coding camp during the summer. We learned to do a lot of cool stuff!",
-"We were paired together, just like you and your partner. Our teacher told us to work together to solve a lot of tough problems.",
-"But things got pretty easy because we helped each other out. Having a good partner to help you is super important to be a great coder. ",
-"I bet you guys will make a great team too!",
-"Let's brainstorm new ideas together!",
-    "Two heads are better than one!"];
+futureConversation = ["Hi! I’m Viviana. But you can call me Vivi.",
+"Hi, my name is Jeremy and you can call me Jay.",
+"We heard you will be coding today!",
+"We did some coding at our school too!",
+"We were paired up just like you.",
+"Well, good luck!"];
 
-speakerHistory = ['l','r','l','r','l','r','l','l','r','l'];
-futureSpeaker = ['r','r'];
+speakerHistory = [];
+futureSpeaker = ['l', 'r','l','r','l','r'];
 
-var speaker = ['l','r','l','r','l','r','l','l','r','l','r','r'];
+/* Conversation 2 */
+var conversationHistory2;
+var futureConversation2;
+
+var speakerHistory2;
+var futureSpeaker2;
+
+conversationHistory2 = [];
+
+futureConversation2 = ["Don't worry Jay. Let me try fifty and see if it moves backwards.",
+"But, Vivi, a positive fifty would make it go forward!",
+"You're right. Didn't work.",
+"Try a negative number in the 'move' block."];
+
+speakerHistory2 = [];
+futureSpeaker2 = ['l', 'r','l','r'];
+
+/* Conversation 3 */
+var conversationHistory3;
+var futureConversation3;
+
+var speakerHistory3;
+var futureSpeaker3;
+
+conversationHistory3 = [];
+
+futureConversation3 = ["Aagh. The sprite isn't jumping!",
+"Maybe it has something to do with the \"y\" position.",
+"But why?",
+"\'Cause that will make it move up and down.",
+"Oh that actually worked!",
+"Hey, that was cool!"];
+
+speakerHistory3 = [];
+futureSpeaker3 = ['r','l','r','l','r', 'l'];
 
 var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
 var subTaskIndex = 0;
@@ -1411,7 +1444,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     this.add(this.spriteBar);
 
     //CHANGES Starting here
-    subtaskTxt = new TextMorph(subTasks[subTaskIndex]);
+    /*subtaskTxt = new TextMorph(subTasks[subTaskIndex]);
     subtaskTxt.fontSize = 14;
     subtaskTxt.setColor(SpriteMorph.prototype.paletteTextColor);
     subtaskTxt.setPosition(this.spriteBar.topLeft().add(30));
@@ -1436,7 +1469,112 @@ IDE_Morph.prototype.createSpriteBar = function () {
     nexttask.drawNew();
     nexttask.fixLayout();
     nexttask.setPosition(this.spriteBar.topLeft().add(new Point(350, 50)));
-    this.spriteBar.add(nexttask);
+    this.spriteBar.add(nexttask);*/
+    function addRotationStyleButton(rotationStyle) {
+        var colors = myself.rotationStyleColors,
+            button;
+        button = new ToggleButtonMorph(
+            colors,
+            myself, // the IDE is the target
+            function () {
+                if (myself.currentSprite instanceof SpriteMorph) {
+                    SnapActions.setRotationStyle(myself.currentSprite, rotationStyle);
+                }
+            },
+            symbols[rotationStyle], // label
+            function () {  // query
+                return myself.currentSprite instanceof SpriteMorph
+                    && myself.currentSprite.rotationStyle === rotationStyle;
+            },
+            null, // environment
+            localize(labels[rotationStyle])
+        );
+        button.corner = 8;
+        button.labelMinExtent = new Point(11, 11);
+        button.padding = 0;
+        button.labelShadowOffset = new Point(-1, -1);
+        button.labelShadowColor = colors[1];
+        button.labelColor = myself.buttonLabelColor;
+        button.fixLayout();
+        button.refresh();
+        rotationStyleButtons.push(button);
+        button.setPosition(myself.spriteBar.position().add(2));
+        button.setTop(button.top()
+            + ((rotationStyleButtons.length - 1) * (button.height() + 2))
+            );
+        myself.spriteBar.add(button);
+        if (myself.currentSprite instanceof StageMorph) {
+            button.hide();
+        }
+        return button;
+    }
+    addRotationStyleButton(1);
+    addRotationStyleButton(2);
+    addRotationStyleButton(0);
+    this.rotationStyleButtons = rotationStyleButtons;
+    thumbnail = new Morph();
+    thumbnail.setExtent(thumbSize);
+    thumbnail.image = this.currentSprite.thumbnail(thumbSize);
+    thumbnail.setPosition(
+        rotationStyleButtons[0].topRight().add(new Point(5, 3))
+    );
+    this.spriteBar.add(thumbnail);
+    thumbnail.fps = 3;
+    thumbnail.step = function () {
+        if (thumbnail.version !== myself.currentSprite.version) {
+            thumbnail.image = myself.currentSprite.thumbnail(thumbSize);
+            thumbnail.changed();
+            thumbnail.version = myself.currentSprite.version;
+        }
+    };
+    nameField = new InputFieldMorph(this.currentSprite.name);
+    nameField.setWidth(100); // fixed dimensions
+    nameField.contrast = 90;
+    nameField.setPosition(thumbnail.topRight().add(new Point(10, 3)));
+    this.spriteBar.add(nameField);
+    nameField.drawNew();
+    nameField.accept = function () {
+        var newName = nameField.getValue(),
+            currentName = myself.currentSprite.name,
+            safeName = myself.newSpriteName(newName, myself.currentSprite);
+        if (safeName !== currentName) {
+            return SnapActions.renameSprite(myself.currentSprite, safeName);
+        } else {
+            nameField.setContents(safeName);
+        }
+    };
+    this.spriteBar.nameField = nameField;
+    this.spriteBar.reactToEdit = nameField.accept;
+    // padlock
+    padlock = new ToggleMorph(
+        'checkbox',
+        null,
+        function () {
+            SnapActions.toggleDraggable(myself.currentSprite, !myself.currentSprite.isDraggable);
+        },
+        localize('draggable'),
+        function () {
+            return myself.currentSprite.isDraggable;
+        }
+    );
+    padlock.label.isBold = false;
+    padlock.label.setColor(this.buttonLabelColor);
+    padlock.color = tabColors[2];
+    padlock.highlightColor = tabColors[0];
+    padlock.pressColor = tabColors[1];
+    padlock.tick.shadowOffset = MorphicPreferences.isFlat ?
+            new Point() : new Point(-1, -1);
+    padlock.tick.shadowColor = new Color(); // black
+    padlock.tick.color = this.buttonLabelColor;
+    padlock.tick.isBold = false;
+    padlock.tick.drawNew();
+    padlock.setPosition(nameField.bottomLeft().add(2));
+    padlock.drawNew();
+    this.spriteBar.add(padlock);
+    this.spriteBar.padlock = padlock;
+    if (this.currentSprite instanceof StageMorph) {
+        padlock.hide();
+    }
 
     // tab bar
     tabBar.tabTo = function (tabString) {
@@ -1673,6 +1811,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
       speechbubble.setRight(this.stage.right() - 635);
     }
+    //window
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
     prevSpeechBubbleHeight=speechbubble.height();
     prevSpeechBubbleBottom=speechbubble.bottom();
@@ -1685,6 +1824,13 @@ IDE_Morph.prototype.createAgentPanel = function () {
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
   this.agentPanel = new FrameMorph();
+
+  /*BlockMorph.prototype.agentVideo = document.createElement('video');
+  BlockMorph.prototype.agentVideo.src = 'sampleVideo.m4v';
+  BlockMorph.prototype.agentVideo.play();
+  this.agentPanel.add(BlockMorph.prototype.agentVideo);
+  this.add(this.agentPanel);*/
+
 
   console.log("this.agentPanelTexture");
   this.agentPanel.cachedTexture = this.agentPanelTexture;
@@ -1809,7 +1955,7 @@ IDE_Morph.prototype.createCorralBar = function () {
 
 
     //testing toggle agent
-    switchagentbutton = new ToggleButtonMorph(
+    /*switchagentbutton = new ToggleButtonMorph(
         null, //colors,
         myself, // the IDE is the target
         'toggleAgentImage',
@@ -1837,7 +1983,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     switchagentbutton.refresh();
     agentSwitchButton = switchagentbutton;
     this.corralBar.add(agentSwitchButton);
-    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing
+    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing*/
 };
 
 IDE_Morph.prototype.createCorral = function () {
@@ -5295,29 +5441,63 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
 
 };
 
-IDE_Morph.prototype.toggleAgentImage = function () {
+IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     console.log("In IDE_Morph.prototype.toggleAgentImage");
 
     this.isOriginalAgent = !this.isOriginalAgent;
+    var moreConvo= false;
 
-    if (futureConversation.length > 0) {
-      var currentUtterance = futureConversation[0];
-      futureConversation.shift();
-      conversationHistory.push(currentUtterance);
-    }
+    if (convoNum == 1) {
+      if (futureConversation.length > 0) {
+        var currentUtterance = futureConversation[0];
+        futureConversation.shift();
+        conversationHistory.push(currentUtterance);
+        moreConvo= true;
+      }
 
-    if (futureSpeaker.length > 0) {
-      var currentSpeaker = futureSpeaker[0];
-      futureSpeaker.shift();
-      speakerHistory.push(currentSpeaker);
+      if (futureSpeaker.length > 0) {
+        var currentSpeaker = futureSpeaker[0];
+        futureSpeaker.shift();
+        speakerHistory.push(currentSpeaker);
 
-      BlockMorph.prototype.agentVideo = document.createElement('video');
-      BlockMorph.prototype.agentVideo.src = 'sampleVideo.m4v';
-      BlockMorph.prototype.agentVideo.play();
+        BlockMorph.prototype.snapSound = document.createElement('audio');
+        BlockMorph.prototype.snapSound.src = 'click.wav';
+        BlockMorph.prototype.snapSound.play();
+      }
+    } else if (convoNum == 2) {
+      if (futureConversation2.length > 0) {
+        var currentUtterance2 = futureConversation2[0];
+        futureConversation2.shift();
+        conversationHistory.push(currentUtterance2);
+        moreConvo = true;
+      }
 
-      BlockMorph.prototype.snapSound = document.createElement('audio');
-      BlockMorph.prototype.snapSound.src = 'click.wav';
-      BlockMorph.prototype.snapSound.play();
+      if (futureSpeaker2.length > 0) {
+        var currentSpeaker2 = futureSpeaker2[0];
+        futureSpeaker2.shift();
+        speakerHistory.push(currentSpeaker2);
+
+        BlockMorph.prototype.snapSound = document.createElement('audio');
+        BlockMorph.prototype.snapSound.src = 'click.wav';
+        BlockMorph.prototype.snapSound.play();
+      }
+    } else if (convoNum == 3) {
+      if (futureConversation3.length > 0) {
+        var currentUtterance3 = futureConversation3[0];
+        futureConversation3.shift();
+        conversationHistory.push(currentUtterance3);
+        moreConvo = true;
+      }
+
+      if (futureSpeaker3.length > 0) {
+        var currentSpeaker3 = futureSpeaker3[0];
+        futureSpeaker3.shift();
+        speakerHistory.push(currentSpeaker3);
+
+        BlockMorph.prototype.snapSound = document.createElement('audio');
+        BlockMorph.prototype.snapSound.src = 'click.wav';
+        BlockMorph.prototype.snapSound.play();
+      }
     }
 
     this.createSpeechBubblePanel();
@@ -5335,6 +5515,8 @@ IDE_Morph.prototype.toggleAgentImage = function () {
     }
 
     this.fixLayout();
+
+    return moreConvo;
 };
 
 IDE_Morph.prototype.setPaletteWidth = function (newWidth) {
