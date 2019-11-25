@@ -126,30 +126,22 @@ speakerHistory = [];
 futureSpeaker = ['l', 'r','l','r','l','r'];
 
 /* Conversation 2 */
-var conversationHistory2;
 var futureConversation2;
 
-var speakerHistory2;
 var futureSpeaker2;
 
-conversationHistory2 = [];
 
 futureConversation2 = ["Don't worry Jay. Let me try fifty and see if it moves backwards.",
 "But, Vivi, a positive fifty would make it go forward!",
 "You're right. Didn't work.",
 "Try a negative number in the 'move' block."];
 
-speakerHistory2 = [];
 futureSpeaker2 = ['l', 'r','l','r'];
 
 /* Conversation 3 */
-var conversationHistory3;
-var futureConversation3;
-
 var speakerHistory3;
 var futureSpeaker3;
 
-conversationHistory3 = [];
 
 futureConversation3 = ["Aagh. The sprite isn't jumping!",
 "Maybe it has something to do with the \"y\" position.",
@@ -158,7 +150,6 @@ futureConversation3 = ["Aagh. The sprite isn't jumping!",
 "Oh that actually worked!",
 "Hey, that was cool!"];
 
-speakerHistory3 = [];
 futureSpeaker3 = ['r','l','r','l','r', 'l'];
 
 var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
@@ -1809,7 +1800,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     } else {
       //this.addUtterance(conversationHistory[i], rColor, i, 'r');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
-      speechbubble.setRight(this.stage.right() - 635);
+      speechbubble.setRight(this.stage.right() - 755);
     }
     //window
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
@@ -1835,14 +1826,14 @@ IDE_Morph.prototype.createAgentPanel = function () {
   console.log("this.agentPanelTexture");
   this.agentPanel.cachedTexture = this.agentPanelTexture;
   this.agentPanel.drawCachedTexture();
-  this.add(this.agentPanel);
+  window.setTimeout(this.add(this.agentPanel),1000);
   this.agentPanel.acceptsDrops = false;
   //this.agentPanel.contents.acceptsDrops = false;
 
   this.agentPanel.drawCachedTexture = function () {
       var context = this.image.getContext('2d');
       var width = this.cachedTexture.width,
-          height = this.cachedTexture.height;
+          height = this.cachedTexture.height-100;
 
         context.drawImage(this.cachedTexture, 0, 0,
           width, height);
@@ -1924,7 +1915,7 @@ IDE_Morph.prototype.createCorralBar = function () {
         'toggleAgentSize',
         [
             new SymbolMorph('speechBubble', 14),
-            new SymbolMorph('speechBubble', 14)
+            new SymbolMorph('speechBubbleInvert', 14)
         ],
         function () {  // query
             return myself.isSmallStage;
@@ -2223,7 +2214,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         console.log("this.bottom: " + this.bottom());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight(200);//this.bottom() - this.agentPanel.top());
+        this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
         /*this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
