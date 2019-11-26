@@ -1800,7 +1800,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     } else {
       //this.addUtterance(conversationHistory[i], rColor, i, 'r');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
-      speechbubble.setRight(this.stage.right() - 755);
+      //speechbubble.setRight(this.stage.right() - 755);
     }
     //window
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
