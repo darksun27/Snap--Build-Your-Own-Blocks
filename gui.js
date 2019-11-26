@@ -1835,8 +1835,8 @@ IDE_Morph.prototype.createAgentPanel = function () {
       var width = this.cachedTexture.width,
           height = this.cachedTexture.height-100;
 
-        context.drawImage(this.cachedTexture, 0, 0,
-          width, height);
+      window.setTimeout(context.drawImage(this.cachedTexture, 0, 0,
+        width, height), 1000);
   };
 }
 
