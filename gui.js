@@ -115,15 +115,22 @@ var futureSpeaker;
 
 conversationHistory = [];
 
-futureConversation = ["Hi! I’m Viviana. But you can call me Vivi.",
-"Hi, my name is Jeremy and you can call me Jay.",
-"We heard you will be coding today!",
+futureConversation = ["Hi, I’m Viviana. But you can call me Vivi.",
+"My name's Jeremy, but you can call me Jay.",
+"We heard you will be coding today.",
 "We did some coding at our school too!",
-"We were paired up just like you.",
-"Well, good luck!"];
+"We were partners, and you're gonna have a partner too.",
+"Good luck!"];
+
+futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3", 
+"2_Jeremy_MyNamesJeremy_TAKE1.mp3", 
+"3_Viviana_WeHeardYouWouldBeCodingToday.mp3",
+"4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
+"5_Viviana_WeWerePartners.mp3",
+"6_Jeremy_GoodLuck_TAKE1.mp3"];
 
 speakerHistory = [];
-futureSpeaker = ['l', 'r','l','r','l','r'];
+futureSpeaker = ['v', 'j','v','j','v','j'];
 
 /* Conversation 2 */
 var futureConversation2;
@@ -131,26 +138,25 @@ var futureConversation2;
 var futureSpeaker2;
 
 
-futureConversation2 = ["Don't worry Jay. Let me try fifty and see if it moves backwards.",
-"But, Vivi, a positive fifty would make it go forward!",
-"You're right. Didn't work.",
-"Try a negative number in the 'move' block."];
+futureConversation2 = ["Jeremy, we did debugging in school too, right?",
+"Yeah, we did.",
+"I remember we couldn’t figure out that one activity, but we eventually got it."];
 
-futureSpeaker2 = ['l', 'r','l','r'];
+futureSpeaker2 = ['v', 'j','j'];
 
 /* Conversation 3 */
 var speakerHistory3;
 var futureSpeaker3;
 
 
-futureConversation3 = ["Aagh. The sprite isn't jumping!",
-"Maybe it has something to do with the \"y\" position.",
-"But why?",
-"\'Cause that will make it move up and down.",
+futureConversation3 = ["Aagh. The sprite’s not jumping.",
+"O yeah. I think we need to change the ‘y’ position.",
+"But, why?",
+"'Cause that will make it move up and down.",
 "Oh that actually worked!",
-"Hey, that was cool!"];
+"We’re so good at this!"];
 
-futureSpeaker3 = ['r','l','r','l','r', 'l'];
+futureSpeaker3 = ['j','v','j','v','j','v'];
 
 var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
 var subTaskIndex = 0;
@@ -262,7 +268,7 @@ IDE_Morph.prototype.agentTexture = function () {
     image.onload = function () {
       ctx.drawImage(image,0,0,480,360);
     };
-    image.src="./agents.png";
+    image.src="./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg";
 
     return pic;
 };
@@ -277,7 +283,7 @@ IDE_Morph.prototype.agentTexture2 = function () {
     image.onload = function () {
       ctx.drawImage(image,0,0,480,360);
     };
-    image.src="./agentsFlipped.png";
+    image.src="./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg";
 
     return pic;
 };
@@ -328,8 +334,8 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.projectNotes = '';
 
     this.logoURL = this.resourceURL('snap_logo_sm.png');
-    this.originalAgentURL = this.resourceURL('agents.png');
-    this.flippedAgentURL = this.resourceURL('agentsFlipped.png');
+    this.originalAgentURL = this.resourceURL('/images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg');
+    this.flippedAgentURL = this.resourceURL('/images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg');
     this.logo = null;
     this.controlBar = null;
     this.categories = null;
@@ -1777,8 +1783,8 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
 //Purple shirt #392044
 //Beige wall #f8e2cd
   var recent = false;
-  var lColor = "#2B1634";
-  var rColor = "#1E2757";
+  var vColor = "#2B1634";
+  var jColor = "#1E2757";
   var prevSpeechBubbleHeight=35;
   var prevSpeechBubbleBottom=0;
   for (var i = 0; i < conversationHistory.length; i++) {
@@ -1787,19 +1793,19 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     }
 
     if (recent) {
-      lColor = "#8745a3";
-      rColor = "#4558c4";
+      vColor = "#8745a3";
+      jColor = "#4558c4";
     } else {
-      lColor = "#2B1634";
-      rColor = "#1E2757";
+      vColor = "#2B1634";
+      jColor = "#1E2757";
     }
 
-    if (speakerHistory[i] == 'l') {
-      //this.addUtterance(conversationHistory[i], lColor, i, 'l');
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], lColor, true);
+    if (speakerHistory[i] == 'v') {
+      //this.addUtterance(conversationHistory[i], vColor, i, 'l');
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
     } else {
-      //this.addUtterance(conversationHistory[i], rColor, i, 'r');
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], rColor, false);
+      //this.addUtterance(conversationHistory[i], jColor, i, 'r');
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
       speechbubble.setLeft(this.corralBar.topRight());
     }
     //window
@@ -1946,7 +1952,7 @@ IDE_Morph.prototype.createCorralBar = function () {
 
 
     //testing toggle agent
-    /*switchagentbutton = new ToggleButtonMorph(
+    switchagentbutton = new ToggleButtonMorph(
         null, //colors,
         myself, // the IDE is the target
         'toggleAgentImage',
@@ -1974,7 +1980,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     switchagentbutton.refresh();
     agentSwitchButton = switchagentbutton;
     this.corralBar.add(agentSwitchButton);
-    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing*/
+    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing
 };
 
 IDE_Morph.prototype.createCorral = function () {
@@ -5437,12 +5443,15 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     this.isOriginalAgent = !this.isOriginalAgent;
     var moreConvo= false;
+    var audio = '/audio/';
 
     if (convoNum == 1) {
       if (futureConversation.length > 0) {
         var currentUtterance = futureConversation[0];
         futureConversation.shift();
         conversationHistory.push(currentUtterance);
+        audio = audio + futureAudio[0];
+        futureAudio.shift();
         moreConvo= true;
       }
 
@@ -5452,7 +5461,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         speakerHistory.push(currentSpeaker);
 
         BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = 'click.wav';
+        BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
         BlockMorph.prototype.snapSound.play();
       }
     } else if (convoNum == 2) {
@@ -5493,11 +5502,13 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     this.createSpeechBubblePanel();
 
-    /*if (this.isOriginalAgent) {
+
+    //Here is where we modify the agent image to change
+    if (this.isOriginalAgent) {
       this.createAgentPanel();
     } else {
       this.createAgentPanelFlipped();
-    }*/
+    }
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
