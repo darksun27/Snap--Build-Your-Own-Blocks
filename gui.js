@@ -130,7 +130,7 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-futureImages = [];
+futureImages = [16, 9, 12, 8, 15, 10];
 
 speakerHistory = [];
 futureSpeaker = ['v', 'j','v','j','v','j'];
@@ -231,6 +231,8 @@ var speechRight;
 var speechLeft;
 var firstInterfaceCreation=true;
 
+var agentPanelTextureArray = [];
+
 // IDE_Morph ///////////////////////////////////////////////////////////
 
 // I am SNAP's top-level frame, the Editor window
@@ -242,6 +244,8 @@ IDE_Morph.prototype.constructor = IDE_Morph;
 IDE_Morph.uber = Morph.prototype;
 
 // IDE_Morph preferences settings and skins
+
+
 
 IDE_Morph.prototype.setDefaultDesign = function () {
     MorphicPreferences.isFlat = false;
@@ -269,8 +273,45 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.rotationStyleColors = IDE_Morph.prototype.tabColors;
     IDE_Morph.prototype.appModeColor = new Color();
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
-    IDE_Morph.prototype.agentPanelTexture = this.agentTexture();
-    IDE_Morph.prototype.agentPanelTexture2 = this.agentTexture2();
+    IDE_Morph.prototype.agentPanelTexture7 = this.agentTexture7();
+    /*IDE_Morph.prototype.agentPanelTexture8 = this.agentTexture8();
+    IDE_Morph.prototype.agentPanelTexture9 = this.agentTexture9();
+    IDE_Morph.prototype.agentPanelTexture10 = this.agentTexture10();
+    IDE_Morph.prototype.agentPanelTexture11 = this.agentTexture11();
+    IDE_Morph.prototype.agentPanelTexture12 = this.agentTexture12();
+    IDE_Morph.prototype.agentPanelTexture13 = this.agentTexture13();
+    IDE_Morph.prototype.agentPanelTexture14 = this.agentTexture14();
+    IDE_Morph.prototype.agentPanelTexture15 = this.agentTexture15();
+    IDE_Morph.prototype.agentPanelTexture16 = this.agentTexture16();*/
+    //IDE_Morph.prototype.agentPanelTextureArray = this.agentTexture();
+
+
+   
+
+    var files = ["./images/Nml_EyesToEachOther_Idle.jpg",
+    "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
+    "./images/Nml_EyesToEachOther_JayTalks.jpg",
+    "./images/Nml_EyesToEachOther_ViviTalks.jpg",
+    "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
+    "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
+    "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
+    "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
+    "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
+    "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
+    "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
+    "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
+    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg"];
+
+    for (i = 0; i < files.length; i++) {
+        console.log(files[i]);
+        agentPanelTextureArray.push(IDE_Morph.prototype.agentPanelTexture = this.agentTexture(files[i]));
+
+        //IDE_Morph.prototype.agentPanelTexture);
+    }
+
 
     IDE_Morph.prototype.padding = 5;
 
@@ -338,7 +379,7 @@ IDE_Morph.prototype.setFlatDesign = function () {
     this.agent16 = this.resourceURL('/images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg');
 */
 
-IDE_Morph.prototype.agentTexture = function () {
+IDE_Morph.prototype.agentTexture = function (imageSrc) {
     var pic = newCanvas(new Point(480, 360)), // bigger scales faster
         ctx = pic.getContext('2d'),
         i;
@@ -348,12 +389,57 @@ IDE_Morph.prototype.agentTexture = function () {
     image.onload = function () {
       ctx.drawImage(image,0,0,480,360);
     };
-    image.src="./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg";
+    image.src=imageSrc;
+
+    console.log("PIC: " + pic); 
 
     return pic;
 };
 
 IDE_Morph.prototype.agentTexture2 = function () {
+
+    var files = ["./images/Nml_EyesToEachOther_Idle.jpg",
+    "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
+    "./images/Nml_EyesToEachOther_JayTalks.jpg",
+    "./images/Nml_EyesToEachOther_ViviTalks.jpg",
+    "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
+    "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
+    "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
+    "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
+    "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
+    "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
+    "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
+    "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
+    "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
+    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg"];
+
+
+    var pics = [];
+
+    
+
+    for (index = 0; index < files.length; index++) {
+        var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+        var image = new Image();
+        image.onload = function () {
+            ctx.drawImage(image,0,0,480,360);
+        };
+        console.log(files[index]);
+        image.src = files[index];//"./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg";
+        pics.push(pic);
+    }
+
+    console.log("PICS: " + pics);    
+
+    return pics;
+};
+
+IDE_Morph.prototype.agentTexture7 = function () {
     var pic = newCanvas(new Point(480, 360)), // bigger scales faster
         ctx = pic.getContext('2d'),
         i;
@@ -363,7 +449,54 @@ IDE_Morph.prototype.agentTexture2 = function () {
     image.onload = function () {
       ctx.drawImage(image,0,0,480,360);
     };
-    image.src="./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg";
+    image.src="./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg";
+
+    console.log("PIC: " + pic); 
+
+    return pic;
+};
+
+IDE_Morph.prototype.agentTexture8 = function () {
+    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image,0,0,480,360);
+    };
+    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg";
+
+    return pic;
+};
+
+IDE_Morph.prototype.agentTexture9 = function () {
+    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image,0,0,480,360);
+    };
+    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg";
+
+    return pic;
+};
+
+IDE_Morph.prototype.agentTexture10 = function () {
+    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
+        ctx = pic.getContext('2d'),
+        i;
+
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image,0,0,480,360);
+    };
+    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg";
 
     return pic;
 };
@@ -414,8 +547,6 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.projectNotes = '';
 
     this.logoURL = this.resourceURL('snap_logo_sm.png');
-    //this.originalAgentURL = this.resourceURL('/images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg');
-    //this.flippedAgentURL = this.resourceURL('/images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg');
     this.logo = null;
     this.controlBar = null;
     this.categories = null;
@@ -1896,7 +2027,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   }
 }
 
-IDE_Morph.prototype.createAgentPanel = function () {
+IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   console.log("In IDE_Morph.prototype.createAgentPanel");
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
@@ -1909,8 +2040,9 @@ IDE_Morph.prototype.createAgentPanel = function () {
   this.add(this.agentPanel);*/
 
 
-  console.log("this.agentPanelTexture");
-  this.agentPanel.cachedTexture = this.agentPanelTexture;
+  console.log("this.agentPanelTexture: " + agentPanelTextureArray.length);
+  this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
+  console.log("this.agentPanel.cachedTexture " + imageNum);
   this.agentPanel.drawCachedTexture();
   window.setTimeout(this.add(this.agentPanel),1000);
   this.agentPanel.acceptsDrops = false;
@@ -2070,7 +2202,7 @@ IDE_Morph.prototype.createCorral = function () {
     this.createStageHandle();
     this.createPaletteHandle();
 
-    this.createAgentPanel();
+    this.createAgentPanel(0);
     this.createSpeechBubblePanel();
 
     if (this.corral) {
@@ -5524,6 +5656,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     this.isOriginalAgent = !this.isOriginalAgent;
     var moreConvo= false;
     var audio = '/audio/';
+    var image;
 
     if (convoNum == 1) {
       if (futureConversation.length > 0) {
@@ -5531,7 +5664,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation.shift();
         conversationHistory.push(currentUtterance);
         audio = audio + futureAudio[0];
+        image = futureImages[0];
         futureAudio.shift();
+        futureImages.shift();
         moreConvo= true;
       }
 
@@ -5550,8 +5685,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation2.shift();
         conversationHistory.push(currentUtterance2);
         audio = audio + futureAudio2[0];
-        console.log("AUDIO " + audio);
+        image = futureImages2[0];
         futureAudio2.shift();
+        futureImages2.shift();
         moreConvo = true;
       }
 
@@ -5570,8 +5706,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation3.shift();
         conversationHistory.push(currentUtterance3);
         audio = audio + futureAudio3[0];
-        console.log("AUDIO " + audio);
+        image = futureImages3[0];
         futureAudio3.shift();
+        futureImages3.shift();
         moreConvo = true;
       }
 
@@ -5590,8 +5727,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation4.shift();
         conversationHistory.push(currentUtterance4);
         audio = audio + futureAudio4[0];
-        console.log("AUDIO " + audio);
+        image = futureImages4[0];
         futureAudio4.shift();
+        futureImages4.shift();
         moreConvo = true;
       }
 
@@ -5611,8 +5749,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation5.shift();
         conversationHistory.push(currentUtterance5);
         audio = audio + futureAudio5[0];
-        console.log("AUDIO " + audio);
+        image = futureImages5[0];
         futureAudio5.shift();
+        futureImages5.shift();
         moreConvo = true;
       }
 
@@ -5631,11 +5770,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
 
     //Here is where we modify the agent image to change
-    if (this.isOriginalAgent) {
+    /*if (this.isOriginalAgent) {
       this.createAgentPanel();
     } else {
       this.createAgentPanelFlipped();
-    }
+    }*/
+    this.createAgentPanel(image-1);
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
