@@ -416,9 +416,9 @@ ActionManager.prototype.pressStartAgent = function () {
     if (moreConvo) {
       window.setTimeout(function(){myself.pressStartAgent()},3000);
     } else {
-      if (convoNum < 4) {
+      if (convoNum < 6) {
         convoNum++;
-        window.setTimeout(function(){myself.pressStartAgent()}, 360000);
+        window.setTimeout(function(){myself.pressStartAgent()}, 30000);
       }
     }
 };
@@ -431,7 +431,7 @@ ActionManager.prototype.applyEvent = function(event) {
 
     var ide = this.ide();
 
-    if (firstAction && event.type !=  "openProject") {
+    if (firstAction && event.type != "openProject") {
       firstAction = false;
       //window.setTimeout(function(){self.switchRoles()},SWITCH_TIME);
       this.pressStartAgent();
