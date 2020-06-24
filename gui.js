@@ -130,7 +130,7 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-futureImages = [16, 9, 12, 8, 15, 10];
+futureImages = [16, 9, 12, 8, 15, 10, 1];
 
 speakerHistory = [];
 futureSpeaker = ['v', 'j','v','j','v','j'];
@@ -148,6 +148,8 @@ futureConversation2 = ["Jeremy, we did debugging in school too, right?",
 futureAudio2 = ["1_Viviana_JeremyWeDidDebuggingInSchool.mp3",
 "2_Jeremy_YeahWeDid_TAKE1.mp3",
 "3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
+
+futureImages2 = [4,3,2,1];
 
 futureSpeaker2 = ['v', 'j','j'];
 
@@ -172,6 +174,8 @@ futureAudio3 = ["4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
 "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
 "9_Viviana_WeAreSoGoodAtThis.mp3"];
 
+futureImages3 = [24,37,29,33,19,19,23];
+
 futureSpeaker3 = ['j','v','j','v','j','v'];
 
 /* Conversation 4 */
@@ -188,11 +192,15 @@ futureConversation4 = ["I’ll type five seconds into the move block to make our
 "Oh, good idea.",
 "Cool, look at it go!"];
 
-futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp4",
+futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp3",
 "2_Jeremy_WaitThatDidntWork_TAKE1.mp3",
 "3_Viviana_GimmeThatICanFixIt.mp3",
 "4_Jeremy_VivianaIWasWorkingOnIt_TAKE1.mp3",
-"5_Viviana_Sorry.mp3"];
+"5_Viviana_Sorry.mp3",
+"6_Jeremy_OhGoodIdea_TAKE1.mp3",
+"7_Jeremy_CoolLookAtItGo_TAKE1.mp3"];
+
+futureImages4 = [44,40,47,42,46,21,21,23];
 
 futureSpeaker4 = ['j','j', 'v', 'j','v','j'];
 
@@ -219,6 +227,8 @@ futureAudio5 = ["1_Jeremy_ViviImGonnaPutTheseBlocks_TAKE1.mp3",
 "6_Jeremy_SorryMyBad_TAKE1.mp3",
 "7_Jeremy_LetMeDragTheSayBlock_TAKE1.mp3",
 "8_Viviana_BoomThereWeGo.mp3"];
+
+futureImages5 = [31,36,28,26,38,29,30,17,23];
 
 futureSpeaker5 = ['j','v','j','j','v','j','j','v'];
 
@@ -273,20 +283,6 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.rotationStyleColors = IDE_Morph.prototype.tabColors;
     IDE_Morph.prototype.appModeColor = new Color();
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
-    IDE_Morph.prototype.agentPanelTexture7 = this.agentTexture7();
-    /*IDE_Morph.prototype.agentPanelTexture8 = this.agentTexture8();
-    IDE_Morph.prototype.agentPanelTexture9 = this.agentTexture9();
-    IDE_Morph.prototype.agentPanelTexture10 = this.agentTexture10();
-    IDE_Morph.prototype.agentPanelTexture11 = this.agentTexture11();
-    IDE_Morph.prototype.agentPanelTexture12 = this.agentTexture12();
-    IDE_Morph.prototype.agentPanelTexture13 = this.agentTexture13();
-    IDE_Morph.prototype.agentPanelTexture14 = this.agentTexture14();
-    IDE_Morph.prototype.agentPanelTexture15 = this.agentTexture15();
-    IDE_Morph.prototype.agentPanelTexture16 = this.agentTexture16();*/
-    //IDE_Morph.prototype.agentPanelTextureArray = this.agentTexture();
-
-
-   
 
     var files = ["./images/Nml_EyesToEachOther_Idle.jpg",
     "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
@@ -303,7 +299,38 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
     "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
     "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
-    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg"];
+    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg",
+    "/images/SplashArt_HappyDance_wHeadset.jpg",
+    "/images/SplashArt_HappyDance.jpg",
+    "/images/SplashArt_TopView_wHeadset.jpg",
+    "/images/SplashArt_TopView.jpg",
+    "/images/SplashArt_WeDidIt_wHeadset.jpg",
+    "/images/SplashArt_WeDidIt.jpg",
+    "/images/Vign_EyesToEachOther_Idle.jpg",
+    "/images/Vign_EyesToEachOther_JayFrustradedArmsUp.jpg",
+    "/images/Vign_EyesToEachOther_JayIDontKnow_ViviWorried.jpg",
+    "/images/Vign_EyesToEachOther_JayTalks_HandBehindNeck.jpg",
+    "/images/Vign_EyesToEachOther_JayTalks_ThoughtfulSmile.jpg",
+    "/images/Vign_EyesToEachOther_JayTalksconfused.jpg",
+    "/images/Vign_EyesToEachOther_JayTalksIDontKnow.jpg",
+    "/images/Vign_EyesToEachOther_JayTalksNeutral_Thoughtful.jpg",
+    "/images/Vign_EyesToEachOther_JayTalksNeutral.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk1.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk2.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalks_Joyful.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalks_JoyfulSmile_IdleTalk2.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalksNeutral_Doubtful_IDontKnow.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalksNeutral_IdleTalk2_JayWorried.jpg",
+    "/images/Vign_EyesToEachOther_ViviTalksNeutral_Thoughtful.jpg",
+    "/images/Vign_Jeyesclosed_Jopensmile_JYay.jpg",
+    "/images/Vign_Jeyestostudent_Jneutraltalk_Jneutralbody.jpg",
+    "/images/Vign_JeyestoV_Jneutraltalk_Jarmsup.jpg",
+    "/images/Vign_JeyestoV_Jneutraltalk_Jhandup.jpg",
+    "/images/Vign_JVeyestoeachother_closedsmile_neutralbody.jpg",
+    "/images/Vign_JVeyestoeachother_Jopensmile_Jfingerup.jpg",
+    "/images/Vign_VeyestoJ_Vclosedsmile_Vhandup.jpg",
+    "/images/Vign_VeyestoJ_Vneutraltalk_Varmbehindhead.jpg",
+    "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg"];
 
     for (i = 0; i < files.length; i++) {
         console.log(files[i]);
@@ -392,111 +419,6 @@ IDE_Morph.prototype.agentTexture = function (imageSrc) {
     image.src=imageSrc;
 
     console.log("PIC: " + pic); 
-
-    return pic;
-};
-
-IDE_Morph.prototype.agentTexture2 = function () {
-
-    var files = ["./images/Nml_EyesToEachOther_Idle.jpg",
-    "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
-    "./images/Nml_EyesToEachOther_JayTalks.jpg",
-    "./images/Nml_EyesToEachOther_ViviTalks.jpg",
-    "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
-    "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
-    "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
-    "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
-    "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
-    "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
-    "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
-    "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
-    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg"];
-
-
-    var pics = [];
-
-    
-
-    for (index = 0; index < files.length; index++) {
-        var pic = newCanvas(new Point(480, 360)), // bigger scales faster
-        ctx = pic.getContext('2d'),
-        i;
-
-        var image = new Image();
-        image.onload = function () {
-            ctx.drawImage(image,0,0,480,360);
-        };
-        console.log(files[index]);
-        image.src = files[index];//"./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg";
-        pics.push(pic);
-    }
-
-    console.log("PICS: " + pics);    
-
-    return pics;
-};
-
-IDE_Morph.prototype.agentTexture7 = function () {
-    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
-        ctx = pic.getContext('2d'),
-        i;
-
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image,0,0,480,360);
-    };
-    image.src="./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg";
-
-    console.log("PIC: " + pic); 
-
-    return pic;
-};
-
-IDE_Morph.prototype.agentTexture8 = function () {
-    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
-        ctx = pic.getContext('2d'),
-        i;
-
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image,0,0,480,360);
-    };
-    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg";
-
-    return pic;
-};
-
-IDE_Morph.prototype.agentTexture9 = function () {
-    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
-        ctx = pic.getContext('2d'),
-        i;
-
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image,0,0,480,360);
-    };
-    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg";
-
-    return pic;
-};
-
-IDE_Morph.prototype.agentTexture10 = function () {
-    var pic = newCanvas(new Point(480, 360)), // bigger scales faster
-        ctx = pic.getContext('2d'),
-        i;
-
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image,0,0,480,360);
-    };
-    image.src="./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg";
 
     return pic;
 };
@@ -5664,11 +5586,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation.shift();
         conversationHistory.push(currentUtterance);
         audio = audio + futureAudio[0];
-        image = futureImages[0];
         futureAudio.shift();
-        futureImages.shift();
         moreConvo= true;
       }
+
+      image = futureImages[0];
+      futureImages.shift();
 
       if (futureSpeaker.length > 0) {
         var currentSpeaker = futureSpeaker[0];
@@ -5685,11 +5608,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation2.shift();
         conversationHistory.push(currentUtterance2);
         audio = audio + futureAudio2[0];
-        image = futureImages2[0];
         futureAudio2.shift();
-        futureImages2.shift();
         moreConvo = true;
       }
+
+      image = futureImages2[0];
+      futureImages2.shift();
 
       if (futureSpeaker2.length > 0) {
         var currentSpeaker2 = futureSpeaker2[0];
@@ -5706,11 +5630,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation3.shift();
         conversationHistory.push(currentUtterance3);
         audio = audio + futureAudio3[0];
-        image = futureImages3[0];
         futureAudio3.shift();
-        futureImages3.shift();
         moreConvo = true;
       }
+
+      image = futureImages3[0];
+      futureImages3.shift();
 
       if (futureSpeaker3.length > 0) {
         var currentSpeaker3 = futureSpeaker3[0];
@@ -5727,11 +5652,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation4.shift();
         conversationHistory.push(currentUtterance4);
         audio = audio + futureAudio4[0];
-        image = futureImages4[0];
         futureAudio4.shift();
-        futureImages4.shift();
         moreConvo = true;
       }
+
+      image = futureImages4[0];
+      futureImages4.shift();
 
       if (futureSpeaker4.length > 0) {
         var currentSpeaker4 = futureSpeaker4[0];
@@ -5749,11 +5675,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation5.shift();
         conversationHistory.push(currentUtterance5);
         audio = audio + futureAudio5[0];
-        image = futureImages5[0];
         futureAudio5.shift();
-        futureImages5.shift();
         moreConvo = true;
       }
+
+      image = futureImages5[0];
+      futureImages5.shift();
 
       if (futureSpeaker5.length > 0) {
         var currentSpeaker5 = futureSpeaker5[0];
@@ -5764,6 +5691,8 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         BlockMorph.prototype.snapSound.src = audio;//'click.wav';
         BlockMorph.prototype.snapSound.play();
       }
+    } else {
+        image = 0;
     }
 
     this.createSpeechBubblePanel();
@@ -5775,6 +5704,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     } else {
       this.createAgentPanelFlipped();
     }*/
+    console.log("Index: " + image-1);
     this.createAgentPanel(image-1);
 
     if (this.isLargeAgent) {
