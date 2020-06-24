@@ -202,7 +202,7 @@ futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp3",
 
 futureImages4 = [44,40,47,42,46,21,21,23];
 
-futureSpeaker4 = ['j','j', 'v', 'j','v','j'];
+futureSpeaker4 = ['j','j','v','j','v','j','j'];
 
 /* Conversation 5 */
 
