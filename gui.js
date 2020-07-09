@@ -418,7 +418,7 @@ IDE_Morph.prototype.agentTexture = function (imageSrc) {
     };
     image.src=imageSrc;
 
-    console.log("PIC: " + pic); 
+    console.log("PIC: " + pic);
 
     return pic;
 };
@@ -5574,6 +5574,8 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
 
 IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     console.log("In IDE_Morph.prototype.toggleAgentImage");
+    //This is where we move the conversation forward (audio, text, images) and
+    //where we keep track of conversation history
 
     this.isOriginalAgent = !this.isOriginalAgent;
     var moreConvo= false;

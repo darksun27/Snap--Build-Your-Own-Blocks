@@ -405,6 +405,7 @@ Action.prototype.equals = function(data) {
 };
 
 ActionManager.prototype.pressStartAgent = function () {
+    //TODO: pass in timing of individual clips instead of audio clips
     console.log("In ActionManager.prototype.pressStartAgent");
     var myself = this,
         world = this.world(),
@@ -415,6 +416,7 @@ ActionManager.prototype.pressStartAgent = function () {
     moreConvo = ide.toggleAgentImage(convoNum);
     if (moreConvo) {
       window.setTimeout(function(){myself.pressStartAgent()},3000);
+
     } else {
       if (convoNum < 6) {
         convoNum++;

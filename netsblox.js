@@ -363,7 +363,7 @@ NetsBloxMorph.prototype.createSpriteBar = function () {
     tab.labelColor = this.buttonLabelColor;
     tab.drawNew();
     tab.fixLayout();
-    tabBar.add(tab);
+    //tabBar.add(tab); //Removed room tab to prevent overlap with stage and agents
 
     tabBar.fixLayout();
     tabBar.children.forEach(function (each) {
