@@ -1939,7 +1939,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     } else {
       //this.addUtterance(conversationHistory[i], jColor, i, 'r');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
-      speechbubble.setLeft(this.corralBar.topRight());
+      //speechbubble.setLeft(this.corralBar.topRight());
     }
     //window
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
