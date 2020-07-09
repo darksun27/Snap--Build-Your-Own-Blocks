@@ -176,7 +176,8 @@ ActionManager.prototype.initializeEventMethods = function() {
         'stopAllScripts',
         'startScript',
         'setSpritePosition',
-        'togglePause'
+        'togglePause',
+        'pressStartAgent'
     );
 };
 
@@ -404,7 +405,7 @@ Action.prototype.equals = function(data) {
     }, true);
 };
 
-ActionManager.prototype.pressStartAgent = function () {
+ActionManager.prototype._pressStartAgent = function () {
     //TODO: pass in timing of individual clips instead of audio clips
     console.log("In ActionManager.prototype.pressStartAgent");
     var myself = this,
@@ -433,7 +434,7 @@ ActionManager.prototype.applyEvent = function(event) {
 
     var ide = this.ide();
 
-    if (firstAction && event.type != "openProject") {
+    if (firstAction){// && event.type != "openProject") {
       firstAction = false;
       //window.setTimeout(function(){self.switchRoles()},SWITCH_TIME);
       this.pressStartAgent();

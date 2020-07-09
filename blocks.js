@@ -9668,6 +9668,7 @@ SymbolMorph.prototype.names = [
     'pipette',
     'speechBubble',
     'speechBubbleOutline',
+    'speechBubbleInvert',
     'turnBack',
     'turnForward',
     'arrowUp',
@@ -9844,6 +9845,8 @@ SymbolMorph.prototype.symbolCanvasColored = function (aColor) {
         return this.drawSymbolSpeechBubble(canvas, aColor);
     case 'speechBubbleOutline':
         return this.drawSymbolSpeechBubbleOutline(canvas, aColor);
+    case 'speechBubbleInvert':
+        return this.drawSymbolSpeechBubbleInvert(canvas, aColor);
     case 'turnBack':
         return this.drawSymbolTurnBack(canvas, aColor);
     case 'turnForward':
@@ -10957,6 +10960,31 @@ SymbolMorph.prototype.drawSymbolSpeechBubbleOutline = function (
     ctx.lineTo(n / 2, h - l);
     ctx.closePath();
     ctx.stroke();
+    return canvas;
+};
+
+SymbolMorph.prototype.drawSymbolSpeechBubbleInvert = function (canvas, color) {
+    // answer a canvas showing a speech bubble
+    var ctx = canvas.getContext('2d'),
+        w = canvas.width,
+        h = canvas.height,
+        n = canvas.width / 3,
+        l = Math.max(w / 20, 0.5);
+
+    var newColor = new Color(0, 0, 0);
+
+    ctx.fillStyle = newColor.toString();
+    ctx.lineWidth = l * 2;
+    ctx.beginPath();
+    ctx.moveTo(n, n * 2);
+    ctx.quadraticCurveTo(l, n * 2, l, n);
+    ctx.quadraticCurveTo(l, l, n, l);
+    ctx.lineTo(n * 2, l);
+    ctx.quadraticCurveTo(w - l, l, w - l, n);
+    ctx.quadraticCurveTo(w - l, n * 2, n * 2, n * 2);
+    ctx.lineTo(n / 2, h - l);
+    ctx.closePath();
+    ctx.fill();
     return canvas;
 };
 

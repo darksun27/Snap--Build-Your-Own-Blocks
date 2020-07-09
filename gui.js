@@ -113,6 +113,7 @@ var futureConversation;
 var speakerHistory;
 var futureSpeaker;
 var futureAudio;
+var audioTimes;
 
 conversationHistory = [];
 
@@ -129,6 +130,8 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
+
+audioTimes = [5, 4, 2, 4, 5];
 
 futureImages = [16, 9, 12, 8, 15, 10, 11];
 
@@ -1966,7 +1969,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
   console.log("this.agentPanel.cachedTexture " + imageNum);
   this.agentPanel.drawCachedTexture();
-  window.setTimeout(this.add(this.agentPanel),1000);
+  window.setTimeout(this.add(this.agentPanel),50);
   this.agentPanel.acceptsDrops = false;
   //this.agentPanel.contents.acceptsDrops = false;
 
@@ -5584,11 +5587,13 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     if (convoNum == 1) {
       if (futureConversation.length > 0) {
+        //get the upcoming utterance from futureConversation and store it in currentUtterance
         var currentUtterance = futureConversation[0];
         futureConversation.shift();
         conversationHistory.push(currentUtterance);
         audio = audio + futureAudio[0];
         futureAudio.shift();
+        //audioTimes
         moreConvo= true;
       }
 
