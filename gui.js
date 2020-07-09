@@ -130,7 +130,7 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-futureImages = [16, 9, 12, 8, 15, 10, 1];
+futureImages = [16, 9, 12, 8, 15, 10, 11];
 
 speakerHistory = [];
 futureSpeaker = ['v', 'j','v','j','v','j'];
@@ -149,7 +149,7 @@ futureAudio2 = ["1_Viviana_JeremyWeDidDebuggingInSchool.mp3",
 "2_Jeremy_YeahWeDid_TAKE1.mp3",
 "3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
 
-futureImages2 = [4,3,2,1];
+futureImages2 = [4,3,2,11];
 
 futureSpeaker2 = ['v', 'j','j'];
 
@@ -174,7 +174,7 @@ futureAudio3 = ["4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
 "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
 "9_Viviana_WeAreSoGoodAtThis.mp3"];
 
-futureImages3 = [24,37,29,33,19,19,23];
+futureImages3 = [24,37,29,33,19,19,11];
 
 futureSpeaker3 = ['j','v','j','v','j','v'];
 
@@ -200,7 +200,7 @@ futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp3",
 "6_Jeremy_OhGoodIdea_TAKE1.mp3",
 "7_Jeremy_CoolLookAtItGo_TAKE1.mp3"];
 
-futureImages4 = [44,40,47,42,46,21,21,23];
+futureImages4 = [44,40,47,42,46,21,21,11];
 
 futureSpeaker4 = ['j','j','v','j','v','j','j'];
 
@@ -228,7 +228,7 @@ futureAudio5 = ["1_Jeremy_ViviImGonnaPutTheseBlocks_TAKE1.mp3",
 "7_Jeremy_LetMeDragTheSayBlock_TAKE1.mp3",
 "8_Viviana_BoomThereWeGo.mp3"];
 
-futureImages5 = [31,36,28,26,38,29,30,17,23];
+futureImages5 = [31,36,28,26,38,29,30,17,11];
 
 futureSpeaker5 = ['j','v','j','j','v','j','j','v'];
 
