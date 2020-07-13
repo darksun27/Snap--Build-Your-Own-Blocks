@@ -131,7 +131,7 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-audioTimes = [5, 4, 2, 4, 5];
+audioTimes = [5, 4, 2, 3, 4, 2];
 
 futureImages = [16, 9, 12, 8, 15, 10, 11];
 
@@ -143,6 +143,7 @@ var futureConversation2;
 
 var futureSpeaker2;
 
+var audioTimes2;
 
 futureConversation2 = ["Jeremy, we did debugging in school too, right?",
 "Yeah, we did.",
@@ -151,6 +152,8 @@ futureConversation2 = ["Jeremy, we did debugging in school too, right?",
 futureAudio2 = ["1_Viviana_JeremyWeDidDebuggingInSchool.mp3",
 "2_Jeremy_YeahWeDid_TAKE1.mp3",
 "3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
+
+audioTimes2=[3,3,5]
 
 futureImages2 = [4,3,2,11];
 
@@ -161,10 +164,10 @@ var futureConversation3;
 var speakerHistory3;
 var futureSpeaker3;
 var futureAudio3;
+var audioTimes3;
 
-
-futureConversation3 = ["Aagh. The sprite’s not jumping.",
-"O yeah. I think we need to change the ‘y’ position.",
+futureConversation3 = ["Aagh. The sprite\'s not jumping.",
+"O yeah. I think we need to change the \'y\' position.",
 "But, why?",
 "'Cause that will make it move up and down.",
 "Oh that actually worked!",
@@ -177,7 +180,9 @@ futureAudio3 = ["4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
 "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
 "9_Viviana_WeAreSoGoodAtThis.mp3"];
 
-futureImages3 = [24,37,29,33,19,19,11];
+audioTimes3=[3,4,2,2,2,2];
+
+futureImages3 = [4,4,4,4,4,4];//[24,37,29,33,19,19,11];
 
 futureSpeaker3 = ['j','v','j','v','j','v'];
 
@@ -186,6 +191,7 @@ futureSpeaker3 = ['j','v','j','v','j','v'];
 var speakerHistory4;
 var futureSpeaker4;
 var futureConversation4;
+var audioTimes3;
 
 futureConversation4 = ["I’ll type five seconds into the move block to make our sprite go super fast.",
 "Wait, that didn't work.",
@@ -202,6 +208,8 @@ futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp3",
 "5_Viviana_Sorry.mp3",
 "6_Jeremy_OhGoodIdea_TAKE1.mp3",
 "7_Jeremy_CoolLookAtItGo_TAKE1.mp3"];
+
+audioTimes4 = [5,4,2,4,4,2,3];
 
 futureImages4 = [44,40,47,42,46,21,21,11];
 
@@ -2086,38 +2094,6 @@ IDE_Morph.prototype.createCorralBar = function () {
     agentSizeButton = agentbutton;
     this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
-
-
-    //testing toggle agent
-    switchagentbutton = new ToggleButtonMorph(
-        null, //colors,
-        myself, // the IDE is the target
-        'toggleAgentImage',
-        new SymbolMorph('stepForward', 14),
-        null
-    );
-
-    switchagentbutton.corner = 12;
-    switchagentbutton.color = colors[0];
-    switchagentbutton.highlightColor = colors[1];
-    switchagentbutton.pressColor = colors[2];
-    switchagentbutton.labelMinExtent = new Point(36, 18);
-    switchagentbutton.padding = 0;
-    switchagentbutton.labelShadowOffset = new Point(-1, -1);
-    switchagentbutton.labelShadowColor = colors[1];
-    switchagentbutton.labelColor = this.buttonLabelColor;
-    switchagentbutton.contrast = this.buttonContrast;
-    switchagentbutton.drawNew();
-    // button.hint = 'stage size\nsmall & normal';
-    switchagentbutton.fixLayout();
-    switchagentbutton.setCenter(this.corralBar.center());
-    switchagentbutton.setLeft(
-        this.corralBar.left() + padding + newbutton.width() + padding + newbutton.width() + padding
-    );
-    switchagentbutton.refresh();
-    agentSwitchButton = switchagentbutton;
-    this.corralBar.add(agentSwitchButton);
-    this.corralBar.agentSwitchButton = switchagentbutton; // for refreshing
 };
 
 IDE_Morph.prototype.createCorral = function () {
@@ -5584,6 +5560,11 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     var moreConvo= false;
     var audio = '/audio/';
     var image;
+    var audioLength;
+
+    //The return object that contains whether the conversations are complete
+    // and how much time the next clip is
+    var convoAndTime;
 
     if (convoNum == 1) {
       if (futureConversation.length > 0) {
@@ -5593,8 +5574,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         conversationHistory.push(currentUtterance);
         audio = audio + futureAudio[0];
         futureAudio.shift();
-        //audioTimes
-        moreConvo= true;
+        audioLength = audioTimes[0];
+        audioTimes.shift()
+        moreConvo = true;
       }
 
       image = futureImages[0];
@@ -5616,6 +5598,8 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         conversationHistory.push(currentUtterance2);
         audio = audio + futureAudio2[0];
         futureAudio2.shift();
+        audioLength = audioTimes2[0];
+        audioTimes2.shift()
         moreConvo = true;
       }
 
@@ -5638,11 +5622,18 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         conversationHistory.push(currentUtterance3);
         audio = audio + futureAudio3[0];
         futureAudio3.shift();
-        moreConvo = true;
+        audioLength = audioTimes3[0];
+        audioTimes3.shift()
+        if (futureConversation3.length == 1){
+          moreConvo = false;
+        } else {
+          moreConvo = true;
+        }
       }
 
       image = futureImages3[0];
       futureImages3.shift();
+      console.log("Image: " + image);
 
       if (futureSpeaker3.length > 0) {
         var currentSpeaker3 = futureSpeaker3[0];
@@ -5653,7 +5644,44 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         BlockMorph.prototype.snapSound.src = audio;//'click.wav';
         BlockMorph.prototype.snapSound.play();
       }
-    } else if (convoNum == 4) {
+    } else {
+        image = 11;
+    }
+
+    /*else if (convoNum == 4) {
+      if (futureConversation4.length > 0) {
+        var currentUtterance4 = futureConversation4[0];
+        futureConversation4.shift();
+        conversationHistory.push(currentUtterance4);
+        audio = audio + futureAudio4[0];
+        futureAudio4.shift();
+        audioLength = audioTimes4[0];
+        audioTimes4.shift()
+        if (futureConversation4.length == 1){
+          moreConvo = false;
+        } else {
+          moreConvo = true;
+        }
+      }
+
+      image = futureImages4[0];
+      futureImages4.shift();
+
+      if (futureSpeaker4.length > 0) {
+        var currentSpeaker4 = futureSpeaker4[0];
+        futureSpeaker4.shift();
+        speakerHistory.push(currentSpeaker4);
+
+        BlockMorph.prototype.snapSound = document.createElement('audio');
+        BlockMorph.prototype.snapSound.src = audio;//'click.wav';
+        BlockMorph.prototype.snapSound.play();
+      }
+
+    }*/
+
+
+
+    /*else if (convoNum == 4) {
       if (futureConversation4.length > 0) {
         var currentUtterance4 = futureConversation4[0];
         futureConversation4.shift();
@@ -5698,9 +5726,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         BlockMorph.prototype.snapSound.src = audio;//'click.wav';
         BlockMorph.prototype.snapSound.play();
       }
-    } else {
-        image = 0;
-    }
+    }*/
 
     this.createSpeechBubblePanel();
 
@@ -5711,8 +5737,8 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     } else {
       this.createAgentPanelFlipped();
     }*/
-    console.log("Index: " + image-1);
-    this.createAgentPanel(image-1);
+    console.log("Index: " + (image-1));
+    this.createAgentPanel(parseInt(image)-1);
 
     if (this.isLargeAgent) {
       SnapActions.setStageSize(0, 0);
@@ -5722,7 +5748,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     this.fixLayout();
 
-    return moreConvo;
+    return [moreConvo,audioLength];
 };
 
 IDE_Morph.prototype.setPaletteWidth = function (newWidth) {

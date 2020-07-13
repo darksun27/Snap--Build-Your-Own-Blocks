@@ -176,8 +176,7 @@ ActionManager.prototype.initializeEventMethods = function() {
         'stopAllScripts',
         'startScript',
         'setSpritePosition',
-        'togglePause',
-        'pressStartAgent'
+        'togglePause'
     );
 };
 
@@ -405,23 +404,34 @@ Action.prototype.equals = function(data) {
     }, true);
 };
 
-ActionManager.prototype._pressStartAgent = function () {
+ActionManager.prototype.pressStartAgent = function () {
     //TODO: pass in timing of individual clips instead of audio clips
+    //For now it plays the agent introduction when student does something in the interface
+    // Then the activity introduction starts right away.
+    // Finally, the activity 1 vigette
     console.log("In ActionManager.prototype.pressStartAgent");
     var myself = this,
         world = this.world(),
-        ide = this.ide();
+        ide = this.ide(),
+        convoAndTime,
+        time = 5000;
 
     var moreConvo = false;
 
-    moreConvo = ide.toggleAgentImage(convoNum);
+    convoAndTime = ide.toggleAgentImage(convoNum);
+
+    moreConvo = convoAndTime[0];
+    time = convoAndTime[1] * 1000;
+    console.log("TIME: " + time);
+
     if (moreConvo) {
-      window.setTimeout(function(){myself.pressStartAgent()},3000);
+      window.setTimeout(function(){myself.pressStartAgent()},time);
 
     } else {
-      if (convoNum < 6) {
+      if (convoNum < 4) {
+
         convoNum++;
-        window.setTimeout(function(){myself.pressStartAgent()}, 30000);
+        window.setTimeout(function(){myself.pressStartAgent()}, 1000);
       }
     }
 };
@@ -434,17 +444,10 @@ ActionManager.prototype.applyEvent = function(event) {
 
     var ide = this.ide();
 
-    if (firstAction){// && event.type != "openProject") {
+    if (firstAction) {// && event.type != "openProject") {
       firstAction = false;
-      //window.setTimeout(function(){self.switchRoles()},SWITCH_TIME);
       this.pressStartAgent();
-      //ide.saveProjectsBrowser();
     }
-
-    /*if (event.type == "pressStart") {
-      console.log("pressStart");
-      this.pressStartAgent();
-    }*/
 
     // Skip duplicate undo/redo events
     if (event.replayType && this.lastSent === event.id) {
