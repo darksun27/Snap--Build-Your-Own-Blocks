@@ -4341,9 +4341,10 @@ CommandBlockMorph.prototype.snap = function (target) {
     this.fixBlockColor();
     this.endLayout();
     CommandBlockMorph.uber.snap.call(this); // align stuck comments
-    if (this.snapSound) {
-        this.snapSound.play();
-    }
+    //  This is the code block triggering audio replays bug when the user snap a new block to an old one
+    // if (this.snapSound) {
+    //     this.snapSound.play();
+    // }
 };
 
 CommandBlockMorph.prototype.isStop = function () {
@@ -5108,9 +5109,10 @@ ReporterBlockMorph.prototype.snap = function (target) {
             }
         }
         target.parent.replaceInput(target, this);
-        if (this.snapSound) {
-            this.snapSound.play();
-        }
+        //  This is the code block triggering audio replays bug when the user snap a new block to an old one
+        // if (this.snapSound) {
+        //     this.snapSound.play();
+        // }
     }
     this.startLayout();
     this.fixBlockColor();
@@ -13223,9 +13225,10 @@ CommentMorph.prototype.snap = function (target) {
     if (target !== null) {
         target.comment = this;
         this.block = target;
-        if (this.snapSound) {
-            this.snapSound.play();
-        }
+        //  This is the code block triggering audio replays bug when the user snap a new block to an old one
+        // if (this.snapSound) {
+        //     this.snapSound.play();
+        // }
     }
     this.align();
 };

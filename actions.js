@@ -1532,9 +1532,10 @@ ActionManager.prototype._onAddBlock = function(block, ownerId, x, y, callback) {
 
     firstBlock = this.deserializeBlock(block);
 
-    if (firstBlock.snapSound) {
-        firstBlock.snapSound.play();
-    }
+    //  This is the code block triggering audio replays bug when the user drag a new block over
+    // if (firstBlock.snapSound) {
+    //     firstBlock.snapSound.play();
+    // }
 
     if (!this._customBlocks[ownerId]) {  // not a custom block
         position = this.getAdjustedPosition(position, owner.scripts);
