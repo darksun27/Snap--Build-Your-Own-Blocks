@@ -1919,7 +1919,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   //this.speechBubblePanel.cachedTexture = this.scriptsPaneTexture;
   this.speechBubblePanel.color = "#f8e2cd";
   //this.speechBubblePanel.drawCachedTexture();
-  this.add(this.speechBubblePanel);
+  //this.add(this.speechBubblePanel);
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
 
@@ -2092,7 +2092,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     );
     agentbutton.refresh();
     agentSizeButton = agentbutton;
-    this.corralBar.add(agentSizeButton);
+    //this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
 };
 
