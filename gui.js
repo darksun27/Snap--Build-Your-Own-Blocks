@@ -668,7 +668,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         } else {
             SnapActions.openProject(getURL(hash));
         }
-        this.toggleAppMode(true);
+        this.toggleAppMode(false);
         this.runScripts();
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
         this.shield = new Morph();
