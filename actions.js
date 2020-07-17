@@ -444,7 +444,8 @@ ActionManager.prototype.applyEvent = function(event) {
 
     var ide = this.ide();
 
-    if (firstAction) {// && event.type != "openProject") {
+    if (firstAction && event.type != "openProject") {
+    	console.log("FIRST ACTION");
       firstAction = false;
       this.pressStartAgent();
     }
