@@ -668,7 +668,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         } else {
             SnapActions.openProject(getURL(hash));
         }
-        this.toggleAppMode(false);
+        this.toggleAppMode(true);
         this.runScripts();
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
         this.shield = new Morph();
@@ -733,7 +733,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                             myself.shield.destroy();
                             myself.shield = null;
                             msg.destroy();
-                            myself.toggleAppMode(false);
+                            myself.toggleAppMode(true);
                         });
                     }
                 ]);
