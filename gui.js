@@ -682,8 +682,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             dict = SnapCloud.parseDict(loc.hash.substr(9));
         }
 
-        this.isAppMode = false;
-
         SnapCloud.getPublicProject(
             SnapCloud.encodeDict(dict),
             function (projectData) {
@@ -1976,13 +1974,15 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   this.agentPanel.add(BlockMorph.prototype.agentVideo);
   this.add(this.agentPanel);*/
 
-  console.log("this.agentPanelTexture: " + agentPanelTextureArray.length);
-  this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
-  console.log("this.agentPanel.cachedTexture " + imageNum);
-  this.agentPanel.drawCachedTexture();
-  window.setTimeout(this.add(this.agentPanel),50);
-  this.agentPanel.acceptsDrops = false;
-  //this.agentPanel.contents.acceptsDrops = false;
+  if (!this.isAppMode) {
+    //console.log("this.agentPanelTexture: " + agentPanelTextureArray.length);
+    this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
+    //console.log("this.agentPanel.cachedTexture " + imageNum);
+    this.agentPanel.drawCachedTexture();
+    window.setTimeout(this.add(this.agentPanel),50);
+    this.agentPanel.acceptsDrops = false;
+    //this.agentPanel.contents.acceptsDrops = false;
+  }
 
   this.agentPanel.drawCachedTexture = function () {
       var context = this.image.getContext('2d');
