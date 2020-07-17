@@ -592,6 +592,7 @@ IDE_Morph.prototype.openIn = function (world) {
 };
 
 IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
+    console.log("IDE_Morph.prototype.interpretUrlAnchors");
     var myself = this,
         urlLanguage,
         hash,
@@ -681,6 +682,8 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             dict = SnapCloud.parseDict(loc.hash.substr(9));
         }
 
+        this.isAppMode = false;
+
         SnapCloud.getPublicProject(
             SnapCloud.encodeDict(dict),
             function (projectData) {
@@ -733,7 +736,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                             myself.shield.destroy();
                             myself.shield = null;
                             msg.destroy();
-                            myself.toggleAppMode(true);
+                            myself.toggleAppMode(false);
                         });
                     }
                 ]);
@@ -1965,13 +1968,13 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
   this.agentPanel = new FrameMorph();
+  if (this.isAppMode) this.agentPanel.hide();
 
   /*BlockMorph.prototype.agentVideo = document.createElement('video');
   BlockMorph.prototype.agentVideo.src = 'sampleVideo.m4v';
   BlockMorph.prototype.agentVideo.play();
   this.agentPanel.add(BlockMorph.prototype.agentVideo);
   this.add(this.agentPanel);*/
-
 
   console.log("this.agentPanelTexture: " + agentPanelTextureArray.length);
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
@@ -1989,6 +1992,8 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
       window.setTimeout(context.drawImage(this.cachedTexture, 0, 0,
         width, height), 1000);
   };
+
+
 }
 
 IDE_Morph.prototype.createAgentPanelFlipped = function () {
