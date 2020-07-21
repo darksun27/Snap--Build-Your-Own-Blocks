@@ -182,7 +182,7 @@ futureAudio3 = ["4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
 
 audioTimes3=[3,4,2,2,2,2];
 
-futureImages3 = [4,4,4,4,4,4];//[24,37,29,33,19,19,11];
+futureImages3 = [24,37,29,33,19,19,11];
 
 futureSpeaker3 = ['j','v','j','v','j','v'];
 
@@ -428,8 +428,6 @@ IDE_Morph.prototype.agentTexture = function (imageSrc) {
       ctx.drawImage(image,0,0,480,360);
     };
     image.src=imageSrc;
-
-    console.log("PIC: " + pic);
 
     return pic;
 };
@@ -1917,10 +1915,7 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 IDE_Morph.prototype.createSpeechBubblePanel = function () {
   if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
   this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
-  //this.speechBubblePanel.cachedTexture = this.scriptsPaneTexture;
   this.speechBubblePanel.color = "#f8e2cd";
-  //this.speechBubblePanel.drawCachedTexture();
-  //this.add(this.speechBubblePanel);
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
 
@@ -1968,21 +1963,10 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   this.agentPanel = new FrameMorph();
   if (this.isAppMode) this.agentPanel.hide();
 
-  /*BlockMorph.prototype.agentVideo = document.createElement('video');
-  BlockMorph.prototype.agentVideo.src = 'sampleVideo.m4v';
-  BlockMorph.prototype.agentVideo.play();
-  this.agentPanel.add(BlockMorph.prototype.agentVideo);
-  this.add(this.agentPanel);*/
-
-  if (!this.isAppMode) {
-    //console.log("this.agentPanelTexture: " + agentPanelTextureArray.length);
-    this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
-    //console.log("this.agentPanel.cachedTexture " + imageNum);
-    this.agentPanel.drawCachedTexture();
-    window.setTimeout(this.add(this.agentPanel),50);
-    this.agentPanel.acceptsDrops = false;
-    //this.agentPanel.contents.acceptsDrops = false;
-  }
+  this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
+  this.agentPanel.drawCachedTexture();
+  window.setTimeout(this.add(this.agentPanel),50);
+  this.agentPanel.acceptsDrops = false;
 
   this.agentPanel.drawCachedTexture = function () {
       var context = this.image.getContext('2d');
@@ -2335,7 +2319,6 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
         //agentPanel
         this.agentPanel.setBottom(this.bottom());
-        console.log("this.bottom: " + this.bottom());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
         this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
@@ -2361,8 +2344,6 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.corralBar.setLeft(this.stage.left());
         this.corralBar.setTop(this.stage.bottom() + padding);
         this.corralBar.setWidth(this.stage.width());
-
-        console.log(speechLeft + " , " + speechRight + " , " + firstInterfaceCreation);
 
         if (firstInterfaceCreation) {
           speechLeft = this.corralBar.left();
@@ -2851,7 +2832,6 @@ IDE_Morph.prototype.removeSetting = function (key) {
 };
 
 IDE_Morph.prototype.switchTasks = function() {
-  console.log("switching tasks");
   subTaskIndex++;
   this.createSpriteBar();
   this.fixLayout();
@@ -5638,7 +5618,6 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
       image = futureImages3[0];
       futureImages3.shift();
-      console.log("Image: " + image);
 
       if (futureSpeaker3.length > 0) {
         var currentSpeaker3 = futureSpeaker3[0];
@@ -5735,14 +5714,6 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     this.createSpeechBubblePanel();
 
-
-    //Here is where we modify the agent image to change
-    /*if (this.isOriginalAgent) {
-      this.createAgentPanel();
-    } else {
-      this.createAgentPanelFlipped();
-    }*/
-    console.log("Index: " + (image-1));
     this.createAgentPanel(parseInt(image)-1);
 
     if (this.isLargeAgent) {
@@ -6716,8 +6687,6 @@ ProjectDialogMorph.prototype.buildContents = function () {
             ),
             width = scale * this.cachedTexture.width,
             height = scale * this.cachedTexture.height;
-
-        console.log("Preview height: " + this.height);
 
         context.drawImage(this.cachedTexture, this.edge, this.edge,
             width, height);
