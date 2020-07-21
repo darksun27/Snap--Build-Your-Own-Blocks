@@ -131,7 +131,7 @@ futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-audioTimes = [5, 4, 2, 3, 4, 2];
+audioTimes = [4.5, 4, 2, 3, 4, 2];
 
 futureImages = [16, 9, 12, 8, 15, 10, 11];
 
@@ -166,25 +166,27 @@ var futureSpeaker3;
 var futureAudio3;
 var audioTimes3;
 
-futureConversation3 = ["Aagh. The sprite\'s not jumping.",
+futureConversation3 = ["",
+"Aagh. The sprite\'s not jumping.",
 "O yeah. I think we need to change the \'y\' position.",
 "But, why?",
 "'Cause that will make it move up and down.",
 "Oh that actually worked!",
 "We’re so good at this!"];
 
-futureAudio3 = ["4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
+futureAudio3 = [null,
+"4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
 "5_Viviana_IThinkWeNeedToChangeTheYPosition.mp3",
 "6_Jeremy_ButWhy_TAKE1.mp3",
 "7_Viviana_CauseThatWillMakeItMoveUpAndDown.mp3",
 "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
 "9_Viviana_WeAreSoGoodAtThis.mp3"];
 
-audioTimes3=[3,4,2,2,2,2];
+audioTimes3=[4,3,4,2,4,3,6];
 
-futureImages3 = [24,37,29,33,19,19,11];
+futureImages3 = [48,24,37,29,33,19,19,11];
 
-futureSpeaker3 = ['j','v','j','v','j','v'];
+futureSpeaker3 = ['v','j','v','j','v','j','v'];
 
 /* Conversation 4 */
 
@@ -341,7 +343,8 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     "/images/Vign_JVeyestoeachother_Jopensmile_Jfingerup.jpg",
     "/images/Vign_VeyestoJ_Vclosedsmile_Vhandup.jpg",
     "/images/Vign_VeyestoJ_Vneutraltalk_Varmbehindhead.jpg",
-    "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg"];
+    "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg",
+    "/images/TitleCard_1.jpg"];
 
     for (i = 0; i < files.length; i++) {
         console.log(files[i]);
@@ -5604,7 +5607,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         BlockMorph.prototype.snapSound.play();
       }
     } else if (convoNum == 3) {
-      if (futureConversation3.length > 0) {
+      if (futureConversation3.length >= 0) {
         var currentUtterance3 = futureConversation3[0];
         futureConversation3.shift();
         conversationHistory.push(currentUtterance3);
@@ -5612,7 +5615,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureAudio3.shift();
         audioLength = audioTimes3[0];
         audioTimes3.shift()
-        if (futureConversation3.length == 1){
+        if (futureConversation3.length == 0){
           moreConvo = false;
         } else {
           moreConvo = true;
@@ -5627,9 +5630,11 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureSpeaker3.shift();
         speakerHistory.push(currentSpeaker3);
 
-        BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = audio;//'click.wav';
-        BlockMorph.prototype.snapSound.play();
+        if (audio != '/audio/null') {
+          BlockMorph.prototype.snapSound = document.createElement('audio');
+          BlockMorph.prototype.snapSound.src = audio;//'click.wav';
+          BlockMorph.prototype.snapSound.play();
+        }
       }
     } else {
         image = 11;
