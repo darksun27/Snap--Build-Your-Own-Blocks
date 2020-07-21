@@ -2000,6 +2000,8 @@ IDE_Morph.prototype.createAgentPanelFlipped = function () {
         context.drawImage(this.cachedTexture, 0, 0,
           width, height);
   };
+
+  if (this.isAppMode) this.agentPanel.hide();
 }
 
 IDE_Morph.prototype.createCorralBar = function () {
@@ -5404,7 +5406,8 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             this.spriteEditor,
             this.spriteBar,
             this.palette,
-            this.categories
+            this.categories,
+            this.agentPanel
         ];
 
     this.isAppMode = isNil(appMode) ? !this.isAppMode : appMode;
