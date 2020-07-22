@@ -1916,15 +1916,25 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 };
 
 IDE_Morph.prototype.createSpeechBubblePanel = function () {
-  if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
-  this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
-  this.speechBubblePanel.color = "#f8e2cd";
-  this.speechBubblePanel.acceptsDrops = false;
-  this.speechBubblePanel.contents.acceptsDrops = false;
+  var frame, speechBubble, padding = 5, myself = this;
 
-//Blue shirt #1e2757
-//Purple shirt #392044
-//Beige wall #f8e2cd
+  if (this.speechBubblePanel) {
+      this.speechBubblePanel.destroy();
+  }
+
+  this.speechBubblePanel = new Morph();
+  this.speechBubblePanel.color = "#f8e2cd";
+  this.add(this.speechBubblePanel);
+
+  frame = new ScrollFrameMorph(null, null, this.sliderColor);
+  frame.acceptsDrops = false;
+  frame.contents.acceptsDrops = false;
+
+  frame.alpha = 0;
+
+  //Blue shirt #1e2757
+  //Purple shirt #392044
+  //Beige wall #f8e2cd
   var recent = false;
   var vColor = "#2B1634";
   var jColor = "#1E2757";
@@ -1944,18 +1954,64 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     }
 
     if (speakerHistory[i] == 'v') {
-      //this.addUtterance(conversationHistory[i], vColor, i, 'l');
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
+      speechBubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
     } else {
-      //this.addUtterance(conversationHistory[i], jColor, i, 'r');
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
-      //speechbubble.setLeft(this.corralBar.topRight());
+      speechBubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
     }
+
     //window
-    speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
-    prevSpeechBubbleHeight=speechbubble.height();
-    prevSpeechBubbleBottom=speechbubble.bottom();
-    this.speechBubblePanel.addContents(speechbubble);
+    speechBubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
+    prevSpeechBubbleHeight=speechBubble.height();
+    prevSpeechBubbleBottom=speechBubble.bottom();
+
+    frame.contents.add(speechBubble);
+
+  this.speechBubblePanel.frame = frame;
+  this.speechBubblePanel.add(frame);
+
+  this.speechBubblePanel.fixLayout = function () {
+        this.frame.setExtent(new Point(
+            this.right() - this.frame.left(),
+            this.height()
+        ));
+        this.arrangeSpeechBubbles();
+        this.refresh();
+    };
+
+    this.corral.arrangeSpeechBubbles = function () {
+          var x = this.frame.left(),
+              y = this.frame.top(),
+              max = this.frame.right(),
+              start = this.frame.left();
+
+          this.frame.contents.children.forEach(function (icon) {
+              var w = icon.width();
+
+              if (x + w > max) {
+                  x = start;
+                  y += icon.height(); // they're all the same
+              }
+              icon.setPosition(new Point(x, y));
+              x += w;
+          });
+          this.frame.contents.adjustBounds();
+      };
+
+  /*Note to self: call this whenever the agent speaks*/
+  this.speechBubblePanel.addSpeechBubble = function (utt, color, speaker) {
+      this.frame.contents.add(new AgentSpeechBubbleMorph(utt, color, speaker));
+      this.fixLayout();
+  };
+
+  this.speechBubblePanel.refresh = function () {
+      this.stageIcon.refresh();
+      this.frame.contents.children.forEach(function (icon) {
+          icon.refresh();
+      });
+  };
+
+  if (this.isAppMode) this.speechBubblePanel.hide();
+
   }
 }
 
@@ -1981,30 +2037,6 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   };
 
 
-}
-
-IDE_Morph.prototype.createAgentPanelFlipped = function () {
-  console.log("In IDE_Morph.prototype.createAgentPanelFlipped");
-
-  if (this.agentPanel) {this.agentPanel.destroy(); }
-  this.agentPanel = new FrameMorph();
-
-  this.agentPanel.cachedTexture = this.agentPanelTexture2;
-  this.agentPanel.drawCachedTexture();
-  this.add(this.agentPanel);
-  this.agentPanel.acceptsDrops = false;
-  //this.agentPanel.contents.acceptsDrops = false;
-
-  this.agentPanel.drawCachedTexture = function () {
-      var context = this.image.getContext('2d');
-      var width = this.cachedTexture.width,
-          height = this.cachedTexture.height;
-
-        context.drawImage(this.cachedTexture, 0, 0,
-          width, height);
-  };
-
-  if (this.isAppMode) this.agentPanel.hide();
 }
 
 IDE_Morph.prototype.createCorralBar = function () {
@@ -2086,7 +2118,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     );
     agentbutton.refresh();
     agentSizeButton = agentbutton;
-    //this.corralBar.add(agentSizeButton);
+    this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
 };
 
@@ -2329,11 +2361,6 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
-        /*this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
-        this.speechBubblePanel.setTop(this.corralBar.bottom());
-        this.speechBubblePanel.setWidth(this.corralBar.width());
-        this.speechBubblePanel.setLeft(this.corralBar.left());
-        this.speechBubblePanel.setRight(this.corralBar.right());*/
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
@@ -5410,7 +5437,8 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             this.spriteBar,
             this.palette,
             this.categories,
-            this.agentPanel
+            //this.agentPanel,
+            this.speechBubblePanel
         ];
 
     this.isAppMode = isNil(appMode) ? !this.isAppMode : appMode;
