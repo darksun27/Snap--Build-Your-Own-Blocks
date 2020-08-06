@@ -347,7 +347,6 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     "/images/TitleCard_1.jpg"];
 
     for (i = 0; i < files.length; i++) {
-        console.log(files[i]);
         agentPanelTextureArray.push(IDE_Morph.prototype.agentPanelTexture = this.agentTexture(files[i]));
 
         //IDE_Morph.prototype.agentPanelTexture);
@@ -1846,8 +1845,6 @@ IDE_Morph.prototype.createSpriteEditor = function () {
         frame,
         padding = 5;
 
-    //console.log("Scripts: " + scripts);
-    //console.log("Sprites: " + spritesGUI);
 
     if (this.spriteEditor) {
         this.spriteEditor.destroy();
@@ -1959,7 +1956,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     this.speechBubblePanel.addContents(speechbubble);
 
   }
-  
+
   var bottomOff = 0;
 
   bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
@@ -2094,7 +2091,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     );
     agentbutton.refresh();
     agentSizeButton = agentbutton;
-    //this.corralBar.add(agentSizeButton);
+    this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
 };
 
@@ -2250,7 +2247,6 @@ IDE_Morph.prototype.createReplayControls = function () {
 // IDE_Morph layout
 
 IDE_Morph.prototype.fixLayout = function (situation) {
-    console.log("In fixlayout");
     // situation is a string, i.e.
     // 'selectSprite' or 'refreshPalette' or 'tabEditor'
     var padding = this.padding,
@@ -5570,7 +5566,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         //get the upcoming utterance from futureConversation and store it in currentUtterance
         var currentUtterance = futureConversation[0];
         futureConversation.shift();
-        conversationHistory.push(currentUtterance);
+        if (currentUtterance != "") {
+          conversationHistory.push(currentUtterance);
+        }
         audio = audio + futureAudio[0];
         futureAudio.shift();
         audioLength = audioTimes[0];
@@ -5594,7 +5592,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
       if (futureConversation2.length > 0) {
         var currentUtterance2 = futureConversation2[0];
         futureConversation2.shift();
-        conversationHistory.push(currentUtterance2);
+        if (currentUtterance2 != "") {
+          conversationHistory.push(currentUtterance2);
+        }
         audio = audio + futureAudio2[0];
         futureAudio2.shift();
         audioLength = audioTimes2[0];
@@ -5618,7 +5618,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
       if (futureConversation3.length >= 0) {
         var currentUtterance3 = futureConversation3[0];
         futureConversation3.shift();
-        conversationHistory.push(currentUtterance3);
+        if (currentUtterance3 != "") {
+          conversationHistory.push(currentUtterance3);
+        }
         audio = audio + futureAudio3[0];
         futureAudio3.shift();
         audioLength = audioTimes3[0];
