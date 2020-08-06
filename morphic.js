@@ -10287,7 +10287,6 @@ ScrollFrameMorph.prototype.init = function (scroller, size, sliderColor) {
             )
         );
     };
-    console.log(this.vBar.action);
     this.vBar.isDraggable = false;
     this.add(this.vBar);
     this.toolBar = null; // optional slot
@@ -10339,7 +10338,6 @@ ScrollFrameMorph.prototype.adjustScrollBars = function () {
         this.vBar.size =
             this.height() / this.contents.height() * this.vBar.stop;
         this.vBar.value = this.top() - this.contents.top();
-        console.log(this.vBar.value);
         this.vBar.drawNew();
     } else {
         this.vBar.hide();
