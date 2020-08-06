@@ -1919,6 +1919,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
   this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
   this.speechBubblePanel.color = "#f8e2cd";
+  this.add(this.speechBubblePanel);
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
 
@@ -1956,7 +1957,14 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     prevSpeechBubbleHeight=speechbubble.height();
     prevSpeechBubbleBottom=speechbubble.bottom();
     this.speechBubblePanel.addContents(speechbubble);
+
   }
+  
+  var bottomOff = 0;
+
+  bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
+  this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
+  this.speechBubblePanel.adjustScrollBars();
 }
 
 IDE_Morph.prototype.createAgentPanel = function (imageNum) {
