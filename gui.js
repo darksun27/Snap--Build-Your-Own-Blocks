@@ -1928,7 +1928,8 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   var jColor = "#1E2757";
   var prevSpeechBubbleHeight=35;
   var prevSpeechBubbleBottom=0;
-  for (var i = 0; i < conversationHistory.length; i++) {
+  var i;
+  for (i = 0; i < conversationHistory.length; i++) {
     if (i >= conversationHistory.length - 2) {
       recent = true;
     }
@@ -1942,26 +1943,26 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     }
 
     if (speakerHistory[i] == 'v') {
-      //this.addUtterance(conversationHistory[i], vColor, i, 'l');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
     } else {
-      //this.addUtterance(conversationHistory[i], jColor, i, 'r');
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
-      //speechbubble.setLeft(this.corralBar.topRight());
     }
-    //window
+
+
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
     prevSpeechBubbleHeight=speechbubble.height();
     prevSpeechBubbleBottom=speechbubble.bottom();
     this.speechBubblePanel.addContents(speechbubble);
-
   }
 
-  var bottomOff = 0;
-
+  /*var bottomOff = 0;
   bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
   this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
-  this.speechBubblePanel.adjustScrollBars();
+  this.speechBubblePanel.adjustScrollBars();*/
+
+  //this.speechBubblePanel.adjustScrollBars();
+  this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
+
 }
 
 IDE_Morph.prototype.createAgentPanel = function (imageNum) {
@@ -1986,30 +1987,6 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   };
 
 
-}
-
-IDE_Morph.prototype.createAgentPanelFlipped = function () {
-  console.log("In IDE_Morph.prototype.createAgentPanelFlipped");
-
-  if (this.agentPanel) {this.agentPanel.destroy(); }
-  this.agentPanel = new FrameMorph();
-
-  this.agentPanel.cachedTexture = this.agentPanelTexture2;
-  this.agentPanel.drawCachedTexture();
-  this.add(this.agentPanel);
-  this.agentPanel.acceptsDrops = false;
-  //this.agentPanel.contents.acceptsDrops = false;
-
-  this.agentPanel.drawCachedTexture = function () {
-      var context = this.image.getContext('2d');
-      var width = this.cachedTexture.width,
-          height = this.cachedTexture.height;
-
-        context.drawImage(this.cachedTexture, 0, 0,
-          width, height);
-  };
-
-  if (this.isAppMode) this.agentPanel.hide();
 }
 
 IDE_Morph.prototype.createCorralBar = function () {
@@ -2327,27 +2304,17 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
         //agentPanel
-        this.agentPanel.setBottom(this.bottom());
+        this.agentPanel.setBottom(this.bottom()+10);
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
         this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
-        /*this.speechBubblePanel.setPosition(this.corralBar.bottomLeft());
-        this.speechBubblePanel.setTop(this.corralBar.bottom());
-        this.speechBubblePanel.setWidth(this.corralBar.width());
-        this.speechBubblePanel.setLeft(this.corralBar.left());
-        this.speechBubblePanel.setRight(this.corralBar.right());*/
+
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
-        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom() + 2);
-
-        /*this.speechBubblePanel.setExtent(new Point(
-            this.corralBar.width(),
-            this.palette.bottom()
-        ));*/
-        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom() + 2);
+        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom());
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
@@ -5539,7 +5506,7 @@ IDE_Morph.prototype.toggleAgentSize = function (isSmall, forcedRatio) {
     this.isLargeAgent = !this.isLargeAgent;
 
     if (this.isLargeAgent) {
-      SnapActions.setStageSize(0, 0);
+      SnapActions.setStageSize(360, 240);
     } else {
       SnapActions.setStageSize(480, 360);
     }
@@ -5731,6 +5698,10 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     }*/
 
     this.createSpeechBubblePanel();
+    /*var bottomOff = 0;
+    bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())*/
+    /*this.speechBubblePanel.contents.moveBy(new Point(0, -35));
+    this.speechBubblePanel.adjustScrollBars();*/
 
     this.createAgentPanel(parseInt(image)-1);
 
