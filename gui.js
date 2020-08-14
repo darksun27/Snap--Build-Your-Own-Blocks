@@ -1970,7 +1970,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   if (this.agentPanel) {this.agentPanel.destroy(); }
   this.agentPanel = new FrameMorph();
-  if (this.isAppMode) this.agentPanel.hide();
+  //if (this.isAppMode) this.agentPanel.hide();
 
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
   this.agentPanel.drawCachedTexture();
@@ -2252,20 +2252,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
     if (situation !== 'refreshPalette') {
         // stage
         if (this.isAppMode) {
-            var optimalScale;
-            if (this.isMobileDevice()) {
-                var widthScale = (this.width() - padding * 2) / this.stage.dimensions.x;
-                var heightScale = (this.height() - padding * 2) / this.stage.dimensions.y;
-                optimalScale = Math.floor(Math.min(widthScale, heightScale) * 1000) / 1000;
-            } else {
-                optimalScale = Math.floor(Math.min(
-                    (this.width() - padding * 2) / this.stage.dimensions.x,
-                    (this.height() - this.controlBar.height() * 2 - padding * 2)
-                        / this.stage.dimensions.y
-                ) * 10) / 10;
-            }
-            this.stage.setScale(optimalScale);
-            this.stage.setCenter(this.center());
+            this.agentPanel.setWidth(this.stage.width()*2);
         } else {
             this.stage.setScale(this.isSmallStage ? this.stageRatio : 1);
             this.stage.setTop(this.logo.bottom() + padding);
@@ -2326,7 +2313,6 @@ IDE_Morph.prototype.fixLayout = function (situation) {
           speechRight = this.corralBar.right();
           firstInterfaceCreation=false;
         }
-
 
         // corral
         // Jen note: this affects the sprite and stage under the corral
@@ -5381,7 +5367,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             this.spriteBar,
             this.palette,
             this.categories,
-            this.agentPanel
+            this.stage
         ];
 
     this.isAppMode = isNil(appMode) ? !this.isAppMode : appMode;
@@ -5390,8 +5376,8 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
     if (this.isAppMode) {
         this.wasSingleStepping = Process.prototype.enableSingleStepping;
         if (this.wasSingleStepping) {
-        this.toggleSingleStepping();
-    }
+          this.toggleSingleStepping();
+        }
         this.setColor(this.appModeColor);
         this.controlBar.setColor(this.color);
         this.controlBar.appModeButton.refresh();
