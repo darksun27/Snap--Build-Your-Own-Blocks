@@ -1951,15 +1951,9 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
     }
 
-
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
     prevSpeechBubbleHeight=speechbubble.height();
     prevSpeechBubbleBottom=speechbubble.bottom();
-    if (first) {
-      bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
-      this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
-      first=false;
-    }
     this.speechBubblePanel.addContents(speechbubble);
   }
 
@@ -2302,7 +2296,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
         //agentPanel
-        this.agentPanel.setBottom(this.bottom()+10);
+        this.agentPanel.setBottom(this.bottom()+30);
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
         this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
