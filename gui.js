@@ -1927,7 +1927,10 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
   var vColor = "#2B1634";
   var jColor = "#1E2757";
   var prevSpeechBubbleHeight=35;
-  var prevSpeechBubbleBottom=0;
+  var prevSpeechBubbleBottom=100;
+
+  var bottomOff = 100;
+  var first = true;
   var i;
   for (i = 0; i < conversationHistory.length; i++) {
     if (i >= conversationHistory.length - 2) {
@@ -1952,16 +1955,23 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
     prevSpeechBubbleHeight=speechbubble.height();
     prevSpeechBubbleBottom=speechbubble.bottom();
+    if (first) {
+      bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
+      this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
+      first=false;
+    }
     this.speechBubblePanel.addContents(speechbubble);
   }
 
-  /*var bottomOff = 0;
   bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
   this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
-  this.speechBubblePanel.adjustScrollBars();*/
+
+  this.speechBubblePanel.adjustScrollBars();
+
 
   //this.speechBubblePanel.adjustScrollBars();
-  this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
+  //this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
+
 
 }
 
@@ -2253,6 +2263,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         // stage
         if (this.isAppMode) {
             this.agentPanel.setWidth(this.stage.width()*2);
+            this.agentPanel.setCenter(this.center());
         } else {
             this.stage.setScale(this.isSmallStage ? this.stageRatio : 1);
             this.stage.setTop(this.logo.bottom() + padding);
@@ -5362,7 +5373,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             this.paletteHandle,
             this.stageHandle,
             this.corral,
-            this.corralBar,
+            //this.corralBar,
             this.spriteEditor,
             this.spriteBar,
             this.palette,
