@@ -117,26 +117,28 @@ var audioTimes;
 
 conversationHistory = [];
 
-futureConversation = ["Hi, I’m Viviana. But you can call me Vivi.",
+futureConversation = [" ",
+"Hi, I’m Viviana. But you can call me Vivi.",
 "My name's Jeremy, but you can call me Jay.",
 "We heard you will be coding today.",
 "We did some coding at our school too!",
 "We were partners, and you're gonna have a partner too.",
 "Good luck!"];
 
-futureAudio = ["1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
+futureAudio = ["",
+"1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
 "2_Jeremy_MyNamesJeremy_TAKE1.mp3",
 "3_Viviana_WeHeardYouWouldBeCodingToday.mp3",
 "4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
 "5_Viviana_WeWerePartners.mp3",
 "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
-audioTimes = [4.5, 4, 2, 3, 4, 2];
+audioTimes = [1,4.5, 4, 2, 3, 4, 2];
 
-futureImages = [16, 9, 12, 8, 15, 10, 11];
+futureImages = [11,16, 9, 12, 8, 15, 10, 11];
 
 speakerHistory = [];
-futureSpeaker = ['v', 'j','v','j','v','j'];
+futureSpeaker = ['f','v', 'j','v','j','v','j'];
 
 /* Conversation 2 */
 var futureConversation2;
@@ -1945,11 +1947,17 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       jColor = "#1E2757";
     }
 
+
     if (speakerHistory[i] == 'v') {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
-    } else {
+    } else if (speakerHistory[i] == 'j')  {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
+    } else {
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#f8e2cd", false, "#f8e2cd");
     }
+    //Throw a speech bubble that neither person says that is meta information
+    //prevSpeechBubbleBottom run a counter for how many have occurred or boolean
+    //Make an empty speech bubble that's the same color as the panel background
 
     speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
     prevSpeechBubbleHeight=speechbubble.height();
@@ -2299,7 +2307,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.agentPanel.setBottom(this.bottom()+30);
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight(250);//this.bottom() - this.agentPanel.top());
+        this.agentPanel.setHeight(220);//this.bottom() - this.agentPanel.top());
 
         //speechBubblePanel
 
