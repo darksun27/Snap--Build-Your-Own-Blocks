@@ -483,6 +483,8 @@ IDE_Morph.prototype.init = function (isAutoFill) {
 
     this.logoURL = this.resourceURL('snap_logo_sm.png');
     this.logo = null;
+    this.agentImage = null;
+    this.agentImageURL = this.resourceURL('./images/Nml_EyesToEachOther_Idle.jpg');
     this.controlBar = null;
     this.categories = null;
     this.palette = null;
@@ -865,7 +867,7 @@ IDE_Morph.prototype.createLogo = function () {
     }
 
     this.logo = new Morph();
-    this.logo.texture = this.logoURL;
+    this.logo.texture = this.resourceURL('snap_logo_sm.png');
     this.logo.drawNew = function () {
         this.image = newCanvas(this.extent());
         var context = this.image.getContext('2d'),
@@ -1986,6 +1988,8 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
   this.agentPanel.drawCachedTexture();
+
+
   window.setTimeout(this.add(this.agentPanel),50);
   this.agentPanel.acceptsDrops = false;
 
@@ -2000,6 +2004,13 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
 
 }
+
+IDE_Morph.prototype.createAgentImage = function () {
+    console.log("createAgentImage");
+    var myself = this;
+
+
+};
 
 IDE_Morph.prototype.createCorralBar = function () {
     // assumes the stage has already been created
@@ -2088,7 +2099,7 @@ IDE_Morph.prototype.createCorral = function () {
     // assumes the corral bar has already been created
     var frame, template, padding = 5, myself = this;
 
-    //this.createStageHandle();
+    this.createStageHandle();
     this.createPaletteHandle();
 
     this.createAgentPanel(0);
