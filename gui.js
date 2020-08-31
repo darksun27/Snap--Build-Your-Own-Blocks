@@ -2088,7 +2088,7 @@ IDE_Morph.prototype.createCorral = function () {
     // assumes the corral bar has already been created
     var frame, template, padding = 5, myself = this;
 
-    this.createStageHandle();
+    //this.createStageHandle();
     this.createPaletteHandle();
 
     this.createAgentPanel(0);
@@ -2281,7 +2281,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
                 this.paletteWidth = maxPaletteWidth;
                 this.fixLayout();
             }
-            this.stageHandle.fixLayout();
+            //this.stageHandle.fixLayout();
             this.paletteHandle.fixLayout();
         }
 
@@ -2307,7 +2307,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.agentPanel.setBottom(this.bottom()+30);
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight(220);//this.bottom() - this.agentPanel.top());
+        this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.75);
 
         //speechBubblePanel
 
