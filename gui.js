@@ -1988,6 +1988,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
   this.agentPanel.drawCachedTexture();
+  this.agentPanel.color="#f8e2cd";
 
 
   window.setTimeout(this.add(this.agentPanel),50);
@@ -1995,10 +1996,10 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   this.agentPanel.drawCachedTexture = function () {
       var context = this.image.getContext('2d');
-      var width = this.cachedTexture.width,
-          height = this.cachedTexture.height-100;
+      var width = this.cachedTexture.width-150,
+          height = this.cachedTexture.height-175;
 
-      window.setTimeout(context.drawImage(this.cachedTexture, 0, 0,
+      window.setTimeout(context.drawImage(this.cachedTexture, 80, 0,
         width, height), 1000);
   };
 
