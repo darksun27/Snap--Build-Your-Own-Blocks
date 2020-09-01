@@ -510,7 +510,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
 
     this.isAnimating = true;
     this.paletteWidth = 200; // initially same as logo width
-    this.stageRatio = 1; // for IDE animations, e.g. when zooming
+    this.stageRatio = .75; // for IDE animations, e.g. when zooming
 
     this.wasSingleStepping = false; // for toggling to and from app mode
     this.loadNewProject = false; // flag when starting up translated
@@ -1297,7 +1297,7 @@ IDE_Morph.prototype.createControlBar = function () {
         x = Math.min(
             startButton.left() - (3 * padding + 2 * stageSizeButton.width()),
             myself.right() - StageMorph.prototype.dimensions.x *
-                (myself.isSmallStage ? myself.stageRatio : 1)
+                (myself.isSmallStage ? myself.stageRatio : .75)
         );
         [stageSizeButton, appModeButton].forEach(
             function (button) {
@@ -1999,7 +1999,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
       var width = this.cachedTexture.width-150,
           height = this.cachedTexture.height-175;
 
-      window.setTimeout(context.drawImage(this.cachedTexture, 80, 0,
+      window.setTimeout(context.drawImage(this.cachedTexture, 0, 0,
         width, height), 1000);
   };
 
@@ -2092,7 +2092,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     );
     agentbutton.refresh();
     agentSizeButton = agentbutton;
-    this.corralBar.add(agentSizeButton);
+    //this.corralBar.add(agentSizeButton);
     this.corralBar.agentSizeButton = agentbutton; // for refreshing
 };
 
@@ -2279,7 +2279,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             this.agentPanel.setWidth(this.stage.width()*2);
             this.agentPanel.setCenter(this.center());
         } else {
-            this.stage.setScale(this.isSmallStage ? this.stageRatio : 1);
+            this.stage.setScale(this.isSmallStage ? this.stageRatio : .75);
             this.stage.setTop(this.logo.bottom() + padding);
             this.stage.setRight(this.right());
             maxPaletteWidth = Math.max(
@@ -2410,16 +2410,16 @@ IDE_Morph.prototype.setExtent = function (point) {
     ext = point.max(minExt);
 
     // adjust stage ratio if necessary
-    maxWidth = ext.x -
-        (200 + this.spriteBar.tabBar.width() + (this.padding * 2));
-    minWidth = SpriteIconMorph.prototype.thumbSize.x * 3;
-    maxHeight = (ext.y - SpriteIconMorph.prototype.thumbSize.y * 3.5);
-    minRatio = minWidth / this.stage.dimensions.x;
-    maxRatio = Math.min(
-        (maxWidth / this.stage.dimensions.x),
-        (maxHeight / this.stage.dimensions.y)
-    );
-    this.stageRatio = Math.min(maxRatio, Math.max(minRatio, this.stageRatio));
+    // maxWidth = ext.x -
+    //     (100 + this.spriteBar.tabBar.width() + (this.padding * 2));
+    // minWidth = SpriteIconMorph.prototype.thumbSize.x * 3;
+    // maxHeight = (ext.y - SpriteIconMorph.prototype.thumbSize.y * 2.5);
+    // minRatio = minWidth / this.stage.dimensions.x;
+    // maxRatio = Math.min(
+    //     (maxWidth / this.stage.dimensions.x),
+    //     (maxHeight / this.stage.dimensions.y)
+    // );
+    // this.stageRatio = Math.min(maxRatio, Math.max(minRatio, this.stageRatio));
 
     // apply
     IDE_Morph.uber.setExtent.call(this, ext);
@@ -5459,7 +5459,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
 
 IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
     var myself = this,
-        smallRatio = forcedRatio || 0.5,
+        smallRatio = forcedRatio || 0.75,
         msecs = this.isAnimating ? 100 : 0,
         world = this.world(),
         shiftClicked = (world.currentKey === 16),
@@ -5473,7 +5473,7 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
         myself.isSmallStage = true;
         world.animations.push(new Animation(
             function (ratio) {
-                myself.stageRatio = ratio;
+                myself.stageRatio = .75;
                 myself.setExtent(world.extent());
             },
             function () {
@@ -5993,7 +5993,7 @@ IDE_Morph.prototype.setStageExtent = function (aPoint) {
         };
     }
 
-    this.stageRatio = 1;
+    this.stageRatio = .75;
     this.isSmallStage = false;
     this.controlBar.stageSizeButton.refresh();
     this.setExtent(world.extent());
@@ -9432,7 +9432,7 @@ StageHandleMorph.prototype.mouseDownLeft = function (pos) {
         if (world.hand.mouseButton) {
             newPos = world.hand.bounds.origin.x + offset;
             newWidth = myself.target.right() - newPos;
-            ide.stageRatio = newWidth / myself.target.dimensions.x;
+            ide.stageRatio = .75; //newWidth / myself.target.dimensions.x;
             ide.setExtent(world.extent());
 
         } else {
