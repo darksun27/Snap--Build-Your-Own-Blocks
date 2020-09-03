@@ -120,7 +120,7 @@ conversationHistory = [];
 futureConversation = [" ",
 "Hi, I’m Viviana. But you can call me Vivi.",
 "My name's Jeremy, but you can call me Jay.",
-"We heard you will be coding today.",
+"We heard you would be coding today.",
 "We did some coding at our school too!",
 "We were partners, and you're gonna have a partner too.",
 "Good luck!"];
