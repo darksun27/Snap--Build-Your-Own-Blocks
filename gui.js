@@ -1999,20 +1999,33 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
       var windowHeight = window.screen.height * window.devicePixelRatio;
 
-      if (windowHeight < 1000) {
-        var width = this.cachedTexture.width-125,
-            height = this.cachedTexture.height-175;
+      var width,
+          height,
+          left;
 
-        window.setTimeout(context.drawImage(this.cachedTexture, 80, 0,
-              width, height), 1000);
+      if (windowHeight < 900) {
+        width = this.cachedTexture.width-510,
+        height = this.cachedTexture.height-510;
+        left = 260;
+      } else if (windowHeight >= 900 && windowHeight < 1200){
+        width = this.cachedTexture.width-375,
+        height = this.cachedTexture.height-375;
+        left = 190;
+
+      } else if (windowHeight >= 1200 && windowHeight < 1600) {
+        width = this.cachedTexture.width-240,
+        height = this.cachedTexture.height-240;
+        left = 120;
       }
       else {
-        var width = this.cachedTexture.width-100,
-            height = this.cachedTexture.height-100;
-
-        window.setTimeout(context.drawImage(this.cachedTexture, 50, 0,
-          width, height), 1000);
+        //Window 1600+
+        width = this.cachedTexture.width-105,
+        height = this.cachedTexture.height-105;
+        left = 50;
       }
+
+      window.setTimeout(context.drawImage(this.cachedTexture, left, 0,
+        width, height), 1000);
 
 
 
@@ -2048,7 +2061,7 @@ IDE_Morph.prototype.createCorralBar = function () {
 
     this.corralBar = new Morph();
     this.corralBar.color = this.frameColor;
-    this.corralBar.setHeight(this.logo.height()); // height is fixed
+    this.corralBar.setHeight(10); // height is fixed
     this.add(this.corralBar);
 
     // new sprite button
@@ -2072,7 +2085,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     newbutton.fixLayout();
     newbutton.setCenter(this.corralBar.center());
     newbutton.setLeft(this.corralBar.left() + padding);
-    this.corralBar.add(newbutton);
+    //this.corralBar.add(newbutton);
 
     //testing toggle agent
     agentbutton = new ToggleButtonMorph(
@@ -2332,7 +2345,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
         //agentPanel
-        this.agentPanel.setBottom(this.bottom()+30);
+        this.agentPanel.setBottom(this.bottom());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
         this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.75);
@@ -2346,7 +2359,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
-        this.corralBar.setTop(this.stage.bottom() + padding);
+        this.corralBar.setTop(this.stage.bottom());
         this.corralBar.setWidth(this.stage.width());
 
         if (firstInterfaceCreation) {
@@ -5736,12 +5749,12 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     console.log("Window Resolution: " + windowHeight);
 
-    if (windowHeight < 1000) {
-      SnapActions.setStageSize(480, 200);
-    }
+    //if (windowHeight < 1000) {
+      SnapActions.setStageSize(480, 380);
+    /*}
     else {
       SnapActions.setStageSize(480, 250);
-    }
+    }*/
 
     this.fixLayout();
 
