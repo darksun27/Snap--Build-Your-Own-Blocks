@@ -1994,35 +1994,41 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
   window.setTimeout(this.add(this.agentPanel),50);
   this.agentPanel.acceptsDrops = false;
 
+
+
   this.agentPanel.drawCachedTexture = function () {
       var context = this.image.getContext('2d');
 
-      var windowHeight = window.screen.height * window.devicePixelRatio;
-
+      var windowHeight = window.screen.height; //* window.devicePixelRatio;
+      //480 * 360
+      // * .5
       var width,
           height,
           left;
 
-      if (windowHeight < 900) {
-        width = this.cachedTexture.width-510,
-        height = this.cachedTexture.height-510;
-        left = 260;
-      } else if (windowHeight >= 900 && windowHeight < 1200){
-        width = this.cachedTexture.width-375,
-        height = this.cachedTexture.height-375;
-        left = 190;
 
-      } else if (windowHeight >= 1200 && windowHeight < 1600) {
-        width = this.cachedTexture.width-240,
-        height = this.cachedTexture.height-240;
-        left = 120;
+
+      if (windowHeight < 600) {
+        width = this.cachedTexture.width * .45,
+        height = this.cachedTexture.height * .35 ;
+      } else if (windowHeight >= 600 && windowHeight < 768){
+        width = this.cachedTexture.width*.55,
+        height = this.cachedTexture.height*.45;
+      } else if (windowHeight >= 768 && windowHeight < 992) {
+        width = this.cachedTexture.width*.65,
+        height = this.cachedTexture.height*.55;
+      } else if (windowHeight >= 992 && windowHeight < 1200) {
+        width = this.cachedTexture.width*.9,
+        height = this.cachedTexture.height*.9;
+      } else {
+        //Window 1200+
+        width = this.cachedTexture.width,
+        height = this.cachedTexture.height;
       }
-      else {
-        //Window 1600+
-        width = this.cachedTexture.width-105,
-        height = this.cachedTexture.height-105;
-        left = 50;
-      }
+      console.log(width);
+      console.log(windowHeight);
+
+      left = (480-width)/2;
 
       window.setTimeout(context.drawImage(this.cachedTexture, left, 0,
         width, height), 1000);
@@ -2344,18 +2350,19 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             ));
         }
 
-        //agentPanel
-        this.agentPanel.setBottom(this.bottom());
-        this.agentPanel.setLeft(this.stage.left());
-        this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.75);
 
         //speechBubblePanel
-
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
-        this.speechBubblePanel.setHeight(this.agentPanel.top() - this.corralBar.bottom());
+        this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+
+        //agentPanel
+        //this.agentPanel.setBottom(this.bottom());
+        this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
+        this.agentPanel.setLeft(this.stage.left());
+        this.agentPanel.setWidth(this.stage.width());
+        this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
@@ -5745,11 +5752,11 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
     this.createAgentPanel(parseInt(image)-1);
 
-    var windowHeight = window.screen.height * window.devicePixelRatio;
+    var windowWidth = window.screen.height * window.devicePixelRatio;
 
-    console.log("Window Resolution: " + windowHeight);
+    console.log("Window Resolution: " + windowWidth);
 
-    //if (windowHeight < 1000) {
+    //if (windowWidth < 1000) {
       SnapActions.setStageSize(480, 380);
     /*}
     else {
