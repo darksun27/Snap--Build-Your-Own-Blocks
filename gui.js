@@ -2355,14 +2355,23 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         this.speechBubblePanel.setTop(this.corralBar.bottom());
         this.speechBubblePanel.setLeft(this.stage.left());
         this.speechBubblePanel.setWidth(this.stage.width());
-        this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+        if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
+          this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+        } else {
+          this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
+        }
+
 
         //agentPanel
         //this.agentPanel.setBottom(this.bottom());
         this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
         this.agentPanel.setLeft(this.stage.left());
         this.agentPanel.setWidth(this.stage.width());
-        this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+        if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
+          this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+        } else {
+          this.agentPanel.setHeight(360);
+        }
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
