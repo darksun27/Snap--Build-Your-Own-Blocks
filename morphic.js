@@ -6266,7 +6266,7 @@ AgentSpeechBubbleMorph.prototype.drawNew = function () {
             false,
             true,
             'center',
-            450,
+            350,
             null,
             null,
             null,
@@ -6296,8 +6296,7 @@ AgentSpeechBubbleMorph.prototype.drawNew = function () {
     this.add(this.contentsMorph);
 
     // adjust my layout
-    this.silentSetWidth(this.contentsMorph.width() +
-        (this.padding ? this.padding * 2 : this.edge * 2));
+    this.silentSetWidth(this.contentsMorph.width());
     this.silentSetHeight(this.contentsMorph.height() +
         this.edge +
         this.border * 2 +
