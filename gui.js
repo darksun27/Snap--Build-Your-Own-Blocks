@@ -1955,7 +1955,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       speechbubble.setLeft(0);
     } else if (speakerHistory[i] == 'j')  {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
-      speechbubble.setRight(480);
+      speechbubble.setRight(465);
     } else {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#f8e2cd", false, "#f8e2cd");
     }
