@@ -1919,7 +1919,7 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 IDE_Morph.prototype.createSpeechBubblePanel = function () {
   if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
   this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
-  this.speechBubblePanel.color = "#f8e2cd";
+  this.speechBubblePanel.color = "#F6E2CD";
   this.add(this.speechBubblePanel);
   this.speechBubblePanel.acceptsDrops = false;
   this.speechBubblePanel.contents.acceptsDrops = false;
@@ -1957,7 +1957,7 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
       speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
       speechbubble.setRight(480);
     } else {
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#f8e2cd", false, "#f8e2cd");
+      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#F6E2CD", false, "#F6E2CD");
     }
     //Throw a speech bubble that neither person says that is meta information
     //prevSpeechBubbleBottom run a counter for how many have occurred or boolean
@@ -1990,7 +1990,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
   this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
   this.agentPanel.drawCachedTexture();
-  this.agentPanel.color="#f8e2cd";
+  this.agentPanel.color="#F6E2CD";
 
 
   window.setTimeout(this.add(this.agentPanel),50);
