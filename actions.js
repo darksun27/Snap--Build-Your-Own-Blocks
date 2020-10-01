@@ -418,6 +418,8 @@ ActionManager.prototype.pressStartAgent = function () {
 
     var moreConvo = false;
 
+    window.setTimeout(function(){
+
     convoAndTime = ide.toggleAgentImage(convoNum);
 
     moreConvo = convoAndTime[0];
@@ -434,6 +436,7 @@ ActionManager.prototype.pressStartAgent = function () {
         window.setTimeout(function(){myself.pressStartAgent()}, 1000);
       }
     }
+  }, 1);
 };
 
 ActionManager.prototype.applyEvent = function(event) {
@@ -447,7 +450,7 @@ ActionManager.prototype.applyEvent = function(event) {
     if (firstAction && event.type != "openProject") {
     	console.log("FIRST ACTION");
       firstAction = false;
-      this.pressStartAgent();
+      this.pressStartAgent()
     }
 
     // Skip duplicate undo/redo events
