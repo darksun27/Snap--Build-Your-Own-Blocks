@@ -2010,15 +2010,16 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
 
 
+      console.log("Window height: " + windowHeight);
       if (windowHeight < 600) {
-        width = this.cachedTexture.width * .45,
-        height = this.cachedTexture.height * .35 ;
+        width = this.cachedTexture.width * .65,
+        height = this.cachedTexture.height * .55 ;
       } else if (windowHeight >= 600 && windowHeight < 768){
-        width = this.cachedTexture.width*.55,
-        height = this.cachedTexture.height*.45;
+        width = this.cachedTexture.width*.85,
+        height = this.cachedTexture.height*.75;
       } else if (windowHeight >= 768 && windowHeight < 992) {
-        width = this.cachedTexture.width*.65,
-        height = this.cachedTexture.height*.55;
+        width = this.cachedTexture.width*.95,
+        height = this.cachedTexture.height*.85;
       } else if (windowHeight >= 992 && windowHeight < 1200) {
         width = this.cachedTexture.width*.9,
         height = this.cachedTexture.height*.9;
@@ -2387,11 +2388,15 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             } else {
                 this.agentPanel.setHeight(360);
             }
-        }else{
+        } else{
             this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
             this.agentPanel.setLeft(this.stage.left());
             this.agentPanel.setWidth(this.stage.width());
-            this.agentPanel.setHeight(360);
+            if ((this.bottom() - this.corralBar.bottom())*.80 <=360) {
+                this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
+            } else {
+                this.agentPanel.setHeight(360);
+            }
 
         }
 
@@ -5613,6 +5618,10 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation.shift();
         if (currentUtterance != "") {
           conversationHistory.push(currentUtterance);
+          console.log(conversationHistory.length);
+          if (conversationHistory.length > 2) {
+            conversationHistory.shift();
+          }
         }
         audio = audio + futureAudio[0];
         futureAudio.shift();
@@ -5628,6 +5637,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         var currentSpeaker = futureSpeaker[0];
         futureSpeaker.shift();
         speakerHistory.push(currentSpeaker);
+        if (speakerHistory.length > 2) {
+          speakerHistory.shift();
+        }
 
         BlockMorph.prototype.snapSound = document.createElement('audio');
         BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
@@ -5639,6 +5651,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation2.shift();
         if (currentUtterance2 != "") {
           conversationHistory.push(currentUtterance2);
+          if (conversationHistory.length > 2) {
+            conversationHistory.shift();
+          }
         }
         audio = audio + futureAudio2[0];
         futureAudio2.shift();
@@ -5654,6 +5669,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         var currentSpeaker2 = futureSpeaker2[0];
         futureSpeaker2.shift();
         speakerHistory.push(currentSpeaker2);
+        if (speakerHistory.length > 2) {
+          speakerHistory.shift();
+        }
 
         BlockMorph.prototype.snapSound = document.createElement('audio');
         BlockMorph.prototype.snapSound.src = audio;
@@ -5665,6 +5683,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         futureConversation3.shift();
         if (currentUtterance3 != "") {
           conversationHistory.push(currentUtterance3);
+          if (conversationHistory.length > 2) {
+            conversationHistory.shift();
+          }
         }
         audio = audio + futureAudio3[0];
         futureAudio3.shift();
@@ -5684,6 +5705,9 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         var currentSpeaker3 = futureSpeaker3[0];
         futureSpeaker3.shift();
         speakerHistory.push(currentSpeaker3);
+        if (speakerHistory.length > 2) {
+          speakerHistory.shift();
+        }
 
         if (audio != '/audio/null') {
           BlockMorph.prototype.snapSound = document.createElement('audio');
