@@ -91,7 +91,8 @@ var StageHandleMorph;
 var PaletteHandleMorph;
 var AgentMorph;
 
-var SERVER_URL = SERVER_URL || window.location.origin;
+var SERVER_URL = window.location.origin || SERVER_URL;
+console.error("SERVER_URL: ", SERVER_URL);
 var SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, '');
 function ensureFullUrl(url) {
     // if it's not a full path attach serverURL to the front
