@@ -11,6 +11,9 @@ var WebSocketManager = function (ide) {
     this.processes = [];  // Queued processes to start
     this._protocol = SERVER_URL.substring(0,5) === 'https' ? 'wss:' : 'ws:';
     this.url = this._protocol + '//' + SERVER_ADDRESS;
+    console.error('SERVER_URL:     ', SERVER_URL);
+    console.error('SERVER_ADDRESS: ', SERVER_ADDRESS);
+    console.error('Websocket URL:  ', this.url);
     this.lastSocketActivity = Date.now();
     this._connectWebSocket();
     this.version = Date.now();
