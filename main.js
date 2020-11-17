@@ -24,6 +24,7 @@ window.onload = function () {
             };
             return utils.requestPromise(request, data)
                 .then(function(res) {
+                    console.error("Error Message", res);
                     if (!res.responseText) throw new Error('Access denied. You are not logged in.');
                     let user = JSON.parse(res.responseText);
                     return user;
