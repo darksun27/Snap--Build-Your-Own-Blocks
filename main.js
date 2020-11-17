@@ -14,6 +14,7 @@ window.onload = function () {
         // gets user info: username, email
         var getProfile = function() {
             const request = new XMLHttpRequest();
+            console.error("Attempting POST to ", `${SERVER_URL}/api`);
             request.open('POST', `${SERVER_URL}/api`, true);
             request.withCredentials = true;
             const data = {
