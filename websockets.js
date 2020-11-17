@@ -10,7 +10,7 @@ var WebSocketManager = function (ide) {
     this.messages = [];
     this.processes = [];  // Queued processes to start
     this._protocol = SERVER_URL.substring(0,5) === 'https' ? 'wss:' : 'ws:';
-    this.url = this._protocol + '//' + SERVER_ADDRESS;
+    this.url = "wss://flecks.csc.ncsu.edu";
     this.lastSocketActivity = Date.now();
     this._connectWebSocket();
     this.version = Date.now();
