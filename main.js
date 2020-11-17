@@ -14,7 +14,7 @@ window.onload = function () {
         // gets user info: username, email
         var getProfile = function() {
             const request = new XMLHttpRequest();
-            console.error("Attempting POST to ", `${SERVER_URL}/api`);
+            // console.error("Attempting POST to ", `${SERVER_URL}/api`);
             request.open('POST', `${SERVER_URL}/api`, true);
             request.withCredentials = true;
             const data = {
@@ -24,7 +24,7 @@ window.onload = function () {
             };
             return utils.requestPromise(request, data)
                 .then(function(res) {
-                    console.error("Error Message", res);
+                    // console.error("Error Message", res);
                     if (!res.responseText) throw new Error('Access denied. You are not logged in.');
                     let user = JSON.parse(res.responseText);
                     return user;
