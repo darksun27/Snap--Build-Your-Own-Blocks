@@ -14,6 +14,7 @@ var WebSocketManager = function (ide) {
     console.error('SERVER_URL:     ', SERVER_URL);
     console.error('SERVER_ADDRESS: ', SERVER_ADDRESS);
     console.error('Websocket URL:  ', this.url);
+    console.error('window.location:', window.location.origin);
     this.lastSocketActivity = Date.now();
     this._connectWebSocket();
     this.version = Date.now();
