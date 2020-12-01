@@ -91,8 +91,7 @@ var StageHandleMorph;
 var PaletteHandleMorph;
 var AgentMorph;
 
-var SERVER_URL = window.location.origin || SERVER_URL;
-// console.error("SERVER_URL: ", SERVER_URL);
+var SERVER_URL = SERVER_URL || window.location.origin;
 var SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, '');
 function ensureFullUrl(url) {
     // if it's not a full path attach serverURL to the front
@@ -107,6 +106,9 @@ function ensureFullUrl(url) {
     return url;
 }
 
+var conversationPause = false;
+var conversationReplay = false;
+
 /* Conversation 1 */
 var conversationHistory;
 var futureConversation;
@@ -119,20 +121,20 @@ var audioTimes;
 conversationHistory = [];
 
 futureConversation = [" ",
-"Hi, I’m Viviana. But you can call me Vivi.",
-"My name's Jeremy, but you can call me Jay.",
-"We heard you would be coding today.",
-"We did some coding at our school too!",
-"We were partners, and you're gonna have a partner too.",
-"Good luck!"];
+    "Hi, I’m Viviana. But you can call me Vivi.",
+    "My name's Jeremy, but you can call me Jay.",
+    "We heard you would be coding today.",
+    "We did some coding at our school too!",
+    "We were partners, and you're gonna have a partner too.",
+    "Good luck!"];
 
 futureAudio = ["",
-"1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
-"2_Jeremy_MyNamesJeremy_TAKE1.mp3",
-"3_Viviana_WeHeardYouWouldBeCodingToday.mp3",
-"4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
-"5_Viviana_WeWerePartners.mp3",
-"6_Jeremy_GoodLuck_TAKE1.mp3"];
+    "1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
+    "2_Jeremy_MyNamesJeremy_TAKE1.mp3",
+    "3_Viviana_WeHeardYouWouldBeCodingToday.mp3",
+    "4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
+    "5_Viviana_WeWerePartners.mp3",
+    "6_Jeremy_GoodLuck_TAKE1.mp3"];
 
 audioTimes = [1,4.5, 4, 2, 3, 4, 2];
 
@@ -149,12 +151,12 @@ var futureSpeaker2;
 var audioTimes2;
 
 futureConversation2 = ["Jeremy, we did debugging in school too, right?",
-"Yeah, we did.",
-"I remember we couldn’t figure out that one activity, but we eventually got it."];
+    "Yeah, we did.",
+    "I remember we couldn’t figure out that one activity, but we eventually got it."];
 
 futureAudio2 = ["1_Viviana_JeremyWeDidDebuggingInSchool.mp3",
-"2_Jeremy_YeahWeDid_TAKE1.mp3",
-"3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
+    "2_Jeremy_YeahWeDid_TAKE1.mp3",
+    "3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
 
 audioTimes2=[3,3,5]
 
@@ -170,20 +172,20 @@ var futureAudio3;
 var audioTimes3;
 
 futureConversation3 = ["",
-"Aagh. The sprite\'s not jumping.",
-"O yeah. I think we need to change the \'y\' position.",
-"But, why?",
-"'Cause that will make it move up and down.",
-"Oh that actually worked!",
-"We’re so good at this!"];
+    "Aagh. The sprite\'s not jumping.",
+    "O yeah. I think we need to change the \'y\' position.",
+    "But, why?",
+    "'Cause that will make it move up and down.",
+    "Oh that actually worked!",
+    "We’re so good at this!"];
 
 futureAudio3 = [null,
-"4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
-"5_Viviana_IThinkWeNeedToChangeTheYPosition.mp3",
-"6_Jeremy_ButWhy_TAKE1.mp3",
-"7_Viviana_CauseThatWillMakeItMoveUpAndDown.mp3",
-"8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
-"9_Viviana_WeAreSoGoodAtThis.mp3"];
+    "4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
+    "5_Viviana_IThinkWeNeedToChangeTheYPosition.mp3",
+    "6_Jeremy_ButWhy_TAKE1.mp3",
+    "7_Viviana_CauseThatWillMakeItMoveUpAndDown.mp3",
+    "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
+    "9_Viviana_WeAreSoGoodAtThis.mp3"];
 
 audioTimes3=[4,3,4,2,4,3,6];
 
@@ -199,20 +201,20 @@ var futureConversation4;
 var audioTimes3;
 
 futureConversation4 = ["I’ll type five seconds into the move block to make our sprite go super fast.",
-"Wait, that didn't work.",
-"Gimme that. I can fix it.",
-"Viviana! I was working on it.",
-"Sorry. I just think typing “1 second” will make it go real quick.",
-"Oh, good idea.",
-"Cool, look at it go!"];
+    "Wait, that didn't work.",
+    "Gimme that. I can fix it.",
+    "Viviana! I was working on it.",
+    "Sorry. I just think typing “1 second” will make it go real quick.",
+    "Oh, good idea.",
+    "Cool, look at it go!"];
 
 futureAudio4 = ["1_Jeremy_IllTypeintoTheMoveBlock_TAKE1.mp3",
-"2_Jeremy_WaitThatDidntWork_TAKE1.mp3",
-"3_Viviana_GimmeThatICanFixIt.mp3",
-"4_Jeremy_VivianaIWasWorkingOnIt_TAKE1.mp3",
-"5_Viviana_Sorry.mp3",
-"6_Jeremy_OhGoodIdea_TAKE1.mp3",
-"7_Jeremy_CoolLookAtItGo_TAKE1.mp3"];
+    "2_Jeremy_WaitThatDidntWork_TAKE1.mp3",
+    "3_Viviana_GimmeThatICanFixIt.mp3",
+    "4_Jeremy_VivianaIWasWorkingOnIt_TAKE1.mp3",
+    "5_Viviana_Sorry.mp3",
+    "6_Jeremy_OhGoodIdea_TAKE1.mp3",
+    "7_Jeremy_CoolLookAtItGo_TAKE1.mp3"];
 
 audioTimes4 = [5,4,2,4,4,2,3];
 
@@ -227,22 +229,22 @@ var futureSpeaker5;
 var futureConversation5;
 
 futureConversation5 = ["Vivi, I’m going to put these blocks over here.",
-"That’s not what we’re supposed to do.",
-"Wait.",
-"Oh. Our sprite’s doing nothing.",
-"We've got to put this “say” block inside that 'if' block, so the sprite will say 'Hi!'.",
-"Sorry, my bad.",
-"Let me drag the “say” block over here, and…",
-"Boom! There we go!"];
+    "That’s not what we’re supposed to do.",
+    "Wait.",
+    "Oh. Our sprite’s doing nothing.",
+    "We've got to put this “say” block inside that 'if' block, so the sprite will say 'Hi!'.",
+    "Sorry, my bad.",
+    "Let me drag the “say” block over here, and…",
+    "Boom! There we go!"];
 
 futureAudio5 = ["1_Jeremy_ViviImGonnaPutTheseBlocks_TAKE1.mp3",
-"2_Viviana_ThatsNotWhatWeAreSupposedToDo.mp3",
-"3_Jeremy_Wait_TAKE1.mp3",
-"4_Jeremy_OhOurSpritesDoingNothing_TAKE2.mp3",
-"5_Viviana_WeHaveToPutThatSayBlock.mp3",
-"6_Jeremy_SorryMyBad_TAKE1.mp3",
-"7_Jeremy_LetMeDragTheSayBlock_TAKE1.mp3",
-"8_Viviana_BoomThereWeGo.mp3"];
+    "2_Viviana_ThatsNotWhatWeAreSupposedToDo.mp3",
+    "3_Jeremy_Wait_TAKE1.mp3",
+    "4_Jeremy_OhOurSpritesDoingNothing_TAKE2.mp3",
+    "5_Viviana_WeHaveToPutThatSayBlock.mp3",
+    "6_Jeremy_SorryMyBad_TAKE1.mp3",
+    "7_Jeremy_LetMeDragTheSayBlock_TAKE1.mp3",
+    "8_Viviana_BoomThereWeGo.mp3"];
 
 futureImages5 = [31,36,28,26,38,29,30,17,11];
 
@@ -300,54 +302,54 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.appModeColor = new Color();
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
 
-    var files = ["./images/Nml_EyesToEachOther_Idle.jpg",
-    "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
-    "./images/Nml_EyesToEachOther_JayTalks.jpg",
-    "./images/Nml_EyesToEachOther_ViviTalks.jpg",
-    "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
-    "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
-    "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
-    "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
-    "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
-    "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
-    "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
-    "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
-    "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
-    "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg",
-    "/images/SplashArt_HappyDance_wHeadset.jpg",
-    "/images/SplashArt_HappyDance.jpg",
-    "/images/SplashArt_TopView_wHeadset.jpg",
-    "/images/SplashArt_TopView.jpg",
-    "/images/SplashArt_WeDidIt_wHeadset.jpg",
-    "/images/SplashArt_WeDidIt.jpg",
-    "/images/Vign_EyesToEachOther_Idle.jpg",
-    "/images/Vign_EyesToEachOther_JayFrustradedArmsUp.jpg",
-    "/images/Vign_EyesToEachOther_JayIDontKnow_ViviWorried.jpg",
-    "/images/Vign_EyesToEachOther_JayTalks_HandBehindNeck.jpg",
-    "/images/Vign_EyesToEachOther_JayTalks_ThoughtfulSmile.jpg",
-    "/images/Vign_EyesToEachOther_JayTalksconfused.jpg",
-    "/images/Vign_EyesToEachOther_JayTalksIDontKnow.jpg",
-    "/images/Vign_EyesToEachOther_JayTalksNeutral_Thoughtful.jpg",
-    "/images/Vign_EyesToEachOther_JayTalksNeutral.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk1.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk2.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalks_Joyful.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalks_JoyfulSmile_IdleTalk2.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalksNeutral_Doubtful_IDontKnow.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalksNeutral_IdleTalk2_JayWorried.jpg",
-    "/images/Vign_EyesToEachOther_ViviTalksNeutral_Thoughtful.jpg",
-    "/images/Vign_Jeyesclosed_Jopensmile_JYay.jpg",
-    "/images/Vign_Jeyestostudent_Jneutraltalk_Jneutralbody.jpg",
-    "/images/Vign_JeyestoV_Jneutraltalk_Jarmsup.jpg",
-    "/images/Vign_JeyestoV_Jneutraltalk_Jhandup.jpg",
-    "/images/Vign_JVeyestoeachother_closedsmile_neutralbody.jpg",
-    "/images/Vign_JVeyestoeachother_Jopensmile_Jfingerup.jpg",
-    "/images/Vign_VeyestoJ_Vclosedsmile_Vhandup.jpg",
-    "/images/Vign_VeyestoJ_Vneutraltalk_Varmbehindhead.jpg",
-    "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg",
-    "/images/TitleCard_1.jpg"];
+    var files = ["./images/Start_2.png",
+        "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
+        "./images/Nml_EyesToEachOther_JayTalks.jpg",
+        "./images/Nml_EyesToEachOther_ViviTalks.jpg",
+        "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
+        "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
+        "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
+        "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
+        "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
+        "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
+        "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
+        "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
+        "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
+        "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
+        "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
+        "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg",
+        "/images/SplashArt_HappyDance_wHeadset.jpg",
+        "/images/SplashArt_HappyDance.jpg",
+        "/images/SplashArt_TopView_wHeadset.jpg",
+        "/images/SplashArt_TopView.jpg",
+        "/images/SplashArt_WeDidIt_wHeadset.jpg",
+        "/images/SplashArt_WeDidIt.jpg",
+        "/images/Vign_EyesToEachOther_Idle.jpg",
+        "/images/Vign_EyesToEachOther_JayFrustradedArmsUp.jpg",
+        "/images/Vign_EyesToEachOther_JayIDontKnow_ViviWorried.jpg",
+        "/images/Vign_EyesToEachOther_JayTalks_HandBehindNeck.jpg",
+        "/images/Vign_EyesToEachOther_JayTalks_ThoughtfulSmile.jpg",
+        "/images/Vign_EyesToEachOther_JayTalksconfused.jpg",
+        "/images/Vign_EyesToEachOther_JayTalksIDontKnow.jpg",
+        "/images/Vign_EyesToEachOther_JayTalksNeutral_Thoughtful.jpg",
+        "/images/Vign_EyesToEachOther_JayTalksNeutral.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk1.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk2.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalks_Joyful.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalks_JoyfulSmile_IdleTalk2.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalksNeutral_Doubtful_IDontKnow.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalksNeutral_IdleTalk2_JayWorried.jpg",
+        "/images/Vign_EyesToEachOther_ViviTalksNeutral_Thoughtful.jpg",
+        "/images/Vign_Jeyesclosed_Jopensmile_JYay.jpg",
+        "/images/Vign_Jeyestostudent_Jneutraltalk_Jneutralbody.jpg",
+        "/images/Vign_JeyestoV_Jneutraltalk_Jarmsup.jpg",
+        "/images/Vign_JeyestoV_Jneutraltalk_Jhandup.jpg",
+        "/images/Vign_JVeyestoeachother_closedsmile_neutralbody.jpg",
+        "/images/Vign_JVeyestoeachother_Jopensmile_Jfingerup.jpg",
+        "/images/Vign_VeyestoJ_Vclosedsmile_Vhandup.jpg",
+        "/images/Vign_VeyestoJ_Vneutraltalk_Varmbehindhead.jpg",
+        "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg",
+        "/images/TitleCard_1.jpg"];
 
     for (i = 0; i < files.length; i++) {
         agentPanelTextureArray.push(IDE_Morph.prototype.agentPanelTexture = this.agentTexture(files[i]));
@@ -430,7 +432,7 @@ IDE_Morph.prototype.agentTexture = function (imageSrc) {
     var image = new Image();
 
     image.onload = function () {
-      ctx.drawImage(image,0,0,480,360);
+        ctx.drawImage(image,0,0,480,360);
     };
     image.src=imageSrc;
 
@@ -497,6 +499,7 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.corralBar = null;
     this.corral = null;
     this.agentPanel = null;
+    this.agentControllerBar = null;
     this.speechBubblePanel = null;
 
     this.isAutoFill = isAutoFill === undefined ? true : isAutoFill;
@@ -615,11 +618,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     }
 
     function applyFlags(dict) {
-        if (dict.editMode) {
-            myself.toggleAppMode(false);
-        } else {
-            myself.toggleAppMode(true);
-        }
+        // if (dict.editMode) {
+        //     myself.toggleAppMode(false);
+        // } else {
+        //     myself.toggleAppMode(true);
+        // }
         if (!dict.noRun) {
             myself.runScripts();
         }
@@ -644,17 +647,17 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     if (loc.hash.substr(0, 6) === '#open:') {
         hash = loc.hash.substr(6);
         if (hash.charAt(0) === '%'
-                || hash.search(/\%(?:[0-9a-f]{2})/i) > -1) {
+            || hash.search(/\%(?:[0-9a-f]{2})/i) > -1) {
             hash = decodeURIComponent(hash);
         }
         if (contains(
-                ['project', 'blocks', 'sprites', 'snapdata'].map(
-                    function (each) {
-                        return hash.substr(0, 8).indexOf(each);
-                    }
-                ),
-                1
-            )) {
+            ['project', 'blocks', 'sprites', 'snapdata'].map(
+                function (each) {
+                    return hash.substr(0, 8).indexOf(each);
+                }
+            ),
+            1
+        )) {
             this.droppedText(hash);
         } else {
             this.droppedText(getURL(hash));
@@ -666,7 +669,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             hash = hash.slice(0, idx);
         }
         if (hash.charAt(0) === '%'
-                || hash.search(/\%(?:[0-9a-f]{2})/i) > -1) {
+            || hash.search(/\%(?:[0-9a-f]{2})/i) > -1) {
             hash = decodeURIComponent(hash);
         }
         if (hash.substr(0, 8) === '<project>') {
@@ -881,7 +884,7 @@ IDE_Morph.prototype.createLogo = function () {
         gradient.addColorStop(0, 'black');
         gradient.addColorStop(0.5, myself.frameColor.toString());
         context.fillStyle = MorphicPreferences.isFlat ?
-                myself.frameColor.toString() : gradient;
+            myself.frameColor.toString() : gradient;
         context.fillRect(0, 0, this.width(), this.height());
         if (this.texture) {
             this.drawTexture(this.texture);
@@ -1050,7 +1053,7 @@ IDE_Morph.prototype.createControlBar = function () {
     button.labelColor = this.buttonLabelColor;
     button.contrast = this.buttonContrast;
     button.drawNew();
-    // button.hint = 'app & edit\nmodes';
+    button.hint = 'app mode';
     button.fixLayout();
     button.refresh();
     appModeButton = button;
@@ -1101,9 +1104,9 @@ IDE_Morph.prototype.createControlBar = function () {
         ],
         function () {  // query
             return myself.stage ?
-                    myself.stage.enableCustomHatBlocks &&
-                        myself.stage.threads.pauseCustomHatBlocks
-                        : true;
+                myself.stage.enableCustomHatBlocks &&
+                myself.stage.threads.pauseCustomHatBlocks
+                : true;
         }
     );
 
@@ -1234,7 +1237,7 @@ IDE_Morph.prototype.createControlBar = function () {
         this,
         function() {
             var menu = myself.settingsMenu(),
-            pos = myself.controlBar.settingsButton.bottomLeft();
+                pos = myself.controlBar.settingsButton.bottomLeft();
             menu.popup(myself.world(), pos);
         },
         new SymbolMorph('gears', 14)
@@ -1298,7 +1301,7 @@ IDE_Morph.prototype.createControlBar = function () {
         x = Math.min(
             startButton.left() - (3 * padding + 2 * stageSizeButton.width()),
             myself.right() - StageMorph.prototype.dimensions.x *
-                (myself.isSmallStage ? myself.stageRatio : 1)
+            (myself.isSmallStage ? myself.stageRatio : 1)
         );
         [stageSizeButton, appModeButton].forEach(
             function (button) {
@@ -1341,7 +1344,7 @@ IDE_Morph.prototype.createControlBar = function () {
     this.controlBar.refreshResumeSymbol = function () {
         var pauseSymbols;
         if (Process.prototype.enableSingleStepping &&
-                Process.prototype.flashTime > 0.5) {
+            Process.prototype.flashTime > 0.5) {
             myself.stage.threads.pauseAll(myself.stage);
             pauseSymbols = [
                 new SymbolMorph('pause', 12),
@@ -1361,7 +1364,7 @@ IDE_Morph.prototype.createControlBar = function () {
 
     this.controlBar.updateLabel = function () {
         var suffix = myself.world().isDevMode ?
-                ' - ' + localize('development mode') : '';
+            ' - ' + localize('development mode') : '';
 
         if (this.label) {
             this.label.destroy();
@@ -1466,8 +1469,8 @@ IDE_Morph.prototype.createCategories = function () {
 
         myself.categories.setHeight(
             (rows + 1) * yPadding
-                + rows * buttonHeight
-                + 2 * border
+            + rows * buttonHeight
+            + 2 * border
         );
     }
 
@@ -1648,7 +1651,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
         button.setPosition(myself.spriteBar.position().add(2));
         button.setTop(button.top()
             + ((rotationStyleButtons.length - 1) * (button.height() + 2))
-            );
+        );
         myself.spriteBar.add(button);
         if (myself.currentSprite instanceof StageMorph) {
             button.hide();
@@ -1710,7 +1713,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     padlock.highlightColor = tabColors[0];
     padlock.pressColor = tabColors[1];
     padlock.tick.shadowOffset = MorphicPreferences.isFlat ?
-            new Point() : new Point(-1, -1);
+        new Point() : new Point(-1, -1);
     padlock.tick.shadowColor = new Color(); // black
     padlock.tick.color = this.buttonLabelColor;
     padlock.tick.isBold = false;
@@ -1918,128 +1921,219 @@ IDE_Morph.prototype.createSpriteEditor = function () {
 };
 
 IDE_Morph.prototype.createSpeechBubblePanel = function () {
-  if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
-  this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
-  this.speechBubblePanel.color = "#F6E2CD";
-  this.add(this.speechBubblePanel);
-  this.speechBubblePanel.acceptsDrops = false;
-  this.speechBubblePanel.contents.acceptsDrops = false;
+    if (this.speechBubblePanel) {this.speechBubblePanel.destroy(); }
+    this.speechBubblePanel = new ScrollFrameMorph(null, null, this.sliderColor);
+    this.speechBubblePanel.color = "#F6E2CD";
+    this.add(this.speechBubblePanel);
+    this.speechBubblePanel.acceptsDrops = false;
+    this.speechBubblePanel.contents.acceptsDrops = false;
 
 //Blue shirt #1e2757
 //Purple shirt #392044
 //Beige wall #f8e2cd
-  var recent = false;
-  var vColor = "#2B1634";
-  var jColor = "#1E2757";
-  var prevSpeechBubbleHeight=35;
-  var prevSpeechBubbleBottom=100;
+    var recent = false;
+    var vColor = "#2B1634";
+    var jColor = "#1E2757";
+    var prevSpeechBubbleHeight=35;
+    var prevSpeechBubbleBottom=100;
 
-  var bottomOff = 100;
-  var first = true;
-  var i;
-  for (i = 0; i < conversationHistory.length; i++) {
-    if (i >= conversationHistory.length - 2) {
-      recent = true;
+    var bottomOff = 100;
+    var first = true;
+    var i;
+    for (i = 0; i < conversationHistory.length; i++) {
+        if (i >= conversationHistory.length - 2) {
+            recent = true;
+        }
+
+        if (recent) {
+            vColor = "#8745a3";
+            jColor = "#4558c4";
+        } else {
+            vColor = "#2B1634";
+            jColor = "#1E2757";
+        }
+
+
+        if (speakerHistory[i] == 'v') {
+            speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
+            speechbubble.setLeft(0);
+        } else if (speakerHistory[i] == 'j')  {
+            speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
+            speechbubble.setRight(465);
+        } else {
+            speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#F6E2CD", false, "#F6E2CD");
+        }
+        //Throw a speech bubble that neither person says that is meta information
+        //prevSpeechBubbleBottom run a counter for how many have occurred or boolean
+        //Make an empty speech bubble that's the same color as the panel background
+
+        speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
+
+        prevSpeechBubbleHeight=speechbubble.height();
+        prevSpeechBubbleBottom=speechbubble.bottom();
+        this.speechBubblePanel.addContents(speechbubble);
     }
 
-    if (recent) {
-      vColor = "#8745a3";
-      jColor = "#4558c4";
-    } else {
-      vColor = "#2B1634";
-      jColor = "#1E2757";
+    if (this.isAppMode){
+        bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top()) + this.stage.height()/2;
+        this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
+    }
+    else {
+        bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom());
+        this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
     }
 
-
-    if (speakerHistory[i] == 'v') {
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], vColor, true);
-      speechbubble.setLeft(0);
-    } else if (speakerHistory[i] == 'j')  {
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], jColor, false);
-      speechbubble.setRight(465);
-    } else {
-      speechbubble = new AgentSpeechBubbleMorph(conversationHistory[i], "#F6E2CD", false, "#F6E2CD");
-    }
-    //Throw a speech bubble that neither person says that is meta information
-    //prevSpeechBubbleBottom run a counter for how many have occurred or boolean
-    //Make an empty speech bubble that's the same color as the panel background
-
-    speechbubble.setTop(this.speechBubblePanel.top() + prevSpeechBubbleBottom+1);
-    prevSpeechBubbleHeight=speechbubble.height();
-    prevSpeechBubbleBottom=speechbubble.bottom();
-    this.speechBubblePanel.addContents(speechbubble);
-  }
-
-  bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())
-  this.speechBubblePanel.contents.moveBy(new Point(0, -bottomOff));
-
-  this.speechBubblePanel.adjustScrollBars();
+    this.speechBubblePanel.adjustScrollBars();
 
 
-  //this.speechBubblePanel.adjustScrollBars();
-  //this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
+    //this.speechBubblePanel.adjustScrollBars();
+    //this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
 
 
 }
 
+IDE_Morph.prototype.createAgentControllerBar = function () {
+    var button,
+        myself = this,
+        colors = [
+            this.groupColor,
+            this.frameColor.darker(50),
+            this.frameColor.darker(50)
+        ];
+
+    if (this.agentControllerBar) {
+        this.agentControllerBar.destroy();
+    }
+
+    this.agentControllerBar = new Morph();
+    this.agentControllerBar.color = "transparent";
+    this.agentControllerBar.setHeight(20);
+    this.agentPanel.add(this.agentControllerBar);
+
+
+    //pauseButton
+    button = new ToggleButtonMorph(
+        null, //colors,
+        this, // the IDE is the target
+        'pauseConversation',
+        [
+            new SymbolMorph('pause', 12),
+            new SymbolMorph('pointRight', 14)
+        ],
+        function () {  // query
+        return myself.stage ?
+            myself.stage.enableCustomHatBlocks &&
+            myself.stage.threads.pauseCustomHatBlocks
+            : true;
+        }
+    );
+
+    button.corner = 12;
+    button.color = colors[0];
+    button.highlightColor = colors[1];
+    button.pressColor = colors[2];
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = new Color(255, 220, 0);
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.hint = 'pause/resume';
+    button.fixLayout();
+    button.refresh();
+    pauseButton = button;
+    this.agentControllerBar.add(pauseButton);
+    this.agentControllerBar.pauseButton = pauseButton; // for refreshing
+
+    // startButton
+    button = new PushButtonMorph(
+        this, // the IDE is the target
+        'replayConversation',
+        new SymbolMorph('turnBack', 12)
+    );
+
+    button.corner = 12;
+    button.color = colors[0];
+    button.highlightColor = colors[1];
+    button.pressColor = colors[2];
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = new Color(0, 200, 0);
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.hint = 'replay';
+    button.fixLayout();
+    startButton = button;
+    this.agentControllerBar.add(startButton);
+    this.agentControllerBar.startButton = startButton;
+
+    pauseButton.setCenter(myself.agentControllerBar.center());
+    pauseButton.setLeft(this.agentControllerBar.left());
+    startButton.setCenter(myself.agentControllerBar.center());
+    startButton.setRight(90);
+}
+
 IDE_Morph.prototype.createAgentPanel = function (imageNum) {
-  console.log("In IDE_Morph.prototype.createAgentPanel");
+    console.log("In IDE_Morph.prototype.createAgentPanel");
 
-  if (this.agentPanel) {this.agentPanel.destroy(); }
-  this.agentPanel = new FrameMorph();
-  //if (this.isAppMode) this.agentPanel.hide();
+    if (this.agentPanel) {this.agentPanel.destroy(); }
+    this.agentPanel = new FrameMorph();
+    //if (this.isAppMode) this.agentPanel.hide();
 
-  this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
-  this.agentPanel.drawCachedTexture();
-  this.agentPanel.color="#F6E2CD";
-
-
-  window.setTimeout(this.add(this.agentPanel),50);
-  this.agentPanel.acceptsDrops = false;
+    this.agentPanel.cachedTexture = agentPanelTextureArray[imageNum];
+    this.agentPanel.drawCachedTexture();
+    this.agentPanel.color="#F6E2CD";
 
 
+    window.setTimeout(this.add(this.agentPanel),50);
+    this.agentPanel.acceptsDrops = false;
 
-  this.agentPanel.drawCachedTexture = function () {
-      var context = this.image.getContext('2d');
+    this.createAgentControllerBar();
 
-      var windowHeight = window.screen.height; //* window.devicePixelRatio;
-      //480 * 360
-      // * .5
-      var width,
-          height,
-          left;
+    this.agentPanel.drawCachedTexture = function () {
+        var context = this.image.getContext('2d');
 
-
-
-      console.log("Window height: " + windowHeight);
-      if (windowHeight < 600) {
-        width = this.cachedTexture.width * .65,
-        height = this.cachedTexture.height * .55 ;
-      } else if (windowHeight >= 600 && windowHeight < 768){
-        width = this.cachedTexture.width*.85,
-        height = this.cachedTexture.height*.75;
-      } else if (windowHeight >= 768 && windowHeight < 992) {
-        width = this.cachedTexture.width*.95,
-        height = this.cachedTexture.height*.85;
-      } else if (windowHeight >= 992 && windowHeight < 1200) {
-        width = this.cachedTexture.width*.9,
-        height = this.cachedTexture.height*.9;
-      } else {
-        //Window 1200+
-        width = this.cachedTexture.width,
-        height = this.cachedTexture.height;
-      }
-      console.log(width);
-      console.log(windowHeight);
-
-      left = (480-width)/2;
-
-      window.setTimeout(context.drawImage(this.cachedTexture, left, 0,
-        width, height), 1000);
+        var windowHeight = window.screen.height; //* window.devicePixelRatio;
+        //480 * 360
+        // * .5
+        var width,
+            height,
+            left;
 
 
 
-  };
+        console.log("Window height: " + windowHeight);
+        if (windowHeight < 600) {
+            width = this.cachedTexture.width * .65,
+                height = this.cachedTexture.height * .55 ;
+        } else if (windowHeight >= 600 && windowHeight < 768){
+            width = this.cachedTexture.width*.85,
+                height = this.cachedTexture.height*.75;
+        } else if (windowHeight >= 768 && windowHeight < 992) {
+            width = this.cachedTexture.width*.95,
+                height = this.cachedTexture.height*.85;
+        } else if (windowHeight >= 992 && windowHeight < 1200) {
+            width = this.cachedTexture.width*.9,
+                height = this.cachedTexture.height*.9;
+        } else {
+            //Window 1200+
+            width = this.cachedTexture.width,
+                height = this.cachedTexture.height;
+        }
+        console.log(width);
+        console.log(windowHeight);
+
+        left = (480-width)/2;
+
+        window.setTimeout(context.drawImage(this.cachedTexture, left, 0,
+            width, height), 1000);
+
+
+
+    };
 
 
 }
@@ -2095,7 +2189,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     newbutton.fixLayout();
     newbutton.setCenter(this.corralBar.center());
     newbutton.setLeft(this.corralBar.left() + padding);
-    //this.corralBar.add(newbutton);
+    // this.corralBar.add(newbutton);
 
     //testing toggle agent
     agentbutton = new ToggleButtonMorph(
@@ -2324,9 +2418,9 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             maxPaletteWidth = Math.max(
                 200,
                 this.width() -
-                    this.stage.width() -
-                    this.spriteBar.tabBar.width() -
-                    (this.padding * 2)
+                this.stage.width() -
+                this.spriteBar.tabBar.width() -
+                (this.padding * 2)
             );
             if (this.paletteWidth > maxPaletteWidth) {
                 this.paletteWidth = maxPaletteWidth;
@@ -2357,14 +2451,15 @@ IDE_Morph.prototype.fixLayout = function (situation) {
 
         //speechBubblePanel
         if (this.isAppMode) {
-            // this.speechBubblePanel.setTop(this.corralBar.top());
-            this.speechBubblePanel.setTop(this.top() + this.height() / 4);
+            this.speechBubblePanel.setTop(this.top()+this.stage.height()/2);
             this.speechBubblePanel.setLeft(this.left() + this.width() / 3);
             this.speechBubblePanel.setWidth(this.stage.width());
             if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
-                this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+                this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.20);
+                console.log("go 1");
             } else {
                 this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
+                console.log("go 2");
             }
         }else{
             this.speechBubblePanel.setTop(this.corralBar.bottom());
@@ -2385,7 +2480,7 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             this.agentPanel.setLeft(this.left() + this.width() / 3);
             this.agentPanel.setWidth(this.stage.width());
             if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
-                this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.50);
+                this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
             } else {
                 this.agentPanel.setHeight(360);
             }
@@ -2400,16 +2495,20 @@ IDE_Morph.prototype.fixLayout = function (situation) {
             }
 
         }
+        // agentControllerBar
+        this.agentControllerBar.setRight(this.agentPanel.right()-25);
+        this.agentControllerBar.setBottom(this.agentPanel.bottom()-10); //FLECKS change the location of the buttons
+        this.agentControllerBar.setWidth(90);
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
         this.corralBar.setTop(this.stage.bottom());
-        this.corralBar.setWidth(this.stage.width());
+        this.corralBar.setWidth(1);
 
         if (firstInterfaceCreation) {
-          speechLeft = this.corralBar.left();
-          speechRight = this.corralBar.right();
-          firstInterfaceCreation=false;
+            speechLeft = this.corralBar.left();
+            speechRight = this.corralBar.right();
+            firstInterfaceCreation=false;
         }
 
         // corral
@@ -2524,10 +2623,10 @@ IDE_Morph.prototype.droppedImage = function (aCanvas, name) {
         this.inform(
             'Unable to import this image',
             'The picture you wish to import has been\n' +
-                'tainted by a restrictive cross-origin policy\n' +
-                'making it unusable for costumes in Snap!. \n\n' +
-                'Try downloading this picture first to your\n' +
-                'computer, and import it from there.'
+            'tainted by a restrictive cross-origin policy\n' +
+            'making it unusable for costumes in Snap!. \n\n' +
+            'Try downloading this picture first to your\n' +
+            'computer, and import it from there.'
         );
         return;
     }
@@ -2714,6 +2813,89 @@ IDE_Morph.prototype.stopAllScripts = function () {
     }
     this.controlBar.stopButton.refresh();
     this.stage.fireStopAllEvent();
+    BlockMorph.prototype.snapSound.pause();
+};
+
+IDE_Morph.prototype.pauseConversation = function () {
+    this.conversationPause = ! this.conversationPause;
+};
+
+IDE_Morph.prototype.replayConversation = function () {
+    this.conversationReplay = true;
+    SnapActions.convoNum = 1;
+    SnapActions.firstAction = true;
+
+    conversationHistory = [];
+
+    futureConversation = [" ",
+        "Hi, I’m Viviana. But you can call me Vivi.",
+        "My name's Jeremy, but you can call me Jay.",
+        "We heard you would be coding today.",
+        "We did some coding at our school too!",
+        "We were partners, and you're gonna have a partner too.",
+        "Good luck!"];
+
+    futureAudio = ["",
+        "1_Viviana_HiImVivianaButYouCanCallMeVivi.mp3",
+        "2_Jeremy_MyNamesJeremy_TAKE1.mp3",
+        "3_Viviana_WeHeardYouWouldBeCodingToday.mp3",
+        "4_Jeremy_WeDidSomeCodingAtOurSchoolToo_TAKE1.mp3",
+        "5_Viviana_WeWerePartners.mp3",
+        "6_Jeremy_GoodLuck_TAKE1.mp3"];
+
+    audioTimes = [1,4.5, 4, 2, 3, 4, 2];
+
+    futureImages = [11,16, 9, 12, 8, 15, 10, 11];
+
+    speakerHistory = [];
+    futureSpeaker = ['f','v', 'j','v','j','v','j'];
+
+    /* Conversation 2 */
+
+    futureConversation2 = ["Jeremy, we did debugging in school too, right?",
+        "Yeah, we did.",
+        "I remember we couldn’t figure out that one activity, but we eventually got it."];
+
+    futureAudio2 = ["1_Viviana_JeremyWeDidDebuggingInSchool.mp3",
+        "2_Jeremy_YeahWeDid_TAKE1.mp3",
+        "3_Jeremy_IRememberWeCouldnt_TAKE1.mp3"];
+
+    audioTimes2=[3,3,5];
+
+    futureImages2 = [4,3,2,11];
+
+    futureSpeaker2 = ['v', 'j','j'];
+
+    /* Conversation 3 */
+
+    futureConversation3 = ["",
+        "Aagh. The sprite\'s not jumping.",
+        "O yeah. I think we need to change the \'y\' position.",
+        "But, why?",
+        "'Cause that will make it move up and down.",
+        "Oh that actually worked!",
+        "We’re so good at this!"];
+
+    futureAudio3 = [null,
+        "4_Jeremy_AghTheSpritesNotJumping_TAKE1.mp3",
+        "5_Viviana_IThinkWeNeedToChangeTheYPosition.mp3",
+        "6_Jeremy_ButWhy_TAKE1.mp3",
+        "7_Viviana_CauseThatWillMakeItMoveUpAndDown.mp3",
+        "8_Jeremy_OhThatActuallyWorked_TAKE2.mp3",
+        "9_Viviana_WeAreSoGoodAtThis.mp3"];
+
+    audioTimes3=[4,3,4,2,4,3,6];
+
+    futureImages3 = [48,24,37,29,33,19,19,11];
+
+    futureSpeaker3 = ['v','j','v','j','v','j','v'];
+
+    setTimeout(function(){SnapActions.restartAgent()},3000);
+    console.log("replay status is " + this.conversationReplay);
+}
+
+IDE_Morph.prototype.relayConversation = function () {
+    this.conversationPause = ! this.conversationPause;
 };
 
 IDE_Morph.prototype.selectSprite = function (sprite) {
@@ -2892,9 +3074,9 @@ IDE_Morph.prototype.removeSetting = function (key) {
 };
 
 IDE_Morph.prototype.switchTasks = function() {
-  subTaskIndex++;
-  this.createSpriteBar();
-  this.fixLayout();
+    subTaskIndex++;
+    this.createSpriteBar();
+    this.fixLayout();
 }
 
 // IDE_Morph sprite list access
@@ -3035,7 +3217,7 @@ IDE_Morph.prototype.snapMenu = function () {
             'Switch back to user mode',
             'switchToUserMode',
             'disable deep-Morphic\ncontext menus'
-                + '\nand show user-friendly ones',
+            + '\nand show user-friendly ones',
             new Color(0, 100, 0)
         );
     } else if (world.currentKey === 16) { // shift-click
@@ -3044,7 +3226,7 @@ IDE_Morph.prototype.snapMenu = function () {
             'Switch to dev mode',
             'switchToDevMode',
             'enable Morphic\ncontext menus\nand inspectors,'
-                + '\nnot user-friendly!',
+            + '\nnot user-friendly!',
             new Color(100, 0, 0)
         );
     }
@@ -3227,7 +3409,7 @@ IDE_Morph.prototype.settingsMenu = function () {
             'Dragging threshold...',
             'userSetDragThreshold',
             'specify the distance the hand has to move\n' +
-                'before it picks up an object',
+            'before it picks up an object',
             new Color(100, 0, 0)
         );
     }
@@ -3649,7 +3831,7 @@ IDE_Morph.prototype.projectMenu = function () {
         myself = this,
         world = this.world(),
         graphicsName = this.currentSprite instanceof SpriteMorph ?
-                'Costumes' : 'Backgrounds',
+            'Costumes' : 'Backgrounds',
         shiftClicked = (world.currentKey === 16);
 
     menu = new MenuMorph(this);
@@ -3659,12 +3841,12 @@ IDE_Morph.prototype.projectMenu = function () {
     menu.addPair('Open...', 'openProjectsBrowser', '^O');
     menu.addPair('Save', "save", '^S');
     menu.addItem('Save As...', function() {
-            if (myself.isPreviousVersion()) {
-                return myself.showMessage('Please exit replay mode before saving');
-            }
+        if (myself.isPreviousVersion()) {
+            return myself.showMessage('Please exit replay mode before saving');
+        }
 
-            myself.saveProjectsBrowser();
-        });
+        myself.saveProjectsBrowser();
+    });
     if (shiftClicked) {
         menu.addItem(
             localize('Replay events from file'),
@@ -3787,7 +3969,7 @@ IDE_Morph.prototype.projectMenu = function () {
     }
     menu.addItem(
         shiftClicked ?
-                'Export project as plain text...' : 'Export project...',
+            'Export project as plain text...' : 'Export project...',
         function () {
             if (myself.projectName) {
                 myself.exportProject(myself.projectName, shiftClicked);
@@ -3806,13 +3988,13 @@ IDE_Morph.prototype.projectMenu = function () {
             'Export blocks...',
             'exportGlobalBlocks',
             'show global custom block definitions as XML' +
-                '\nin a new browser window'
+            '\nin a new browser window'
         );
         menu.addItem(
             'Unused blocks...',
             function () {myself.removeUnusedBlocks(); },
             'find unused global custom blocks' +
-                '\nand remove their definitions'
+            '\nand remove their definitions'
         );
     }
 
@@ -3827,9 +4009,9 @@ IDE_Morph.prototype.projectMenu = function () {
             'Export summary with drop-shadows...',
             function () {myself.exportProjectSummary(true); },
             'open a new browser browser window' +
-                '\nwith a summary of this project' +
-                '\nwith drop-shadows on all pictures.' +
-                '\nnot supported by all browsers',
+            '\nwith a summary of this project' +
+            '\nwith drop-shadows on all pictures.' +
+            '\nnot supported by all browsers',
             new Color(100, 0, 0)
         );
         menu.addItem(
@@ -4065,7 +4247,7 @@ IDE_Morph.prototype.popupMediaImportDialog = function (folderName, items) {
         fp = this.body.position();
         fw = this.body.width();
         frame.contents.children.forEach(function (icon) {
-              icon.setPosition(fp.add(new Point(x, y)));
+            icon.setPosition(fp.add(new Point(x, y)));
             x += icon.width();
             if (x + icon.width() > fw) {
                 x = 0;
@@ -4223,7 +4405,7 @@ IDE_Morph.prototype.aboutSnap = function () {
     for (module in modules) {
         if (Object.prototype.hasOwnProperty.call(modules, module)) {
             versions += ('\n' + module + ' (' +
-                            modules[module] + ')');
+                modules[module] + ')');
         }
     }
     if (versions !== '') {
@@ -4508,7 +4690,7 @@ IDE_Morph.prototype.exportGlobalBlocks = function () {
         this.inform(
             'Export blocks/msg types',
             'this project doesn\'t have any\n'
-                + 'custom global blocks or message types yet'
+            + 'custom global blocks or message types yet'
         );
     }
 };
@@ -4546,7 +4728,7 @@ IDE_Morph.prototype.removeUnusedBlocks = function () {
         this.inform(
             'Remove unused blocks',
             'there are currently no unused\n'
-                + 'global custom blocks in this project'
+            + 'global custom blocks in this project'
         );
     }
 };
@@ -4706,8 +4888,8 @@ IDE_Morph.prototype.exportProjectSummary = function (useDropShadows) {
                         def.sortedElements().forEach(function (script) {
                             var defImg = addImage(
                                 script instanceof BlockMorph ?
-                                        script.scriptPic()
-                                                : script.fullImageClassic(),
+                                    script.scriptPic()
+                                    : script.fullImageClassic(),
                                 li
                             );
                             defImg.attributes.class = 'script';
@@ -4864,8 +5046,8 @@ IDE_Morph.prototype.exportProjectSummary = function (useDropShadows) {
             add(localize('Scripts'), 'h3');
             scripts.forEach(function (script) {
                 var img = addImage(script instanceof BlockMorph ?
-                        script.scriptPic()
-                                : script.fullImageClassic());
+                    script.scriptPic()
+                    : script.fullImageClassic());
                 img.attributes.class = 'script';
             });
         }
@@ -5151,12 +5333,12 @@ IDE_Morph.prototype.saveFileAs = function (
     newWindow // (optional) defaults to false.
 ) {
     /** Allow for downloading a file to a disk or open in a new tab.
-        This relies the FileSaver.js library which exports saveAs()
-        Two utility methods saveImageAs and saveXMLAs should be used first.
-        1. Opening a new window uses standard URI encoding.
-        2. downloading a file uses Blobs.
-        - every other combo is unsupposed.
-    */
+     This relies the FileSaver.js library which exports saveAs()
+     Two utility methods saveImageAs and saveXMLAs should be used first.
+     1. Opening a new window uses standard URI encoding.
+     2. downloading a file uses Blobs.
+     - every other combo is unsupposed.
+     */
     var blobIsSupported = false,
         world = this.world(),
         fileExt,
@@ -5170,7 +5352,7 @@ IDE_Morph.prototype.saveFileAs = function (
     // This is a workaround for a known Chrome crash with large URLs
     function exhibitsChomeBug(contents) {
         var MAX_LENGTH = 2e6,
-        isChrome  = navigator.userAgent.indexOf('Chrome') !== -1;
+            isChrome  = navigator.userAgent.indexOf('Chrome') !== -1;
         return isChrome && contents.length > MAX_LENGTH;
     }
 
@@ -5312,9 +5494,9 @@ IDE_Morph.prototype.switchToDevMode = function () {
     delete world.reactToDropOf;
     this.showMessage(
         'entering development mode.\n\n'
-            + 'error catching is turned off,\n'
-            + 'use the browser\'s web console\n'
-            + 'to see error messages.'
+        + 'error catching is turned off,\n'
+        + 'use the browser\'s web console\n'
+        + 'to see error messages.'
     );
 };
 
@@ -5474,7 +5656,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
     if (this.isAppMode) {
         this.wasSingleStepping = Process.prototype.enableSingleStepping;
         if (this.wasSingleStepping) {
-          this.toggleSingleStepping();
+            this.toggleSingleStepping();
         }
         this.setColor(this.appModeColor);
         this.controlBar.setColor(this.color);
@@ -5491,8 +5673,11 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             world.keyboardReceiver.stopEditing();
         }
     } else {
+        window.parent.postMessage('myMessage1','*');
+
+
         if (this.wasSingleStepping && !Process.prototype.enableSingleStepping) {
-             this.toggleSingleStepping();
+            this.toggleSingleStepping();
         }
         this.setColor(this.backgroundColor);
         this.controlBar.setColor(this.frameColor);
@@ -5597,130 +5782,175 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
 //
 // };
 
+
 IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
-    console.log("In IDE_Morph.prototype.toggleAgentImage");
-    //This is where we move the conversation forward (audio, text, images) and
-    //where we keep track of conversation history
+    if (this.conversationPause){
+        this.isOriginalAgent = !this.isOriginalAgent;
+        var moreConvo= false;
+        var audio = '/audio/';
+        var image;
+        var audioLength;
 
-    this.isOriginalAgent = !this.isOriginalAgent;
-    var moreConvo= false;
-    var audio = '/audio/';
-    var image;
-    var audioLength;
+        var convoAndTime;
 
-    //The return object that contains whether the conversations are complete
-    // and how much time the next clip is
-    var convoAndTime;
+        if (convoNum == 1) {
+            if (futureConversation.length > 0) {
+                audio = audio + futureAudio[0];
+                audioLength = audioTimes[0];
+                moreConvo = true;
+            }
 
-    if (convoNum == 1) {
-      if (futureConversation.length > 0) {
-        //get the upcoming utterance from futureConversation and store it in currentUtterance
-        var currentUtterance = futureConversation[0];
-        futureConversation.shift();
-        if (currentUtterance != "") {
-          conversationHistory.push(currentUtterance);
-          console.log(conversationHistory.length);
-          if (conversationHistory.length > 2) {
-            conversationHistory.shift();
-          }
+            image = futureImages[0];
         }
-        audio = audio + futureAudio[0];
-        futureAudio.shift();
-        audioLength = audioTimes[0];
-        audioTimes.shift()
-        moreConvo = true;
-      }
-
-      image = futureImages[0];
-      futureImages.shift();
-
-      if (futureSpeaker.length > 0) {
-        var currentSpeaker = futureSpeaker[0];
-        futureSpeaker.shift();
-        speakerHistory.push(currentSpeaker);
-        if (speakerHistory.length > 2) {
-          speakerHistory.shift();
+        else if (convoNum == 2) {
+            if (futureConversation2.length > 0) {
+                audio = audio + futureAudio2[0];
+                audioLength = audioTimes2[0];
+                moreConvo = true;
+            }
+            image = futureImages2[0];
         }
-
-        BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
-        BlockMorph.prototype.snapSound.play();
-      }
-    } else if (convoNum == 2) {
-      if (futureConversation2.length > 0) {
-        var currentUtterance2 = futureConversation2[0];
-        futureConversation2.shift();
-        if (currentUtterance2 != "") {
-          conversationHistory.push(currentUtterance2);
-          if (conversationHistory.length > 2) {
-            conversationHistory.shift();
-          }
-        }
-        audio = audio + futureAudio2[0];
-        futureAudio2.shift();
-        audioLength = audioTimes2[0];
-        audioTimes2.shift()
-        moreConvo = true;
-      }
-
-      image = futureImages2[0];
-      futureImages2.shift();
-
-      if (futureSpeaker2.length > 0) {
-        var currentSpeaker2 = futureSpeaker2[0];
-        futureSpeaker2.shift();
-        speakerHistory.push(currentSpeaker2);
-        if (speakerHistory.length > 2) {
-          speakerHistory.shift();
-        }
-
-        BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = audio;
-        BlockMorph.prototype.snapSound.play();
-      }
-    } else if (convoNum == 3) {
-      if (futureConversation3.length >= 0) {
-        var currentUtterance3 = futureConversation3[0];
-        futureConversation3.shift();
-        if (currentUtterance3 != "") {
-          conversationHistory.push(currentUtterance3);
-          if (conversationHistory.length > 2) {
-            conversationHistory.shift();
-          }
-        }
-        audio = audio + futureAudio3[0];
-        futureAudio3.shift();
-        audioLength = audioTimes3[0];
-        audioTimes3.shift()
-        if (futureConversation3.length == 0){
-          moreConvo = false;
+        else if (convoNum == 3) {
+            if (futureConversation3.length >= 0) {
+                audio = audio + futureAudio3[0];
+                audioLength = audioTimes3[0];
+                if (futureConversation3.length == 0){
+                    moreConvo = false;
+                } else {
+                    moreConvo = true;
+                }
+            }
+            image = futureImages3[0];
         } else {
-          moreConvo = true;
+            image = 11;
         }
-      }
-
-      image = futureImages3[0];
-      futureImages3.shift();
-
-      if (futureSpeaker3.length > 0) {
-        var currentSpeaker3 = futureSpeaker3[0];
-        futureSpeaker3.shift();
-        speakerHistory.push(currentSpeaker3);
-        if (speakerHistory.length > 2) {
-          speakerHistory.shift();
-        }
-
-        if (audio != '/audio/null') {
-          BlockMorph.prototype.snapSound = document.createElement('audio');
-          BlockMorph.prototype.snapSound.src = audio;//'click.wav';
-          BlockMorph.prototype.snapSound.play();
-        }
-      }
-    } else {
-        image = 11;
+        return [moreConvo,audioLength];
     }
+    else {
+        console.log("In IDE_Morph.prototype.toggleAgentImage");
+        console.log("conversation pause status is : "+this.conversationPause);
+        //This is where we move the conversation forward (audio, text, images) and
+        //where we keep track of conversation history
 
-    /*else if (convoNum == 4) {
+        this.isOriginalAgent = !this.isOriginalAgent;
+        var moreConvo= false;
+        var audio = '/audio/';
+        var image;
+        var audioLength;
+
+        //The return object that contains whether the conversations are complete
+        // and how much time the next clip is
+        var convoAndTime;
+
+        if (convoNum == 1) {
+            if (futureConversation.length > 0) {
+                //get the upcoming utterance from futureConversation and store it in currentUtterance
+                var currentUtterance = futureConversation[0];
+                futureConversation.shift();
+                if (currentUtterance != "") {
+                    conversationHistory.push(currentUtterance);
+                    console.log(conversationHistory.length);
+                    if (conversationHistory.length > 2) {
+                        conversationHistory.shift();
+                    }
+                }
+                audio = audio + futureAudio[0];
+                futureAudio.shift();
+                audioLength = audioTimes[0];
+                audioTimes.shift()
+                moreConvo = true;
+            }
+
+            image = futureImages[0];
+            futureImages.shift();
+
+            if (futureSpeaker.length > 0) {
+                var currentSpeaker = futureSpeaker[0];
+                futureSpeaker.shift();
+                speakerHistory.push(currentSpeaker);
+                if (speakerHistory.length > 2) {
+                    speakerHistory.shift();
+                }
+
+                BlockMorph.prototype.snapSound = document.createElement('audio');
+                BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
+                BlockMorph.prototype.snapSound.play();
+            }
+        } else if (convoNum == 2) {
+            if (futureConversation2.length > 0) {
+                var currentUtterance2 = futureConversation2[0];
+                futureConversation2.shift();
+                if (currentUtterance2 != "") {
+                    conversationHistory.push(currentUtterance2);
+                    if (conversationHistory.length > 2) {
+                        conversationHistory.shift();
+                    }
+                }
+                audio = audio + futureAudio2[0];
+                futureAudio2.shift();
+                audioLength = audioTimes2[0];
+                audioTimes2.shift()
+                moreConvo = true;
+            }
+
+            image = futureImages2[0];
+            futureImages2.shift();
+
+            if (futureSpeaker2.length > 0) {
+                var currentSpeaker2 = futureSpeaker2[0];
+                futureSpeaker2.shift();
+                speakerHistory.push(currentSpeaker2);
+                if (speakerHistory.length > 2) {
+                    speakerHistory.shift();
+                }
+
+                BlockMorph.prototype.snapSound = document.createElement('audio');
+                BlockMorph.prototype.snapSound.src = audio;
+                BlockMorph.prototype.snapSound.play();
+            }
+        } else if (convoNum == 3) {
+            if (futureConversation3.length >= 0) {
+                var currentUtterance3 = futureConversation3[0];
+                futureConversation3.shift();
+                if (currentUtterance3 != "") {
+                    conversationHistory.push(currentUtterance3);
+                    if (conversationHistory.length > 2) {
+                        conversationHistory.shift();
+                    }
+                }
+                audio = audio + futureAudio3[0];
+                futureAudio3.shift();
+                audioLength = audioTimes3[0];
+                audioTimes3.shift()
+                if (futureConversation3.length == 0){
+                    moreConvo = false;
+                } else {
+                    moreConvo = true;
+                }
+            }
+
+            image = futureImages3[0];
+            futureImages3.shift();
+
+            if (futureSpeaker3.length > 0) {
+                var currentSpeaker3 = futureSpeaker3[0];
+                futureSpeaker3.shift();
+                speakerHistory.push(currentSpeaker3);
+                if (speakerHistory.length > 2) {
+                    speakerHistory.shift();
+                }
+
+                if (audio != '/audio/null') {
+                    BlockMorph.prototype.snapSound = document.createElement('audio');
+                    BlockMorph.prototype.snapSound.src = audio;//'click.wav';
+                    BlockMorph.prototype.snapSound.play();
+                }
+            }
+        } else {
+            image = 11;
+        }
+
+        /*else if (convoNum == 4) {
       if (futureConversation4.length > 0) {
         var currentUtterance4 = futureConversation4[0];
         futureConversation4.shift();
@@ -5753,75 +5983,69 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
 
 
-    /*else if (convoNum == 4) {
-      if (futureConversation4.length > 0) {
-        var currentUtterance4 = futureConversation4[0];
-        futureConversation4.shift();
-        conversationHistory.push(currentUtterance4);
-        audio = audio + futureAudio4[0];
-        futureAudio4.shift();
-        moreConvo = true;
-      }
+        /*else if (convoNum == 4) {
+          if (futureConversation4.length > 0) {
+            var currentUtterance4 = futureConversation4[0];
+            futureConversation4.shift();
+            conversationHistory.push(currentUtterance4);
+            audio = audio + futureAudio4[0];
+            futureAudio4.shift();
+            moreConvo = true;
+          }
 
-      image = futureImages4[0];
-      futureImages4.shift();
+          image = futureImages4[0];
+          futureImages4.shift();
 
-      if (futureSpeaker4.length > 0) {
-        var currentSpeaker4 = futureSpeaker4[0];
-        futureSpeaker4.shift();
-        speakerHistory.push(currentSpeaker4);
+          if (futureSpeaker4.length > 0) {
+            var currentSpeaker4 = futureSpeaker4[0];
+            futureSpeaker4.shift();
+            speakerHistory.push(currentSpeaker4);
 
-        BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = audio;//'click.wav';
-        BlockMorph.prototype.snapSound.play();
-      }
+            BlockMorph.prototype.snapSound = document.createElement('audio');
+            BlockMorph.prototype.snapSound.src = audio;//'click.wav';
+            BlockMorph.prototype.snapSound.play();
+          }
 
-    } else if (convoNum == 5) {
-      if (futureConversation5.length > 0) {
-        var currentUtterance5 = futureConversation5[0];
-        futureConversation5.shift();
-        conversationHistory.push(currentUtterance5);
-        audio = audio + futureAudio5[0];
-        futureAudio5.shift();
-        moreConvo = true;
-      }
+        } else if (convoNum == 5) {
+          if (futureConversation5.length > 0) {
+            var currentUtterance5 = futureConversation5[0];
+            futureConversation5.shift();
+            conversationHistory.push(currentUtterance5);
+            audio = audio + futureAudio5[0];
+            futureAudio5.shift();
+            moreConvo = true;
+          }
 
-      image = futureImages5[0];
-      futureImages5.shift();
+          image = futureImages5[0];
+          futureImages5.shift();
 
-      if (futureSpeaker5.length > 0) {
-        var currentSpeaker5 = futureSpeaker5[0];
-        futureSpeaker5.shift();
-        speakerHistory.push(currentSpeaker5);
+          if (futureSpeaker5.length > 0) {
+            var currentSpeaker5 = futureSpeaker5[0];
+            futureSpeaker5.shift();
+            speakerHistory.push(currentSpeaker5);
 
-        BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = audio;//'click.wav';
-        BlockMorph.prototype.snapSound.play();
-      }
-    }*/
+            BlockMorph.prototype.snapSound = document.createElement('audio');
+            BlockMorph.prototype.snapSound.src = audio;//'click.wav';
+            BlockMorph.prototype.snapSound.play();
+          }
+        }*/
 
-    this.createSpeechBubblePanel();
-    /*var bottomOff = 0;
-    bottomOff = prevSpeechBubbleBottom - (this.agentPanel.top() - this.corralBar.bottom())*/
-    /*this.speechBubblePanel.contents.moveBy(new Point(0, -35));
-    this.speechBubblePanel.adjustScrollBars();*/
+        this.createSpeechBubblePanel();
 
-    this.createAgentPanel(parseInt(image)-1);
+        this.createAgentPanel(parseInt(image)-1);
+        console.log("current image is" + parseInt(image));
 
-    var windowWidth = window.screen.height * window.devicePixelRatio;
+        var windowWidth = window.screen.height * window.devicePixelRatio;
 
-    console.log("Window Resolution: " + windowWidth);
+        console.log("Window Resolution: " + windowWidth);
 
-    //if (windowWidth < 1000) {
-      SnapActions.setStageSize(480, 380);
-    /*}
-    else {
-      SnapActions.setStageSize(480, 250);
-    }*/
+        //if (windowWidth < 1000) {
+        SnapActions.setStageSize(480, 380);
 
-    this.fixLayout();
+        this.fixLayout();
 
-    return [moreConvo,audioLength];
+        return [moreConvo,audioLength];
+    }
 };
 
 IDE_Morph.prototype.setPaletteWidth = function (newWidth) {
@@ -5877,7 +6101,7 @@ IDE_Morph.prototype.languageMenu = function () {
     SnapTranslator.languages().forEach(function (lang) {
         menu.addItem(
             (SnapTranslator.language === lang ? '\u2713 ' : '    ') +
-                SnapTranslator.languageName(lang),
+            SnapTranslator.languageName(lang),
             function () {
                 myself.loadNewProject = false;
                 myself.setLanguage(lang);
@@ -5979,15 +6203,15 @@ IDE_Morph.prototype.userSetBlocksScale = function () {
     sample.add(shield);
 
     action = function (num) {
-    /*
-        var c;
-        blck.setScale(num);
-        blck.drawNew();
-        blck.setSpec(blck.blockSpec);
-        c = blck.inputs()[0];
-        c.setScale(num);
-        c.nestedBlock(scrpt);
-    */
+        /*
+            var c;
+            blck.setScale(num);
+            blck.drawNew();
+            blck.setSpec(blck.blockSpec);
+            c = blck.inputs()[0];
+            c.setScale(num);
+            c.nestedBlock(scrpt);
+        */
         scrpt.blockSequence().forEach(function (block) {
             block.setScale(num);
             block.drawNew();
@@ -6174,11 +6398,11 @@ IDE_Morph.prototype.initializeCloud = function () {
 IDE_Morph.prototype.createCloudAccount = function () {
     var myself = this,
         world = this.world();
-/*
-    // force-logout, commented out for now:
-    delete localStorage['-snap-user'];
-    SnapCloud.clear();
-*/
+    /*
+        // force-logout, commented out for now:
+        delete localStorage['-snap-user'];
+        SnapCloud.clear();
+    */
     new DialogBoxMorph(
         null,
         function (user) {
@@ -6189,8 +6413,8 @@ IDE_Morph.prototype.createCloudAccount = function () {
                     new DialogBoxMorph().inform(
                         title,
                         txt +
-                            '.\n\nAn e-mail with your password\n' +
-                            'has been sent to the address provided',
+                        '.\n\nAn e-mail with your password\n' +
+                        'has been sent to the address provided',
                         world,
                         myself.cloudIcon(null, new Color(0, 180, 0))
                     );
@@ -6225,7 +6449,7 @@ IDE_Morph.prototype.promptCollaboration = function () {
 
     hash = 'collaborate=' + passCode;
     shareCode = window.location.origin + '#' + hash,
-    location.hash = hash;
+        location.hash = hash;
 
     frame.add(passcodeLabel);
     frame.add(new TextMorph(shareCode));
@@ -6259,11 +6483,11 @@ IDE_Morph.prototype.promptExitReplay = function (onExit) {
 IDE_Morph.prototype.resetCloudPassword = function () {
     var myself = this,
         world = this.world();
-/*
-    // force-logout, commented out for now:
-    delete localStorage['-snap-user'];
-    SnapCloud.clear();
-*/
+    /*
+        // force-logout, commented out for now:
+        delete localStorage['-snap-user'];
+        SnapCloud.clear();
+    */
     new DialogBoxMorph(
         null,
         function (user) {
@@ -6273,9 +6497,9 @@ IDE_Morph.prototype.resetCloudPassword = function () {
                     new DialogBoxMorph().inform(
                         title,
                         txt +
-                            '.\n\nAn e-mail with a link to\n' +
-                            'reset your password\n' +
-                            'has been sent to the address provided',
+                        '.\n\nAn e-mail with a link to\n' +
+                        'reset your password\n' +
+                        'has been sent to the address provided',
                         world,
                         myself.cloudIcon(null, new Color(0, 180, 0))
                     );
@@ -6458,8 +6682,8 @@ IDE_Morph.prototype.cloudAcknowledge = function () {
         new DialogBoxMorph().inform(
             'Cloud Connection',
             'Successfully connected to:\n'
-                + 'http://'
-                + url,
+            + 'http://'
+            + url,
             myself.world(),
             myself.cloudIcon(null, new Color(0, 180, 0))
         );
@@ -6476,9 +6700,9 @@ IDE_Morph.prototype.cloudResponse = function () {
         new DialogBoxMorph().inform(
             'Snap!Cloud',
             'http://'
-                + url + ':\n\n'
-                + 'responds:\n'
-                + response,
+            + url + ':\n\n'
+            + 'responds:\n'
+            + response,
             myself.world(),
             myself.cloudIcon(null, new Color(0, 180, 0))
         );
@@ -6527,7 +6751,7 @@ IDE_Morph.prototype.cloudError = function () {
         new DialogBoxMorph().inform(
             'Snap!Cloud',
             (url ? url + '\n' : '')
-                + response,
+            + response,
             myself.world(),
             myself.cloudIcon(null, new Color(180, 0, 0))
         );
@@ -6779,8 +7003,8 @@ ProjectDialogMorph.prototype.buildContents = function () {
     this.preview.drawCachedTexture = function () {
         var context = this.image.getContext('2d');
         var scale = Math.min(
-                (this.width() / this.cachedTexture.width),
-                (this.height() / this.cachedTexture.height)
+            (this.width() / this.cachedTexture.width),
+            (this.height() / this.cachedTexture.height)
             ),
             width = scale * this.cachedTexture.width,
             height = scale * this.cachedTexture.height;
@@ -7030,55 +7254,55 @@ ProjectDialogMorph.prototype.setSource = function (source) {
         button.refresh();
     });
     switch (this.source) {
-    case 'cloud':
-        msg = myself.ide.showMessage('Updating\nproject list...');
-        this.projectList = [];
-        SnapCloud.getProjectList(
-            function (projectList) {
-                // Don't show cloud projects if user has since switch panes.
-                if (myself.source === 'cloud') {
-                    myself.installCloudProjectList(projectList);
+        case 'cloud':
+            msg = myself.ide.showMessage('Updating\nproject list...');
+            this.projectList = [];
+            SnapCloud.getProjectList(
+                function (projectList) {
+                    // Don't show cloud projects if user has since switch panes.
+                    if (myself.source === 'cloud') {
+                        myself.installCloudProjectList(projectList);
+                    }
+                    msg.destroy();
+                },
+                function (err, lbl) {
+                    msg.destroy();
+                    myself.ide.cloudError().call(null, err, lbl);
                 }
-                msg.destroy();
-            },
-            function (err, lbl) {
-                msg.destroy();
-                myself.ide.cloudError().call(null, err, lbl);
-            }
-        );
-        return;
-    case 'cloud-shared':
-        msg = myself.ide.showMessage('Updating\nproject list...');
-        this.projectList = [];
-        SnapCloud.getSharedProjectList(
-            function (projectList) {
-                // Don't show cloud projects if user has since switch panes.
-                if (myself.source === 'cloud-shared') {
-                    myself.installSharedCloudProjectList(projectList);
+            );
+            return;
+        case 'cloud-shared':
+            msg = myself.ide.showMessage('Updating\nproject list...');
+            this.projectList = [];
+            SnapCloud.getSharedProjectList(
+                function (projectList) {
+                    // Don't show cloud projects if user has since switch panes.
+                    if (myself.source === 'cloud-shared') {
+                        myself.installSharedCloudProjectList(projectList);
+                    }
+                    msg.destroy();
+                },
+                function (err, lbl) {
+                    msg.destroy();
+                    myself.ide.cloudError().call(null, err, lbl);
                 }
-                msg.destroy();
-            },
-            function (err, lbl) {
-                msg.destroy();
-                myself.ide.cloudError().call(null, err, lbl);
-            }
-        );
-        return;
-    case 'examples':
-        this.projectList = this.getExamplesProjectList();
-        break;
-    case 'local':
-        this.projectList = this.getLocalProjectList();
-        break;
+            );
+            return;
+        case 'examples':
+            this.projectList = this.getExamplesProjectList();
+            break;
+        case 'local':
+            this.projectList = this.getLocalProjectList();
+            break;
     }
 
     this.listField.destroy();
     this.listField = new ListMorph(
         this.projectList,
         this.projectList.length > 0 ?
-                function (element) {
-                    return element.name || element;
-                } : null,
+            function (element) {
+                return element.name || element;
+            } : null,
         null,
         function () {myself.ok(); }
     );
@@ -7165,7 +7389,7 @@ ProjectDialogMorph.prototype.getLocalProjectList = function () {
         projects = [];
     for (stored in localStorage) {
         if (Object.prototype.hasOwnProperty.call(localStorage, stored)
-                && stored.substr(0, 14) === '-snap-project-') {
+            && stored.substr(0, 14) === '-snap-project-') {
             name = stored.substr(14);
             dta = {
                 name: name,
@@ -7269,16 +7493,16 @@ ProjectDialogMorph.prototype.installCloudProjectList = function (pl) {
     this.projectList = pl || [];
     this.projectList.sort(function (x, y) {
         return x.ProjectName.toLowerCase() < y.ProjectName.toLowerCase() ?
-                 -1 : 1;
+            -1 : 1;
     });
 
     this.listField.destroy();
     this.listField = new ListMorph(
         this.projectList,
         this.projectList.length > 0 ?
-                function (element) {
-                    return element.ProjectName || element;
-                } : null,
+            function (element) {
+                return element.ProjectName || element;
+            } : null,
         [ // format: display shared project names bold
             [
                 'bold',
@@ -7433,9 +7657,9 @@ ProjectDialogMorph.prototype.saveProject = function () {
 
     if (this.source === 'cloud') {
         if (detect(
-                this.projectList,
-                function (item) {return item.ProjectName === name; }
-            )) {
+            this.projectList,
+            function (item) {return item.ProjectName === name; }
+        )) {
             this.ide.confirm(
                 localize(
                     'Are you sure you want to replace'
@@ -7452,9 +7676,9 @@ ProjectDialogMorph.prototype.saveProject = function () {
         }
     } else { // 'local'
         if (detect(
-                this.projectList,
-                function (item) {return item.name === name; }
-            )) {
+            this.projectList,
+            function (item) {return item.name === name; }
+        )) {
             this.ide.confirm(
                 localize(
                     'Are you sure you want to replace'
@@ -7679,8 +7903,8 @@ ProjectDialogMorph.prototype.fixLayout = function () {
         this.srcBar.setPosition(this.body.position());
 
         inputField.setWidth(
-                this.body.width() - this.srcBar.width() - this.padding * 6
-            );
+            this.body.width() - this.srcBar.width() - this.padding * 6
+        );
         inputField.setLeft(this.srcBar.right() + this.padding * 3);
         inputField.setTop(this.srcBar.top());
         inputField.drawNew();
@@ -7688,10 +7912,10 @@ ProjectDialogMorph.prototype.fixLayout = function () {
         this.listField.setLeft(this.srcBar.right() + this.padding);
         this.listField.setWidth(
             this.body.width()
-                - this.srcBar.width()
-                - this.preview.width()
-                - this.padding
-                - thin
+            - this.srcBar.width()
+            - this.preview.width()
+            - this.padding
+            - thin
         );
         this.listField.contents.children[0].adjustWidths();
 
@@ -7922,9 +8146,9 @@ LibraryImportDialogMorph.prototype.fixLayout = function () {
         this.body.setExtent(new Point(
             this.width() - this.padding * 2,
             this.height()
-                - this.padding * 3 // top, bottom and button padding.
-                - titleHeight
-                - this.buttons.height()
+            - this.padding * 3 // top, bottom and button padding.
+            - titleHeight
+            - this.buttons.height()
         ));
 
         this.listField.setExtent(new Point(
@@ -8236,17 +8460,17 @@ SpriteIconMorph.prototype.fixLayout = function () {
 
     this.setWidth(
         this.thumbnail.width()
-            + this.outline * 2
-            + this.edge * 2
-            + this.padding * 2
+        + this.outline * 2
+        + this.edge * 2
+        + this.padding * 2
     );
 
     this.setHeight(
         this.thumbnail.height()
-            + this.outline * 2
-            + this.edge * 2
-            + this.padding * 3
-            + this.label.height()
+        + this.outline * 2
+        + this.edge * 2
+        + this.padding * 3
+        + this.label.height()
     );
 
     this.thumbnail.setCenter(this.center());
@@ -8855,7 +9079,7 @@ TurtleIconMorph.prototype.userMenu = function () {
     );
     menu.addItem(
         (this.object.penPoint === 'middle' ? on : off) + ' ' + localize(
-            'middle'
+        'middle'
         ),
         function () {
             myself.object.penPoint = 'middle';
@@ -9173,9 +9397,9 @@ SoundIconMorph.prototype.createInfo = function () {
     var dur = Math.round(this.object.audio.duration || 0),
         mod = dur % 60;
     return Math.floor(dur / 60).toString()
-            + ":"
-            + (mod < 10 ? "0" : "")
-            + mod.toString();
+        + ":"
+        + (mod < 10 ? "0" : "")
+        + mod.toString();
 };
 
 SoundIconMorph.prototype.toggleAudioPlaying = function () {
@@ -9428,7 +9652,7 @@ StageHandleMorph.prototype.init = function (target) {
     this.target = target || null;
     HandleMorph.uber.init.call(this);
     this.color = MorphicPreferences.isFlat ?
-            IDE_Morph.prototype.groupColor : new Color(190, 190, 190);
+        IDE_Morph.prototype.groupColor : new Color(190, 190, 190);
     this.isDraggable = false;
     this.noticesTransparentClick = true;
     this.setExtent(new Point(12, 50));
@@ -9446,7 +9670,7 @@ StageHandleMorph.prototype.drawNew = function () {
     this.drawOnCanvas(
         this.highlightImage,
         MorphicPreferences.isFlat ?
-                new Color(245, 245, 255) : new Color(100, 100, 255),
+            new Color(245, 245, 255) : new Color(100, 100, 255),
         this.color
     );
     this.image = this.normalImage;
@@ -9577,7 +9801,7 @@ PaletteHandleMorph.prototype.init = function (target) {
     this.target = target || null;
     HandleMorph.uber.init.call(this);
     this.color = MorphicPreferences.isFlat ?
-            new Color(255, 255, 255) : new Color(190, 190, 190);
+        new Color(255, 255, 255) : new Color(190, 190, 190);
     this.isDraggable = false;
     this.noticesTransparentClick = true;
     this.setExtent(new Point(12, 50));

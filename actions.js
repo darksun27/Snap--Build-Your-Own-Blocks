@@ -426,17 +426,83 @@ ActionManager.prototype.pressStartAgent = function () {
     time = convoAndTime[1] * 1000;
     console.log("TIME: " + time);
 
-    if (moreConvo) {
-      window.setTimeout(function(){myself.pressStartAgent()},time);
+    if (moreConvo && !conversationReplay) {
+        window.setTimeout(function(){myself.pressStartAgent()},time);
+    }
+    else {
+        if(convoNum == 1){
+            ide.pauseConversation();
 
-    } else {
-      if (convoNum < 4) {
+            
+            window.parent.postMessage('pauseConversation','*');
 
-        convoNum++;
-        window.setTimeout(function(){myself.pressStartAgent()}, 1000);
+            convoNum++;
+
+            // window.setTimeout(function(){ide.pauseConversation()}, 20000);
+
+
+
+window.addEventListener('message', startDebuggingConversation, false) 
+function startDebuggingConversation(e) {
+  if(((e.origin == 'http://localhost:8888') || (e.origin == 'http://flecks.csc.ncsu.edu:8080/?action=present&Username=Pair1AB&ProjectName=Debugging1')) && (e.data=="startDebuggingConversation")){
+    ide.pauseConversation();
+    window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
+   
+  } 
+}
+
+
+
+
+            window.setTimeout(function(){myself.pressStartAgent()}, 1000);
+        }
+        else if (convoNum < 4 && !conversationReplay) {
+            convoNum++;
+            window.setTimeout(function(){myself.pressStartAgent()}, 1000);
       }
     }
   }, 1);
+
+    console.log("convoNum is "+convoNum);
+};
+
+ActionManager.prototype.restartAgent = function () {
+    //TODO: pass in timing of individual clips instead of audio clips
+    //For now it plays the agent introduction when student does something in the interface
+    // Then the activity introduction starts right away.
+    // Finally, the activity 1 vigette
+    console.log("In ActionManager.prototype.restartAgent");
+    if (conversationReplay){
+        var myself = this,
+            world = this.world(),
+            ide = this.ide(),
+            convoAndTime,
+            time = 5000;
+
+        var moreConvo = false;
+
+        window.setTimeout(function(){
+
+            convoAndTime = ide.toggleAgentImage(convoNum);
+
+            moreConvo = convoAndTime[0];
+            time = convoAndTime[1] * 1000;
+            console.log("TIME: " + time);
+
+            if (moreConvo) {
+                window.setTimeout(function(){myself.restartAgent()},time);
+            }
+            else {
+                if (convoNum < 4) {
+
+                    convoNum++;
+                    window.setTimeout(function(){myself.restartAgent()}, 1000);
+                }
+            }
+        }, 1);
+
+        console.log("convoNum is "+convoNum);
+    }
 };
 
 ActionManager.prototype.applyEvent = function(event) {
@@ -447,10 +513,11 @@ ActionManager.prototype.applyEvent = function(event) {
 
     var ide = this.ide();
 
-    if (firstAction && event.type != "openProject") {
+    // if (firstAction && event.type != "openProject") {
+    if (firstAction || conversationReplay) {
     	console.log("FIRST ACTION");
-      firstAction = false;
-      this.pressStartAgent()
+        firstAction = false;
+        setTimeout(function(){SnapActions.pressStartAgent()},8000);
     }
 
     // Skip duplicate undo/redo events
@@ -563,6 +630,7 @@ ActionManager.prototype.addActionToQueue = function(msg) {
 };
 
 ActionManager.prototype._applyEvent = function(msg) {
+    console.log("enter _applyEvent");
     logger.debug('received "' + msg.type + '" event ' + msg.id + ':', msg);
     this.currentEvent = msg;
     this.isApplyingAction = true;
@@ -574,6 +642,7 @@ ActionManager.prototype._applyEvent = function(msg) {
     } else {
         this.currentBatch = null;
         this._rawApplyEvent(msg);
+        console.log("enter isNotBatchEvent");
     }
 };
 
