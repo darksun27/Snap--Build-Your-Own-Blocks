@@ -5675,7 +5675,6 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
     } else {
         window.parent.postMessage('myMessage1','*');
 
-
         if (this.wasSingleStepping && !Process.prototype.enableSingleStepping) {
             this.toggleSingleStepping();
         }

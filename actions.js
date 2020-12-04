@@ -432,8 +432,6 @@ ActionManager.prototype.pressStartAgent = function () {
     else {
         if(convoNum == 1){
             ide.pauseConversation();
-
-            
             window.parent.postMessage('pauseConversation','*');
 
             convoNum++;
@@ -444,16 +442,12 @@ ActionManager.prototype.pressStartAgent = function () {
 
 window.addEventListener('message', startDebuggingConversation, false) 
 function startDebuggingConversation(e) {
-  if(((e.origin == 'http://localhost:8888') || (e.origin == 'http://flecks.csc.ncsu.edu:8080/?action=present&Username=Pair1AB&ProjectName=Debugging1')) && (e.data=="startDebuggingConversation")){
+if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
+// if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){   
     ide.pauseConversation();
     window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
-   
   } 
 }
-
-
-
-
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
         else if (convoNum < 4 && !conversationReplay) {
