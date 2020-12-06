@@ -442,8 +442,10 @@ ActionManager.prototype.pressStartAgent = function () {
 
 window.addEventListener('message', startDebuggingConversation, false) 
 function startDebuggingConversation(e) {
-if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
-// if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){   
+// if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
+// if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){  
+if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
+
     ide.pauseConversation();
     window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
   } 
