@@ -618,11 +618,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     }
 
     function applyFlags(dict) {
-        // if (dict.editMode) {
-        //     myself.toggleAppMode(false);
-        // } else {
-        //     myself.toggleAppMode(true);
-        // }
+        if (dict.editMode) {
+            myself.toggleAppMode(false);
+        } else {
+            myself.toggleAppMode(true);
+        }
         if (!dict.noRun) {
             myself.runScripts();
         }
