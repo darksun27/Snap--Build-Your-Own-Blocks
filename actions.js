@@ -513,7 +513,12 @@ ActionManager.prototype.applyEvent = function(event) {
     if (firstAction || conversationReplay) {
     	console.log("FIRST ACTION");
         firstAction = false;
-        setTimeout(function(){SnapActions.pressStartAgent()},8000);
+        setTimeout(function(){
+            // ide.callSomeFunction();
+            ide.pauseConversation()
+
+            SnapActions.pressStartAgent()
+        },1000);
     }
 
     // Skip duplicate undo/redo events

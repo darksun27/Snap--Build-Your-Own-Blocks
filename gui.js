@@ -2103,8 +2103,6 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
             height,
             left;
 
-
-
         console.log("Window height: " + windowHeight);
         if (windowHeight < 600) {
             width = this.cachedTexture.width * .65,
@@ -2134,7 +2132,43 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
 
     };
+    // alert(files[0])
 
+    if (futureImages[1]==16){
+    
+        //Start Button
+        var button,
+        myself = this
+            
+        button = new PushButtonMorph(
+            this, // the IDE is the target
+            'pauseConversation',
+            new SymbolMorph('pointRight', 44)
+        );
+        
+
+        button.corner = 12;
+        // button.color = "transparent";
+        button.color = new Color(255, 0, 0, 0.2);
+        // button.backgroundColor = new Color(203,179,255,0.9);
+        button.pressColor = new Color(255, 0, 0, 0.2);
+        button.highlightColor = new Color(255, 0, 0, 0.2);
+
+
+
+        button.padding = 10;
+        // button.labelColor = new Color(255, 220, 0);
+        button.hint = 'START';
+        button.setHeight(0);
+        button.setWidth(0);
+        button.setLeft(235);
+        button.setTop(150);
+
+        startAgentsButton = button;
+        this.agentPanel.add(startAgentsButton);
+        this.agentPanel.startAgentsButton = startAgentsButton; // for refreshing
+
+    }
 
 }
 
