@@ -16,9 +16,6 @@
         {{ if (it.url) { }} <meta property="og:url" content="{{= encodeURI(it.url) }}"/> {{ } }}
         <script type="text/javascript">
             //Checks to see if the protocol is HTTPS / SSL
-            function isHttps(){
-                return (document.location.protocol == 'https:');
-            }
             var SERVER_URL = "{{= it.baseUrl}}" || window.location.origin,
                 SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, ''),
                 CLIENT_ID = '{{= it.clientId }}';
@@ -27,12 +24,69 @@
             console.log("SERVER_ADDRESS", SERVER_ADDRESS);
             console.log("CLIENT_ID", CLIENT_ID);
             console.log("window.location.origin", window.location.origin);
-            
+
+            function isHttps(){
+                return (document.location.protocol == 'https:');
+            }
             if(isHttps()) {
                 console.log('HTTPS is enabled.');
             } else {
                 console.log('HTTPS is not enabled.');
             }
+
+            function iniFrame() { 
+                if ( window.location !== window.parent.location ) 
+                { 
+                  
+                    // The page is in an iFrames 
+                    document.write("The page is in an iFrame"); 
+                }  
+                else { 
+                      
+                    // The page is not in an iFrame 
+                    document.write("The page is not in an iFrame"); 
+                } 
+            } 
+              
+            // Calling iniFrame function 
+            iniFrame(); 
+
+            // Function to check whether webpage is in iFrame 
+            function iniFrame() { 
+                  
+                if(window.self !== window.top) { 
+                      
+                    // !== operator checks whether the operands 
+                    // are of not equal value or not equal type 
+                    document.write("The page is in an iFrame"); 
+                } 
+                else { 
+                    document.write("The page is in an iFrame"); 
+                } 
+            } 
+              
+            // Calling iniFrame function 
+            iniFrame(); 
+
+            function iniFrame() { 
+                  
+                var gfg = window.frameElement; 
+                  
+                // Checking if webpage is embedded 
+                if (gfg) { 
+                      
+                    // The page is in an iFrame 
+                    document.write("The page is in an iFrame"); 
+                }  
+                else { 
+                      
+                    // The page is not in an iFrame 
+                    document.write("The page is not in an iFrame"); 
+                } 
+            } 
+              
+            // Calling iniFrame function 
+            iniFrame(); 
         </script>
         {{ if (it.isDevMode) { }}
         <script type="text/javascript" src="utils.js"></script>
