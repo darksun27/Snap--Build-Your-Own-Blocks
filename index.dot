@@ -15,7 +15,6 @@
 {{ } }}
         {{ if (it.url) { }} <meta property="og:url" content="{{= encodeURI(it.url) }}"/> {{ } }}
         <script type="text/javascript">
-            //Checks to see if the protocol is HTTPS / SSL
             var SERVER_URL = "{{= it.baseUrl}}" || window.location.origin,
                 SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, ''),
                 CLIENT_ID = '{{= it.clientId }}';
