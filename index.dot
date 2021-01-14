@@ -15,9 +15,24 @@
 {{ } }}
         {{ if (it.url) { }} <meta property="og:url" content="{{= encodeURI(it.url) }}"/> {{ } }}
         <script type="text/javascript">
+            //Checks to see if the protocol is HTTPS / SSL
+            function isHttps(){
+                return (document.location.protocol == 'https:');
+            }
             var SERVER_URL = "{{= it.baseUrl}}" || window.location.origin,
                 SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, ''),
                 CLIENT_ID = '{{= it.clientId }}';
+            console.log("Hello World");
+            console.log("SERVER_URL", SERVER_URL);
+            console.log("SERVER_ADDRESS", SERVER_ADDRESS);
+            console.log("CLIENT_ID", CLIENT_ID);
+            console.log("window.location.origin", window.location.origin);
+            
+            if(isHttps()) {
+                console.log('HTTPS is enabled.');
+            } else {
+                console.log('HTTPS is not enabled.');
+            }
         </script>
         {{ if (it.isDevMode) { }}
         <script type="text/javascript" src="utils.js"></script>
