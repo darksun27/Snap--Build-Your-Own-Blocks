@@ -12,10 +12,13 @@
         <meta property="og:image" content="{{= it.image.url }}"/>
         <meta property="og:image:width" content="{{= it.image.width }}"/>
         <meta property="og:image:height" content="{{= it.image.height }}"/>
+        <meta http-Equiv="Cache-Control" Content="no-cache" />
+        <meta http-Equiv="Pragma" Content="no-cache" />
+        <meta http-Equiv="Expires" Content="0" />
 {{ } }}
         {{ if (it.url) { }} <meta property="og:url" content="{{= encodeURI(it.url) }}"/> {{ } }}
         <script type="text/javascript">
-            var SERVER_URL = "{{= it.baseUrl}}" || window.location.origin,
+            var SERVER_URL = window.location.origin,
                 SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, ''),
                 CLIENT_ID = '{{= it.clientId }}';
         </script>
