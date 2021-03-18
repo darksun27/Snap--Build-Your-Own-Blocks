@@ -680,41 +680,84 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         this.toggleAppMode(true);
         this.runScripts();
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
-        this.shield = new Morph();
-        this.shield.color = this.color;
-        this.shield.setExtent(this.parent.extent());
-        this.parent.add(this.shield);
-        myself.showMessage('Fetching project\nfrom the cloud...');
+        // this.shield = new Morph();
+        // this.shield.color = this.color;
+        // this.shield.setExtent(this.parent.extent());
+        // this.parent.add(this.shield);
+        myself.showMessage('11Fetching project\nfrom the cloud...');
+        // var proj = {"ProjectName":"t1_public","Public":"true","Updated":"Tue Mar 09 2021 23:34:19 GMT-0500 (Eastern Standard Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/t1/t1_public/thumbnail","Owner":"t1","ID":"60484bb0bb6bcc17072fb542"}
+       
+        var name = dict ? dict.ProjectName : loc.hash.substr(9),
+            isLoggedIn = SnapCloud.username !== null;
 
-        if (loc.hash.substr(0, 9) === '#present:') {
-            dict = SnapCloud.parseDict(loc.hash.substr(9));
+        if (!isLoggedIn) {
+            myself.showMessage('You are not logged in. Cannot open ' + name);
+            return;
         }
-
-        SnapCloud.getPublicProject(
-            SnapCloud.encodeDict(dict),
-            function (projectData) {
-                var msg;
-                myself.nextSteps([
-                    function () {
-                        msg = myself.showMessage('Opening project...');
-                    },
-                    function () {nop(); }, // yield (bug in Chrome)
-                    function () {
-                        var action = myself.droppedText(projectData);
+        myself.nextSteps([
+            function () {
+                msg = myself.showMessage('Opening ' + name + ' example...');
+            },
+            function () {nop(); }, // yield (bug in Chrome)
+            function () {
+                // This needs to be able to open a project by name, too
+                // TODO: FIXME
+                SnapCloud.getProjectByName(
+                    SnapCloud.username,
+                    dict.ProjectName,
+                    function (xml) {
+                        msg.destroy();
+                        var action = myself.rawLoadCloudProject(xml);
+                        var usr = SnapCloud.username,
+                                projectId = 'Username=' +
+                                    encodeURIComponent(usr.toLowerCase()) +
+                                    '&ProjectName=' +
+                                    encodeURIComponent(proj.ProjectName);
+                            location.hash = 'present:' + projectId;
                         if (action) {
-                            action.then(function () {
-                                myself.hasChangedMedia = true;
-                                myself.shield.destroy();
-                                myself.shield = null;
-                                msg.destroy();
+                            action.then(function() {
                                 applyFlags(dict);
                             });
+                        } else {
+                            applyFlags(dict);
                         }
-                    }
-                ]);
-            },
-            this.cloudError()
-        );
+                    },
+                    myself.cloudError()
+                );
+            }
+        ]);
+        
+    //     if (loc.hash.substr(0, 9) === '#present:') {
+    //         dict = SnapCloud.parseDict(loc.hash.substr(9));
+    //     }
+
+    //     SnapCloud.getPublicProject(
+    //         SnapCloud.encodeDict(dict),
+    //         function (projectData) {
+    //             var msg;
+    //             myself.nextSteps([
+    //                 function () {
+    //                     msg = myself.showMessage('111Opening project...');
+    //                     console.log("msg = myself.showMessage('111Opening project...');")
+    //                 },
+    //                 function () {nop(); }, // yield (bug in Chrome)
+    //                 function () {
+    //                     var action = myself.droppedText(projectData);
+    //                     if (action) {
+    //                         action.then(function () {
+    //                             myself.hasChangedMedia = true;
+    //                             myself.shield.destroy();
+    //                             myself.shield = null;
+    //                             msg.destroy();
+    //                             applyFlags(dict);
+    //                         });
+    //                     }
+    //                 }
+    //             ]);
+    //         },
+    //         this.cloudError()
+    //     );
+    // 
     } else if (loc.hash.substr(0, 7) === '#cloud:') {
         this.shield = new Morph();
         this.shield.alpha = 0;
@@ -2223,7 +2266,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     newbutton.fixLayout();
     newbutton.setCenter(this.corralBar.center());
     newbutton.setLeft(this.corralBar.left() + padding);
-    // this.corralBar.add(newbutton);
+    // this.corralBar.add(newbutton); // I added this.
 
     //testing toggle agent
     agentbutton = new ToggleButtonMorph(
@@ -7611,9 +7654,13 @@ ProjectDialogMorph.prototype.clearDetails = function () {
 ProjectDialogMorph.prototype.openProject = function () {
     var proj = this.listField.selected,
         src;
+    console.log("1proj: "+JSON.stringify(proj))
+    // var proj = {"ProjectName":"t1_public","Public":"true","Updated":"Tue Mar 09 2021 23:34:19 GMT-0500 (Eastern Standard Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/t1/t1_public/thumbnail","Owner":"t1","ID":"60484bb0bb6bcc17072fb542"}
+
     if (!proj) {return; }
     this.ide.source = this.source;
     if (this.source === 'cloud') {
+        console.log("1_2 proj: "+JSON.stringify(proj))
         this.openCloudProject(proj);
     } else if (this.source === 'examples') {
         // Note "file" is a property of the parseResourceFile function.
@@ -7623,6 +7670,7 @@ ProjectDialogMorph.prototype.openProject = function () {
         this.ide.openProjectString(src);
         this.destroy();
     } else { // 'local'
+        
         this.ide.openProject(proj.name);
         this.destroy();
     }
@@ -7636,6 +7684,7 @@ ProjectDialogMorph.prototype.openCloudProject = function (project) {
         },
         function () {
             myself.rawOpenCloudProject(project);
+            console.log("2proj: "+JSON.stringify(project))
         }
     ]);
 };
@@ -7647,6 +7696,7 @@ ProjectDialogMorph.prototype.rawOpenCloudProject = function (proj) {
             SnapCloud.callService(
                 'getRawProject',
                 function (response) {
+                    console.log("3proj: "+JSON.stringify(proj))
                     SnapCloud.disconnect();
                     /*
                     if (myself.world().currentKey === 16) {
@@ -7657,10 +7707,12 @@ ProjectDialogMorph.prototype.rawOpenCloudProject = function (proj) {
                     myself.ide.source = 'cloud';
                     myself.ide.droppedText(response);
                     if (proj.Public === 'true') {
+                        console.log("4proj: "+JSON.stringify(proj))
                         location.hash = '#present:Username=' +
                             encodeURIComponent(SnapCloud.username) +
                             '&ProjectName=' +
                             encodeURIComponent(proj.ProjectName);
+                        console.log("5encodeURIComponent: "+JSON.stringify(location.hash))
                     }
                 },
                 myself.ide.cloudError(),
