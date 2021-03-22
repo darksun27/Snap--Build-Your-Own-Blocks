@@ -680,12 +680,10 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         this.toggleAppMode(true);
         this.runScripts();
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
-        // this.shield = new Morph();
-        // this.shield.color = this.color;
-        // this.shield.setExtent(this.parent.extent());
-        // this.parent.add(this.shield);
         myself.showMessage('11Fetching project\nfrom the cloud...');
-        // var proj = {"ProjectName":"t1_public","Public":"true","Updated":"Tue Mar 09 2021 23:34:19 GMT-0500 (Eastern Standard Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/t1/t1_public/thumbnail","Owner":"t1","ID":"60484bb0bb6bcc17072fb542"}
+        
+        // // Test Project:
+        // var project = {"ProjectName":"g01_public","Public":"true","Updated":"Fri Mar 19 2021 18:17:25 GMT-0400 (Eastern Daylight Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/g01/g01_public/thumbnail","Owner":"g01","ID":"6054da292fc9b578dde21871"}
        
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
             isLoggedIn = SnapCloud.username !== null;
@@ -696,7 +694,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         }
         myself.nextSteps([
             function () {
-                msg = myself.showMessage('Opening ' + name + ' example...');
+                msg = myself.showMessage('Opening ' + name);     
             },
             function () {nop(); }, // yield (bug in Chrome)
             function () {
@@ -708,12 +706,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                     function (xml) {
                         msg.destroy();
                         var action = myself.rawLoadCloudProject(xml);
-                        var usr = SnapCloud.username,
-                                projectId = 'Username=' +
-                                    encodeURIComponent(usr.toLowerCase()) +
-                                    '&ProjectName=' +
-                                    encodeURIComponent(proj.ProjectName);
-                            location.hash = 'present:' + projectId;
+                        location.hash = '?action=present&Username=' +
+                            encodeURIComponent(SnapCloud.username) +
+                            '&ProjectName=' +
+                            encodeURIComponent(dict.ProjectName);
+                        console.log("5encodeURIComponent: "+JSON.stringify(location.hash))
                         if (action) {
                             action.then(function() {
                                 applyFlags(dict);
@@ -726,38 +723,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 );
             }
         ]);
-        
-    //     if (loc.hash.substr(0, 9) === '#present:') {
-    //         dict = SnapCloud.parseDict(loc.hash.substr(9));
-    //     }
-
-    //     SnapCloud.getPublicProject(
-    //         SnapCloud.encodeDict(dict),
-    //         function (projectData) {
-    //             var msg;
-    //             myself.nextSteps([
-    //                 function () {
-    //                     msg = myself.showMessage('111Opening project...');
-    //                     console.log("msg = myself.showMessage('111Opening project...');")
-    //                 },
-    //                 function () {nop(); }, // yield (bug in Chrome)
-    //                 function () {
-    //                     var action = myself.droppedText(projectData);
-    //                     if (action) {
-    //                         action.then(function () {
-    //                             myself.hasChangedMedia = true;
-    //                             myself.shield.destroy();
-    //                             myself.shield = null;
-    //                             msg.destroy();
-    //                             applyFlags(dict);
-    //                         });
-    //                     }
-    //                 }
-    //             ]);
-    //         },
-    //         this.cloudError()
-    //     );
-    // 
     } else if (loc.hash.substr(0, 7) === '#cloud:') {
         this.shield = new Morph();
         this.shield.alpha = 0;
