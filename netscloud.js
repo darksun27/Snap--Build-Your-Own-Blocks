@@ -277,6 +277,10 @@ NetCloud.prototype.getProject = function (id, callBack, errorCall, roleId) {
 };
 
 NetCloud.prototype.getProjectByName = function (owner, name, callBack, errorCall) {
+
+    console.log("-- getProjectByName")
+
+
     var myself = this;
 
     this.reconnect(
@@ -286,6 +290,26 @@ NetCloud.prototype.getProjectByName = function (owner, name, callBack, errorCall
                 function (response) {
                     var xml = response[0];
                     myself.setLocalState(xml.ProjectID, xml.RoleID);
+                    callBack(xml);
+                },
+                errorCall,
+                [owner, name]
+            );
+        },
+        errorCall
+    );
+};
+
+NetCloud.prototype.getProjectId = function (owner, name, callBack, errorCall) {
+    console.log("-- getProjectId")
+    var myself = this;
+    this.reconnect(
+        function () {
+            myself.callService(
+                'getProjectId',
+                function (response) {
+                    var xml = response[0];
+                    // myself.setLocalState(xml.ProjectID, xml.RoleID);
                     callBack(xml);
                 },
                 errorCall,

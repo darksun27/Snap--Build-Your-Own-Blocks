@@ -679,50 +679,133 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         }
         this.toggleAppMode(true);
         this.runScripts();
+
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
-        myself.showMessage('11Fetching project\nfrom the cloud...');
-        
-        // // Test Project:
-        // var project = {"ProjectName":"g01_public","Public":"true","Updated":"Fri Mar 19 2021 18:17:25 GMT-0400 (Eastern Daylight Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/g01/g01_public/thumbnail","Owner":"g01","ID":"6054da292fc9b578dde21871"}
-       
+        myself.showMessage('Fetching project...');
+
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
             isLoggedIn = SnapCloud.username !== null;
 
         if (!isLoggedIn) {
             myself.showMessage('You are not logged in. Cannot open ' + name);
+            SnapCloud.reconnect() // I added this.
             return;
         }
-        myself.nextSteps([
-            function () {
-                msg = myself.showMessage('Opening ' + name);     
+
+        console.log("dict: "+ JSON.stringify(dict))
+        
+        // if ((dict.Username).length>3) {    
+        if ((dict.Username).length>3 && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
+            console.log("-- This is a public project and the user is a collaborator.")
+          
+            projectUsername = (SnapCloud.username).substr(0,3)    
+            SnapCloud.getProjectId(
+            projectUsername,
+            dict.ProjectName,
+            function (ID) {
+                var projectID = Object.keys(ID)[0]
+                // console.log(projectID)
+
+                myself.nextSteps([
+                    function () {nop(); }, // yield (bug in Chrome)
+                    function () {
+                        SnapCloud.joinActiveProject(        
+                                projectID,
+                                function(xml) {
+                                    // console.log("xml1: " + JSON.stringify(xml))
+                                    var action = myself.rawLoadCloudProject(xml, "true");      
+    
+                                    if (action) {
+                                                action.then(function() {
+                                                    applyFlags(dict);
+                                                });
+                                            } else {
+                                                applyFlags(dict);
+                                            }
+                                },
+                                myself.cloudError()
+                        );
+                    }
+                ]);
             },
-            function () {nop(); }, // yield (bug in Chrome)
-            function () {
-                // This needs to be able to open a project by name, too
-                // TODO: FIXME
-                SnapCloud.getProjectByName(
-                    SnapCloud.username,
-                    dict.ProjectName,
-                    function (xml) {
-                        msg.destroy();
-                        var action = myself.rawLoadCloudProject(xml);
-                        location.hash = '?action=present&Username=' +
-                            encodeURIComponent(SnapCloud.username) +
-                            '&ProjectName=' +
-                            encodeURIComponent(dict.ProjectName);
-                        console.log("5encodeURIComponent: "+JSON.stringify(location.hash))
-                        if (action) {
-                            action.then(function() {
+            myself.cloudError()
+        );
+        } 
+        else if ((dict.Username).length=3 && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {
+            console.log("-- This is a public project saved to the user's account. When student saves the project, it is automatically saved to the user's account on the cloud.")
+            myself.nextSteps([
+                function () {
+                    msg = myself.showMessage('Opening ' + name);     
+                },
+                function () {nop(); }, // yield (bug in Chrome)
+                function () {
+                    SnapCloud.getProjectByName(
+                        SnapCloud.username,
+                        dict.ProjectName,
+                        function (xml) {
+                            msg.destroy();
+                            var action = myself.rawLoadCloudProject(xml);
+                            // console.log('-----action: '+JSON.stringify(action))
+                            
+                            location.hash = '?action=present&Username=' +
+                                encodeURIComponent(SnapCloud.username) +
+                                '&ProjectName=' +
+                                encodeURIComponent(dict.ProjectName);
+                            console.log("5encodeURIComponent: "+JSON.stringify(location.hash))
+                            
+                            if (action) {
+                                action.then(function() {
+                                    applyFlags(dict);
+                                });
+                            } else {
                                 applyFlags(dict);
-                            });
-                        } else {
-                            applyFlags(dict);
-                        }
-                    },
-                    myself.cloudError()
-                );
+                            }
+                        },
+                        myself.cloudError()
+                    );
+                }
+            ]);
+        }
+        else {
+            console.log("-- This is a public project and it is not saved to the user's account. When student saves the project, it is saved to the user's browser.")
+
+            this.shield = new Morph();
+            this.shield.color = this.color;
+            this.shield.setExtent(this.parent.extent());
+            this.parent.add(this.shield);
+            myself.showMessage('Fetching project\nfrom the cloud...');
+
+            if (loc.hash.substr(0, 9) === '#present:') {
+                dict = SnapCloud.parseDict(loc.hash.substr(9));
             }
-        ]);
+
+            SnapCloud.getPublicProject(
+                SnapCloud.encodeDict(dict),
+                function (projectData) {
+                    var msg;
+                    myself.nextSteps([
+                        function () {
+                            msg = myself.showMessage('Opening project...');
+                        },
+                        function () {nop(); }, // yield (bug in Chrome)
+                        function () {
+                            var action = myself.droppedText(projectData);
+                            if (action) {
+                                action.then(function () {
+                                    myself.hasChangedMedia = true;
+                                    myself.shield.destroy();
+                                    myself.shield = null;
+                                    msg.destroy();
+                                    applyFlags(dict);
+                                });
+                            }
+                        }
+                    ]);
+                },
+                this.cloudError()
+            );
+        }
+
     } else if (loc.hash.substr(0, 7) === '#cloud:') {
         this.shield = new Morph();
         this.shield.alpha = 0;
