@@ -7,7 +7,7 @@ var logger = {
 };
 
 var firstAction = true;
-var convoNum = 1;
+var convoNum;
 
 // If not the leader, send operations to the leader for approval
 function ActionManager() {
@@ -410,6 +410,26 @@ ActionManager.prototype.pressStartAgent = function () {
     // Then the activity introduction starts right away.
     // Finally, the activity 1 vigette
     console.log("In ActionManager.prototype.pressStartAgent");
+    console.log("activity name is :"+ activity_name);
+    // This is the code block for updating conversation flows according to different activities
+    var activity_dilogues;
+    if (activity_name === 'activity1'){
+        activity_dilogues = activity_1_dialogues;
+        convoNum = activity_dilogues[0];
+    }
+    if (activity_name === 'activity2'){
+        activity_dilogues = activity_2_dialogues; 
+        convoNum = activity_dilogues[0];
+    }
+    if (activity_name === 'activity3'){
+        activity_dilogues = activity_3_dialogues; 
+        convoNum = activity_dilogues[0];
+    }
+    if (activity_name === 'activity4'){
+        activity_dilogues = activity_4_dialogues; 
+        convoNum = activity_dilogues[0];
+    }
+
     var myself = this,
         world = this.world(),
         ide = this.ide(),
@@ -426,40 +446,45 @@ ActionManager.prototype.pressStartAgent = function () {
     time = convoAndTime[1] * 1000;
     console.log("TIME: " + time);
 
-    if (moreConvo && !conversationReplay) {
+    if (moreConvo && !conversationReplay) { // dialogue flow remains in the same conversation
+        console.log("convoNum is "+convoNum);
         window.setTimeout(function(){myself.pressStartAgent()},time);
+        console.log("Current Activity Dialogues contains: " + activity_dilogues);
     }
     else {
-        if(convoNum == 1){
+        if(convoNum == 1){ // dialogue flow moves forward to the next conversation, but still in the same activity dialogues
             ide.pauseConversation();
             window.parent.postMessage('pauseConversation','*');
 
-            convoNum++;
-
+            // convoNum++; // This is a bug: note that in the beginning of this function, convoNum is always updated with activity_dialogues[0], therefore we should update activity_dialogues instead of convoNum
+            activity_dilogues.shift(); // remove the very beginning element, the convoNum will be updated accordingly. 'convoNum ++' is not correct here to use
+            console.log("Current Activity Dialogues contains: " + activity_dilogues);
             // window.setTimeout(function(){ide.pauseConversation()}, 20000);
 
 
 
-window.addEventListener('message', startDebuggingConversation, false) 
-function startDebuggingConversation(e) {
-// if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
-// if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){  
-if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
+            window.addEventListener('message', startDebuggingConversation, false) 
+            function startDebuggingConversation(e) {
+            // if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
+            // if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){  
+            if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
 
-    ide.pauseConversation();
-    window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
-  } 
-}
+            ide.pauseConversation();
+            window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
+                } 
+            }
+            console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
-        else if (convoNum < 4 && !conversationReplay) {
-            convoNum++;
+        else if (convoNum < 15 && !conversationReplay) {
+            // convoNum++; // same here
+            activity_dilogues.shift();
+            console.log("Current Activity Dialogues contains: " + activity_dilogues);
+            console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
-      }
+        }
     }
   }, 1);
-
-    console.log("convoNum is "+convoNum);
 };
 
 ActionManager.prototype.restartAgent = function () {
