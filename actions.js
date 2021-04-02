@@ -410,24 +410,38 @@ ActionManager.prototype.pressStartAgent = function () {
     // Then the activity introduction starts right away.
     // Finally, the activity 1 vigette
     console.log("In ActionManager.prototype.pressStartAgent");
+    console.log("username is :"+ user_name);
     console.log("activity name is :"+ activity_name);
+    
     // This is the code block for updating conversation flows according to different activities
-    var activity_dilogues;
+    var activity_dialogues;
     if (activity_name === 'activity1'){
-        activity_dilogues = activity_1_dialogues;
-        convoNum = activity_dilogues[0];
+        activity_dialogues = activity_1_dialogues;
+        convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity2'){
-        activity_dilogues = activity_2_dialogues; 
-        convoNum = activity_dilogues[0];
+    if (activity_name === 'activity2' && user_name.includes('s1')){
+        activity_dialogues = activity_2_dialogues;
+        convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity3'){
-        activity_dilogues = activity_3_dialogues; 
-        convoNum = activity_dilogues[0];
+    if (activity_name === 'activity2' && user_name.includes('s2')){
+        activity_dialogues = activity_2_additional_dialogues;
+        convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity4'){
-        activity_dilogues = activity_4_dialogues; 
-        convoNum = activity_dilogues[0];
+    if (activity_name === 'activity3' && user_name.includes('s1')){
+        activity_dialogues = activity_3_additional_dialogues;
+        convoNum = activity_dialogues[0];
+    }
+    if (activity_name === 'activity3' && user_name.includes('s2')){
+        activity_dialogues = activity_3_dialogues;
+        convoNum = activity_dialogues[0];
+    }
+    if (activity_name === 'activity4' && user_name.includes('s1')){
+        activity_dialogues = activity_4_dialogues;
+        convoNum = activity_dialogues[0];
+    }
+    if (activity_name === 'activity4' && user_name.includes('s2')){
+        activity_dialogues = activity_4_additional_dialogues;
+        convoNum = activity_dialogues[0];
     }
 
     var myself = this,
@@ -449,7 +463,7 @@ ActionManager.prototype.pressStartAgent = function () {
     if (moreConvo && !conversationReplay) { // dialogue flow remains in the same conversation
         console.log("convoNum is "+convoNum);
         window.setTimeout(function(){myself.pressStartAgent()},time);
-        console.log("Current Activity Dialogues contains: " + activity_dilogues);
+        console.log("Current Activity Dialogues contains: " + activity_dialogues);
     }
     else {
         if(convoNum == 1){ // dialogue flow moves forward to the next conversation, but still in the same activity dialogues
@@ -457,8 +471,8 @@ ActionManager.prototype.pressStartAgent = function () {
             window.parent.postMessage('pauseConversation','*');
 
             // convoNum++; // This is a bug: note that in the beginning of this function, convoNum is always updated with activity_dialogues[0], therefore we should update activity_dialogues instead of convoNum
-            activity_dilogues.shift(); // remove the very beginning element, the convoNum will be updated accordingly. 'convoNum ++' is not correct here to use
-            console.log("Current Activity Dialogues contains: " + activity_dilogues);
+            activity_dialogues.shift(); // remove the very beginning element, the convoNum will be updated accordingly. 'convoNum ++' is not correct here to use
+            console.log("Current Activity Dialogues contains: " + activity_dialogues);
             // window.setTimeout(function(){ide.pauseConversation()}, 20000);
 
 
@@ -478,8 +492,8 @@ ActionManager.prototype.pressStartAgent = function () {
         }
         else if (convoNum < 15 && !conversationReplay) {
             // convoNum++; // same here
-            activity_dilogues.shift();
-            console.log("Current Activity Dialogues contains: " + activity_dilogues);
+            activity_dialogues.shift();
+            console.log("Current Activity Dialogues contains: " + activity_dialogues);
             console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
