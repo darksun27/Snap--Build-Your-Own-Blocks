@@ -6672,7 +6672,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
         var convoAndTime;
 
-        if (convoNum === null) {image = 11; this.createAgentPanel(78)}
+        if (convoNum === null) {image = 11; this.agentPanel.destroy(); this.speechBubblePanel.destroy();}
         else {
             if (window['futureConversation'+convoNum].length > 0) {
                 audio = audio + window['futureAudio'+convoNum][0];
@@ -6699,7 +6699,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         // and how much time the next clip is
         var convoAndTime;
 
-        if (convoNum === null) {image = 11; this.createAgentPanel(22)}
+        if (convoNum === null) {image = 11; this.agentPanel.destroy(); this.speechBubblePanel.destroy();}
         else {
             if (window['futureConversation'+convoNum].length > 0) {
                 //get the upcoming utterance from futureConversation and store it in currentUtterance
