@@ -1382,43 +1382,43 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         console.log("dict: "+ JSON.stringify(dict))
         
-        // if ((dict.Username).length>3) {    
+        // Activity 2,3,4 
         if ((dict.Username).length>3 && ((dict.ProjectName).length==13) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
             console.log("-- Student opens the project. Owner: facilitator and collaborator: student.")
             console.log("dict.ProjectName: "+dict.ProjectName)
             console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
             projectUsername = (SnapCloud.username).substr(0,3)    
             SnapCloud.getProjectId(
-            projectUsername,
-            dict.ProjectName,
-            function (ID) {
-                var projectID = Object.keys(ID)[0]
-                // console.log(projectID)
+                projectUsername,
+                dict.ProjectName,
+                function (ID) {
+                    var projectID = Object.keys(ID)[0]
+                    // console.log(projectID)
 
-                myself.nextSteps([
-                    function () {nop(); }, // yield (bug in Chrome)
-                    function () {
-                        SnapCloud.joinActiveProject(        
-                                projectID,
-                                function(xml) {
-                                    // console.log("xml1: " + JSON.stringify(xml))
-                                    var action = myself.rawLoadCloudProject(xml, "true");      
-    
-                                    if (action) {
-                                                action.then(function() {
+                    myself.nextSteps([
+                        function () {nop(); }, // yield (bug in Chrome)
+                        function () {
+                            SnapCloud.joinActiveProject(        
+                                    projectID,
+                                    function(xml) {
+                                        // console.log("xml1: " + JSON.stringify(xml))
+                                        var action = myself.rawLoadCloudProject(xml, "true");      
+        
+                                        if (action) {
+                                                    action.then(function() {
+                                                        applyFlags(dict);
+                                                    });
+                                                } else {
                                                     applyFlags(dict);
-                                                });
-                                            } else {
-                                                applyFlags(dict);
-                                            }
-                                },
-                                myself.cloudError()
-                        );
-                    }
-                ]);
-            },
-            myself.cloudError()
-        );
+                                                }
+                                    },
+                                    myself.cloudError()
+                            );
+                        }
+                    ]);
+                },
+                myself.cloudError()
+            );
         } 
 
         else if ((dict.Username).length==3 && ((dict.ProjectName).length==15) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
@@ -1460,8 +1460,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         } 
 
 
-        else if ((dict.Username).length==3 && ((dict.ProjectName).length==13) &&  ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {
+        else if ((dict.Username).length==3 && ((dict.Username).substr(0,3)==(SnapCloud.username).substr(0,3)) && ((dict.ProjectName).length==13) &&  ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {
             console.log("-- Facilitator opens the project: Owner: facilitator. ")
+
+            // console.log("SnapCloud.username).substr(0,3): " + (SnapCloud.username).substr(0,3))
+            // console.log("((dict.Username).substr(0,3): "+ (dict.Username).substr(0,3))
             myself.nextSteps([
                 function () {
                     msg = myself.showMessage('Opening ' + name);     
@@ -1496,7 +1499,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             ]);
         }
 
-        else if ((dict.Username).length==5 && ((dict.ProjectName).length=15) && ((dict.Username).substr(0,5) == (dict.ProjectName).substr(0,5))) {
+        else if ((dict.Username).length==5 && ((dict.ProjectName).length=15) && (SnapCloud.username ==(dict.Username).substr(0,5)) && ((dict.Username).substr(0,5) == (dict.ProjectName).substr(0,5))) {
             console.log("-- Student opens the project: Owner: Student. ")
             console.log("dict.ProjectName: "+dict.ProjectName)
             console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
@@ -1534,9 +1537,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 }
             ]);
         }
-
-
-
 
         else {
             console.log("-- This is a public project and it is not saved to the user's account. When student saves the project, it is saved to the user's browser.")
