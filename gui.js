@@ -1368,7 +1368,25 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
         myself.showMessage('Fetching project...');
-        activity_name = JSON.stringify(dict.ProjectName).substring(5,14);
+
+
+        console.log("JSON.stringify(dict.ProjectName).length: "+ JSON.stringify(dict.ProjectName).length)
+
+
+
+        if (JSON.stringify(dict.ProjectName).length===17){
+            activity_name = JSON.stringify(dict.ProjectName).substring(7,16);
+            console.log('long activity_name:'+activity_name)
+
+        }else{
+            activity_name = JSON.stringify(dict.ProjectName).substring(5,14);
+            console.log('short activity_name:'+activity_name)
+
+        }
+
+
+        
+        
         user_name = JSON.stringify(dict.Username)
 
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
