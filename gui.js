@@ -3147,8 +3147,8 @@ IDE_Morph.prototype.createCorral = function () {
     this.createStageHandle();
     this.createPaletteHandle();
 
-    // this.createAgentPanel(0);
-    // this.createSpeechBubblePanel();
+    this.createAgentPanel(0);
+    this.createSpeechBubblePanel();
 
     if (this.corral) {
         this.corral.destroy();
@@ -3361,56 +3361,56 @@ IDE_Morph.prototype.fixLayout = function (situation) {
         }
 
 
-        // //speechBubblePanel
-        // if (this.isAppMode) {
-        //     this.speechBubblePanel.setTop(this.top()+this.stage.height()/2);
-        //     this.speechBubblePanel.setLeft(this.left() + this.width() / 3);
-        //     this.speechBubblePanel.setWidth(this.stage.width());
-        //     if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
-        //         this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.20);
-        //         // console.log("go 1");
-        //     } else {
-        //         this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
-        //         // console.log("go 2");
-        //     }
-        // }else{
-        //     this.speechBubblePanel.setTop(this.corralBar.bottom());
-        //     this.speechBubblePanel.setLeft(this.stage.left());
-        //     this.speechBubblePanel.setWidth(this.stage.width());
-        //     if ((this.bottom() - this.corralBar.bottom())*.20 <=360) {
-        //         this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.20);
-        //     } else {
-        //         this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
-        //     }
-        // }
+        //speechBubblePanel
+        if (this.isAppMode) {
+            this.speechBubblePanel.setTop(this.top()+this.stage.height()/2);
+            this.speechBubblePanel.setLeft(this.left() + this.width() / 3);
+            this.speechBubblePanel.setWidth(this.stage.width());
+            if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
+                this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.20);
+                // console.log("go 1");
+            } else {
+                this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
+                // console.log("go 2");
+            }
+        }else{
+            this.speechBubblePanel.setTop(this.corralBar.bottom());
+            this.speechBubblePanel.setLeft(this.stage.left());
+            this.speechBubblePanel.setWidth(this.stage.width());
+            if ((this.bottom() - this.corralBar.bottom())*.20 <=360) {
+                this.speechBubblePanel.setHeight((this.bottom() - this.corralBar.bottom())*.20);
+            } else {
+                this.speechBubblePanel.setHeight(this.bottom() - this.corralBar.bottom() - 360);
+            }
+        }
 
 
-        // //agentPanel
-        // //this.agentPanel.setBottom(this.bottom()); //hide corral bar / check hte default setting
-        // if (this.isAppMode) {
-        //     this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
-        //     this.agentPanel.setLeft(this.left() + this.width() / 3);
-        //     this.agentPanel.setWidth(this.stage.width());
-        //     if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
-        //         this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
-        //     } else {
-        //         this.agentPanel.setHeight(360);
-        //     }
-        // } else{
-        //     this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
-        //     this.agentPanel.setLeft(this.stage.left());
-        //     this.agentPanel.setWidth(this.stage.width());
-        //     if ((this.bottom() - this.corralBar.bottom())*.80 <=360) {
-        //         this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
-        //     } else {
-        //         this.agentPanel.setHeight(360);
-        //     }
+        //agentPanel
+        //this.agentPanel.setBottom(this.bottom()); //hide corral bar / check hte default setting
+        if (this.isAppMode) {
+            this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
+            this.agentPanel.setLeft(this.left() + this.width() / 3);
+            this.agentPanel.setWidth(this.stage.width());
+            if ((this.bottom() - this.corralBar.bottom())*.50 <=360) {
+                this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
+            } else {
+                this.agentPanel.setHeight(360);
+            }
+        } else{
+            this.agentPanel.setPosition(this.speechBubblePanel.bottomLeft());
+            this.agentPanel.setLeft(this.stage.left());
+            this.agentPanel.setWidth(this.stage.width());
+            if ((this.bottom() - this.corralBar.bottom())*.80 <=360) {
+                this.agentPanel.setHeight((this.bottom() - this.corralBar.bottom())*.80);
+            } else {
+                this.agentPanel.setHeight(360);
+            }
 
-        // }
-        // // agentControllerBar
-        // this.agentControllerBar.setRight(this.agentPanel.right()-25);
-        // this.agentControllerBar.setBottom(this.agentPanel.bottom()-10); //FLECKS change the location of the buttons
-        // this.agentControllerBar.setWidth(90);
+        }
+        // agentControllerBar
+        this.agentControllerBar.setRight(this.agentPanel.right()-25);
+        this.agentControllerBar.setBottom(this.agentPanel.bottom()-10); //FLECKS change the location of the buttons
+        this.agentControllerBar.setWidth(90);
 
         // corralBar
         this.corralBar.setLeft(this.stage.left());
