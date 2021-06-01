@@ -112,6 +112,8 @@ var conversationReplay = false;
 var conversationHistory = [];
 var speakerHistory = [];
 
+var countButtonCreated = 0
+
 var activity_dialogues;
 
 // here we define the dialogues included in each activity
@@ -606,6 +608,7 @@ IDE_Morph.prototype.setDefaultDesign = function () {
 
     // This is the new agent animations
     var new_files = [
+        // "./images/Start_2.png",
         "./new_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
         "./new_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-NeutralTalk-EyeA-Hmm.jpg",
         "./new_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-SmileTalk-EyeA-IdleN.jpg",
@@ -1386,8 +1389,8 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
 
         
-        
         user_name = JSON.stringify(dict.Username)
+        console.log("dict is: "+dict);
 
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
             isLoggedIn = SnapCloud.username !== null;
@@ -2055,7 +2058,7 @@ IDE_Morph.prototype.createControlBar = function () {
     button.labelColor = new Color(0, 200, 0);
     button.contrast = this.buttonContrast;
     button.drawNew();
-    // button.hint = 'start green\nflag scripts';
+    button.hint = 'start green\nflag scripts';
     button.fixLayout();
     startButton = button;
     this.controlBar.add(startButton);
@@ -2924,7 +2927,7 @@ IDE_Morph.prototype.createAgentControllerBar = function () {
     this.agentControllerBar.add(pauseButton);
     this.agentControllerBar.pauseButton = pauseButton; // for refreshing
 
-    // startButton
+    // replayButton
     button = new PushButtonMorph(
         this, // the IDE is the target
         'replayConversation',
@@ -3010,10 +3013,8 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
 
     };
-    // alert(files[0])
 
-    if (futureImages1[1]==16){
-    
+    if (countButtonCreated < 3) {
         //Start Button
         var button,
         myself = this
@@ -3023,7 +3024,6 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
             'pauseConversation',
             new SymbolMorph('pointRight', 44)
         );
-        
 
         button.corner = 12;
         // button.color = "transparent";
@@ -3041,13 +3041,14 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
         button.setWidth(0);
         button.setLeft(235);
         button.setTop(150);
-
         startAgentsButton = button;
         this.agentPanel.add(startAgentsButton);
+        console.log("Start Button Created!");
         this.agentPanel.startAgentsButton = startAgentsButton; // for refreshing
 
-    }
+        countButtonCreated += 1;
 
+    }
 }
 
 IDE_Morph.prototype.createAgentImage = function () {
