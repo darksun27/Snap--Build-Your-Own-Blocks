@@ -410,6 +410,10 @@ ActionManager.prototype.pressStartAgent = function () {
     // Then the activity introduction starts right away.
     // Finally, the activity 1 vigette
     console.log("In ActionManager.prototype.pressStartAgent");
+
+    // user_name = 's1'
+    // activity_name = 'activity2'
+
     console.log("username is :"+ user_name);
     console.log("activity name is :"+ activity_name);
     

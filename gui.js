@@ -154,7 +154,8 @@ var futureAudio1 = [
     null,
     "6_Jay_Introduction_6.mp3"
 ];
-var audioTimes1 = [1, 2.372, 1, 3.596, 1, 1.633, 2.616, 2.722, 1, 1.512];
+// var audioTimes1 = [1, 2.372, 1, 3.596, 1, 1.633, 2.616, 2.722, 1, 1.512];
+var audioTimes1 = [1, 1.118, 1.254, 1.792, 1.804, 1.633, 2.616, 0.975, 1.747, 1.512];
 var futureImages1 = [11, 16, 13, 9, 7, 12, 8, 15, 14, 10];
 
 /* Conversation 2 -- Vignette 1 */
@@ -199,7 +200,8 @@ var futureAudio2 = [
     "5_Jay_Vignette_1_5.mp3",
     "6_Vivi_Vignette_1_6.mp3"
 ];
-var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
+// var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
+var audioTimes2 = [1, 0.659, 2.039, 1.039, 3.129, 1.887, 2, 2, 2, 1.403, 2.149, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
 var futureImages2 = [1, 4, 5, 3, 2, 6, 1, 71, 56, 57, 62, 67, 51, 67, 66, 78, 74, 74];
 
 /* Conversation 3 -- Additional Dialogue 1.1 */
@@ -218,7 +220,8 @@ var futureAudio3 = [
     "2_Jay_Additional_Dialogue_1.1_2.mp3",
     null
 ];
-var audioTimes3 = [1, 3.557, 1, 4.224, 1];
+// var audioTimes3 = [1, 3.557, 1, 4.224, 1];
+var audioTimes3 = [1.920, 1.637, 2, 2.860, 1.360];
 var futureImages3 = [1, 48, 39, 44, 43];
 
 /* Conversation 4 -- Additional Dialogue 1.2 */
@@ -237,7 +240,8 @@ var futureAudio4 = [
     "2_Vivi_Additional_Dialogue_1.2_2.mp3",
     null
 ];
-var audioTimes4 = [1, 4.296, 1, 3.161, 1];
+// var audioTimes4 = [1, 4.296, 1, 3.161, 1];
+var audioTimes4 = [2.602, 1.694, 2, 1.878, 1.238];
 var futureImages4 = [1, 42, 41, 48, 38];
 
 /* Conversation 5 -- Additional Dialogue 1.3 */
@@ -264,7 +268,8 @@ var futureAudio5 = [
     null,
     "4_Jay_Additional_Dialogue_1.3_4.mp3"
 ];
-var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
+// var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
+var audioTimes5 = [1, 0.788, 3.462, 2.560, 2.055, 2.385, 3.284, 2.609, 1.680];
 var futureImages5 = [1, 4, 38, 37, 45, 42, 40, 39, 10];
 
 /* Conversation 6 -- Vignette 2 */
@@ -311,7 +316,8 @@ var futureAudio6 = [
     "7_Vivi_Vignette_2_7.mp3",
     "8_Jay_Vignette_2_8.mp3"
 ];
-var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
+// var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
+var audioTimes6 = [1, 1.024, 4.4, 0.860, 2.38, 2, 2, 2, 1, 2.887, 1.368, 2.806, 2.747, 0.944, 2.59, 2.165, 1, 2.090, 2.843];
 var futureImages6 = [1, 1, 2, 4 , 36 , 14 , 1 , 79 ,56 ,69 ,68 ,58 ,59 ,55, 70 ,63 ,78 ,76 ,76];
 
 /* Conversation 7 -- Additional Dialogue 2.1 */
@@ -332,7 +338,8 @@ var futureAudio7 = [
     null,
     null
 ];
-var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
+// var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
+var audioTimes7 = [2.223, 1.219, 2, 0.939, 4.011, 2.637];
 var futureImages7 = [1, 34, 33, 32 , 46 , 42];
 
 /* Conversation 8 -- Additional Dialogue 2.2 */
@@ -359,7 +366,8 @@ var futureAudio8 = [
     "4_Vivi_Additional_Dialogue_2.2_4.mp3",
     "5_Vivi_Additional_Dialogue_2.2_5.mp3"
 ];
-var audioTimes8 = [1, 5.304, 1, 3.860, 1, 4.704, 1, 2.816, 3.464];
+// var audioTimes8 = [1, 5.304, 1, 3.860, 1, 4.704, 1, 2.816, 3.464];
+var audioTimes8 = [2, 3.013, 2, 1.864, 2, 1.707, 2, 2.816, 3.464];
 var futureImages8 = [1, 45, 46, 48, 31, 37, 30, 36, 48];
 
 /* Conversation 9 -- Additional Dialogue 2.3 */
@@ -383,6 +391,7 @@ var futureAudio9 = [
     null
 ];
 var audioTimes9 = [1, 3.372, 1, 2.040, 2.806, 1, 1];
+// var audioTimes9 = [1.777, 1.595, 2, 2.040, 2.806, 0.341, 2.214];
 var futureImages9 = [1, 45, 42, 33, 29, 10, 29];
 
 /* Conversation 10 -- Vignette 3 */
@@ -427,7 +436,8 @@ var futureAudio10 = [
     "7_Jay_Vignette_3_7.mp3",
     "8_Vivi_Vignette_3_8.mp3"
 ];
-var audioTimes10 = [1, 3.024, 2.889, 1, 1, 1, 1, 3.432, 1, 3.029, 2.330, 1, 2.937, 1, 1.059, 2.784, 1.996, 2.034];
+// var audioTimes10 = [1, 3.024, 2.889, 1, 1, 1, 1, 3.432, 1, 3.029, 2.330, 1, 2.937, 1, 1.059, 2.784, 1.996, 2.034];
+var audioTimes10 = [1, 3.024, 1.403, 1.486, 2, 2, 2, 3.432, 0.872, 2.515, 3.029, 1.157, 1.173, 1.577, 1.38, 1.059, 2.784, 1.996, 2.034];
 var futureImages10 = [1, 28, 27, 6, 1, 80, 56, 64, 63, 58, 61, 59, 67, 65, 63, 60, 76, 76];
 
 /* Conversation 11 -- Additional Dialogue 3.1 */
@@ -448,7 +458,8 @@ var futureAudio11 = [
     null,
     "3_Vivi_Additional_Dialogue_3.1_3.mp3",
 ];
-var audioTimes11 = [1, 4.285, 1, 4.320, 1, 3.244];
+// var audioTimes11 = [1, 4.285, 1, 4.320, 1, 3.244];
+var audioTimes11 = [1, 1.695, 2.59, 1.195, 3.125, 3.244];
 var futureImages11 = [1, 26, 49, 27, 42, 48];
 
 /* Conversation 12 -- Additional Dialogue 3.2 */
@@ -471,7 +482,8 @@ var futureAudio12 = [
     "3_Jay_Additional_Dialogue_3.2_3.mp3",
     null
 ];
-var audioTimes12 = [1, 6.672, 1, 3.029, 1, 3.444, 1];
+// var audioTimes12 = [1, 6.672, 1, 3.029, 1, 3.444, 1];
+var audioTimes12 = [1, 4.352, 2.32, 0.704, 2.505, 1.080, 2.364];
 var futureImages12 = [1, 24, 25, 34, 28, 23, 24];
 
 /* Conversation 13 -- Praise */
@@ -3014,7 +3026,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
     };
 
-    if (countButtonCreated < 3) {
+    if (countButtonCreated < 4) {
         //Start Button
         var button,
         myself = this
@@ -6685,7 +6697,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     if (this.conversationPause){
         this.isOriginalAgent = !this.isOriginalAgent;
         var moreConvo= false;
-        var audio = '/new_audio/';
+        var audio = '/audio/';
         var image;
         var audioLength;
 
@@ -6714,7 +6726,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
 
         this.isOriginalAgent = !this.isOriginalAgent;
         var moreConvo= false;
-        var audio = '/new_audio/';
+        var audio = '/audio/';
         var image;
         var audioLength;
 
@@ -6755,13 +6767,31 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
                 if (speakerHistory.length > 2) {
                     speakerHistory.shift();
                 }
+                // one of these three lines is causing our delay, now we are trying to identify or confirm which line it is
+                start = Date.now()
+                console.log('Start Time is ' + start)
+                console.log('Before audio play')
+                console.log('Next Agent Frame Index is : ' + image)
                 BlockMorph.prototype.snapSound = document.createElement('audio');
                 BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
                 BlockMorph.prototype.snapSound.play();
+                stop = Date.now()+
+                console.log('Stop Time is ' + stop)
+                duration = stop - start
+                console.log('After audio play')
+                console.log('Total duration is ' + duration)
+                // add a console.log that prints the current agent frame, before we play the audio,
+                // can we print out what the previous and after agent frames are 
+                // also prints time duration before and after the audio play,
+                //      eg. stop = time.now()
+                //          duration = stop - start
+                //          console.log(duration)
+                // also check the network panel in F12 of 
+                // we have to count the downlowding time of the audio, which above line is related to this?
+                // Another task: See if you can load audio files at the start similar to graphics
             }
         }
         this.createSpeechBubblePanel();
-        console.log("current image to build agent panel is " + parseInt(image));
         this.createAgentPanel(parseInt(image)-1);
 
         var windowWidth = window.screen.height * window.devicePixelRatio;
