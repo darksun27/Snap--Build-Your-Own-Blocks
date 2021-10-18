@@ -6,6 +6,12 @@ var logger = {
     error: console.error.bind(console)
 };
 
+// iFrameURL from FLECKS side;
+window.addEventListener('message', ({ data }) => {
+    iFrameURL = data
+  });
+
+
 var firstAction = true;
 var convoNum;
 
@@ -411,8 +417,8 @@ ActionManager.prototype.pressStartAgent = function () {
     // Finally, the activity 1 vigette
     console.log("In ActionManager.prototype.pressStartAgent");
 
-    // user_name = 's1'
-    // activity_name = 'activity2'
+    // user_name = 'h01'
+    // activity_name = 'activity3'
 
     console.log("username is :"+ user_name);
     console.log("activity name is :"+ activity_name);
@@ -431,7 +437,7 @@ ActionManager.prototype.pressStartAgent = function () {
         activity_dialogues = activity_2_additional_dialogues;
         convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity3' && user_name.includes('s1')){
+    if (activity_name === 'Activity3' && user_name.includes('s1')){
         activity_dialogues = activity_3_additional_dialogues;
         convoNum = activity_dialogues[0];
     }
@@ -494,7 +500,7 @@ ActionManager.prototype.pressStartAgent = function () {
             console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
-        else if (convoNum < 15 && !conversationReplay) {
+        else if (convoNum < 50 && !conversationReplay) {
             // convoNum++; // same here
             activity_dialogues.shift();
             console.log("Current Activity Dialogues contains: " + activity_dialogues);
@@ -506,42 +512,82 @@ ActionManager.prototype.pressStartAgent = function () {
 };
 
 ActionManager.prototype.restartAgent = function () {
-    //TODO: pass in timing of individual clips instead of audio clips
-    //For now it plays the agent introduction when student does something in the interface
-    // Then the activity introduction starts right away.
-    // Finally, the activity 1 vigette
+    //one soluton is inside the restart agent funtion, we don't use array.shift, so that we can keep the dialogues reusable forever.
     console.log("In ActionManager.prototype.restartAgent");
-    if (conversationReplay){
-        var myself = this,
-            world = this.world(),
-            ide = this.ide(),
-            convoAndTime,
-            time = 5000;
-
-        var moreConvo = false;
-
-        window.setTimeout(function(){
-
-            convoAndTime = ide.toggleAgentImage(convoNum);
-
-            moreConvo = convoAndTime[0];
-            time = convoAndTime[1] * 1000;
-            console.log("TIME: " + time);
-
-            if (moreConvo) {
-                window.setTimeout(function(){myself.restartAgent()},time);
-            }
-            else {
-                if (convoNum < 4) {
-
-                    convoNum++;
-                    window.setTimeout(function(){myself.restartAgent()}, 1000);
-                }
-            }
-        }, 1);
-
-        console.log("convoNum is "+convoNum);
+    // activity_dialogues = activity_3_dialogues;
+    if (interventionNumber == 1){
+        activity_dialogues = activity_1_dialogues;
     }
+    else if (interventionNumber == 2){
+        activity_dialogues = activity_2_dialogues;
+    }
+    else if (interventionNumber == 3){
+        activity_dialogues = activity_2_additional_dialogues;
+    }
+    else if (interventionNumber == 4){
+        activity_dialogues = activity_3_dialogues;
+    }
+    else if (interventionNumber == 5){
+        activity_dialogues = activity_3_additional_dialogues;
+    }
+    else if (interventionNumber == 6){
+        activity_dialogues = activity_4_dialogues;
+    }
+    else if (interventionNumber == 8){
+        activity_dialogues = activity_5_additional_dialogues;
+    }
+    else if (interventionNumber == 9){
+        activity_dialogues = activity_6_additional_dialogues;
+    }
+    else if (interventionNumber == 10){
+        activity_dialogues = activity_7_additional_dialogues;
+    }
+    else if (interventionNumber == 11){
+        activity_dialogues = activity_8_additional_dialogues;
+    }
+    else if (interventionNumber == 12){
+        activity_dialogues = activity_9_additional_dialogues;
+    }
+    else {
+        console.log("Intervention Number is Null!");
+    }
+    convoNum = activity_dialogues[0];
+    var myself = this,
+        world = this.world(),
+        ide = this.ide(),
+        convoAndTime,
+        time = 5000;
+    var moreConvo = false;
+    window.setTimeout(function(){
+        convoAndTime = ide.toggleAgentImage(convoNum);
+        moreConvo = convoAndTime[0];
+        time = convoAndTime[1] * 1000;
+        if (moreConvo && !conversationReplay) { // dialogue flow remains in the same conversation
+            window.setTimeout(function(){myself.restartAgent()},time);
+        }
+        else {
+            if(convoNum == 1){ 
+                ide.pauseConversation();
+                window.parent.postMessage('pauseConversation','*');
+                activity_dialogues.shift(); 
+                window.addEventListener('message', startDebuggingConversation, false) 
+                function startDebuggingConversation(e) {
+                if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
+                ide.pauseConversation();
+                window.removeEventListener("message", startDebuggingConversation,false);
+                    } 
+                }
+                console.log("convoNum is "+convoNum);
+                window.setTimeout(function(){myself.restartAgent()}, 1000);
+            }
+            else if (convoNum < 15 && !conversationReplay) {
+                activity_dialogues.shift();
+                console.log("Current Activity Dialogues contains: " + activity_dialogues);
+                console.log("convoNum is "+convoNum);
+                window.setTimeout(function(){myself.restartAgent()}, 1000);
+            }
+        }
+    }, 1);
 };
 
 ActionManager.prototype.applyEvent = function(event) {

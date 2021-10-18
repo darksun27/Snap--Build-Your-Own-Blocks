@@ -91,6 +91,9 @@ var StageHandleMorph;
 var PaletteHandleMorph;
 var AgentMorph;
 
+var intervention = false;
+var interventionNumber = null;
+
 var SERVER_URL = SERVER_URL || window.location.origin;
 var SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, '');
 function ensureFullUrl(url) {
@@ -1297,11 +1300,13 @@ IDE_Morph.prototype.openIn = function (world) {
 // };
 
 
-
 // IDE_Morph construction
 
 IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
+
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
+    // console.log("iFrameURL: ", iFrameURL);
+
     var myself = this,
         urlLanguage,
         hash,
@@ -1344,6 +1349,142 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         dict = SnapCloud.parseDict(querystring);
     }
+    // console.log("loc.href1: "+ JSON.stringify(loc.href))
+    console.log("NetsbloxURL: ", loc.href);
+
+
+    // ---START Receiving wizard message every 10sec 
+
+    dict2 = {}
+    if (iFrameURL.indexOf('?') > -1) {
+        var querystring2 = iFrameURL
+            // .replace(/^.*\?/, '')
+            // .replace('#' + iFrameURL, '');
+        dict2 = SnapCloud.parseDict(querystring2);
+    }
+
+    console.log("iFrameURL dict2", dict2);        
+    console.log("iFrameURL.Facilitator dict2", dict2.Facilitator );
+
+
+    async function callIntervention(aURL) {
+        console.log("test: ", aURL)
+        const response = await fetch(aURL, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "http://localhost:8888", // update to match the domain you will make the request from
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+            }   
+        })
+        .then(async res => {
+            var response = await res.json();
+            return response;
+
+        })
+        .then( async response => {
+            console.log("Wizard JSON: ", response);
+            console.log("Response from Wizard: ", response.vignette);
+
+            if (response.vignette == "confusion-confusion-about-objective"){
+                intervention = true;
+                interventionNumber = 1;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            } 
+            else if (response.vignette == "confusion-floundering"){
+                intervention = true;
+                interventionNumber = 2;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "confusion-bottom-out-hint"){
+                intervention = true;
+                interventionNumber = 3;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "inactivity-inactive-coding"){
+                intervention = true;
+                interventionNumber = 4;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "inactivity-inactive-talking"){
+                intervention = true;
+                interventionNumber = 5;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "inactivity-distraction"){
+                intervention = true;
+                interventionNumber = 6;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "good-teamwork-asking-why-questions"){
+                intervention = true;
+                interventionNumber = 7;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "good-teamwork-sharing-ideas"){
+                intervention = true;
+                interventionNumber = 8;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "good-teamwork-listening-to-each-other"){
+                intervention = true;
+                interventionNumber = 9;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "conflict-not-asking-why-questions"){
+                intervention = true;
+                interventionNumber = 10;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "conflict-not-sharing-ideas"){
+                intervention = true;
+                interventionNumber = 11;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else if (response.vignette == "conflict-not-listening-to-each-other"){
+                intervention = true;
+                interventionNumber = 12;
+                SnapActions.restartAgent();
+                console.log("interventionNumber: ", interventionNumber);
+            }
+            else{
+                console.log("Invalid response vignette!");
+            } 
+        })
+        .catch(err => console.log(err));
+    }
+
+
+    setInterval(function(){ 
+        console.log("Calling setInterval");
+  
+        // iFrameURL variable comes from the action.js
+        console.log("iFrameURL ", iFrameURL);        
+        console.log("iFrameURL.Facilitator ", iFrameURL.Facilitator );
+
+
+        var callFacilitatorAPILink = "http://localhost:8888/api/wizard/facilitator/" + dict2.Facilitator + "/activity/"+dict2.ProjectID
+        console.log("callFacilitatorAPILink: ", callFacilitatorAPILink)
+
+        callIntervention(callFacilitatorAPILink) 
+
+    }, 10000);
+
+// --- End Receiving wizard message every 10 sec
+
+
 
     if (loc.hash.substr(0, 6) === '#open:') {
         hash = loc.hash.substr(6);
@@ -1454,44 +1595,44 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             );
         } 
 
-        else if ((dict.Username).length==3 && ((dict.ProjectName).length==15) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
-            console.log("-- Facilitator opens the project. Owner: Student and collaborator: Facilitator.")
-            console.log("dict.ProjectName: "+dict.ProjectName)
-            console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
-            projectUsername = (dict.ProjectName).substr(0,5)    
-            SnapCloud.getProjectId(
-            projectUsername,
-            dict.ProjectName,
-            function (ID) {
-                var projectID = Object.keys(ID)[0]
-                // console.log(projectID)
+        // // We don't have this case yet
+        // else if ((dict.Username).length==3 && ((dict.ProjectName).length==15) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
+        //     console.log("-- Facilitator opens the project. Owner: Student and collaborator: Facilitator.")
+        //     console.log("dict.ProjectName: "+dict.ProjectName)
+        //     console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
+        //     projectUsername = (dict.ProjectName).substr(0,5)    
+        //     SnapCloud.getProjectId(
+        //     projectUsername,
+        //     dict.ProjectName,
+        //     function (ID) {
+        //         var projectID = Object.keys(ID)[0]
+        //         // console.log(projectID)
 
-                myself.nextSteps([
-                    function () {nop(); }, // yield (bug in Chrome)
-                    function () {
-                        SnapCloud.joinActiveProject(        
-                                projectID,
-                                function(xml) {
-                                    // console.log("xml1: " + JSON.stringify(xml))
-                                    var action = myself.rawLoadCloudProject(xml, "true");      
+        //         myself.nextSteps([
+        //             function () {nop(); }, // yield (bug in Chrome)
+        //             function () {
+        //                 SnapCloud.joinActiveProject(        
+        //                         projectID,
+        //                         function(xml) {
+        //                             // console.log("xml1: " + JSON.stringify(xml))
+        //                             var action = myself.rawLoadCloudProject(xml, "true");      
     
-                                    if (action) {
-                                                action.then(function() {
-                                                    applyFlags(dict);
-                                                });
-                                            } else {
-                                                applyFlags(dict);
-                                            }
-                                },
-                                myself.cloudError()
-                        );
-                    }
-                ]);
-            },
-            myself.cloudError()
-        );
-        } 
-
+        //                             if (action) {
+        //                                         action.then(function() {
+        //                                             applyFlags(dict);
+        //                                         });
+        //                                     } else {
+        //                                         applyFlags(dict);
+        //                                     }
+        //                         },
+        //                         myself.cloudError()
+        //                 );
+        //             }
+        //         ]);
+        //     },
+        //     myself.cloudError()
+        // );
+        // } 
 
         else if ((dict.Username).length==3 && ((dict.Username).substr(0,3)==(SnapCloud.username).substr(0,3)) && ((dict.ProjectName).length==13) &&  ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {
             console.log("-- Facilitator opens the project: Owner: facilitator. ")
@@ -1740,6 +1881,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     } else {
         myself.newProject();
     }
+
 };
 
 
@@ -2878,7 +3020,6 @@ IDE_Morph.prototype.createSpeechBubblePanel = function () {
 
     this.speechBubblePanel.adjustScrollBars();
 
-
     //this.speechBubblePanel.adjustScrollBars();
     //this.speechBubblePanel.scrollY(this.speechBubblePanel.contents.bottom());
 
@@ -2942,7 +3083,7 @@ IDE_Morph.prototype.createAgentControllerBar = function () {
     // replayButton
     button = new PushButtonMorph(
         this, // the IDE is the target
-        'replayConversation',
+        'pauseConversation',
         new SymbolMorph('turnBack', 12)
     );
 
@@ -3743,6 +3884,44 @@ IDE_Morph.prototype.stopAllScripts = function () {
 
 IDE_Morph.prototype.pauseConversation = function () {
     this.conversationPause = ! this.conversationPause;
+};
+
+// async function callIntervention(req, res) {
+//     const fetch = require("node-fetch");
+//     const intervention = await fetch('http://localhost:8888/api/wizard/preview/facilitator/a1/activity/61072c2b95b2fb09c44fd613')
+//         // .then(res => res.text())
+//         console.log("intervention: "+ JSON.stringify(intervention))
+
+// }
+
+
+// IDE_Morph.prototype.startIntervention = function (response) {
+//     if (response == "askWhy"){
+//         this.interventionNumber = 1;
+//     } 
+//     else if (response == "X"){
+//         this.interventionNumber = 1;
+//     } 
+    
+// }
+
+IDE_Morph.prototype.initiateIntervention = function (interventionNumber) {
+    if (interventionNumber == 1) {
+        moreConvo = true;
+        window['futureConversation'+convoNum] = futureConversation13;
+        window['futureSpeaker'+convoNum] = futureSpeaker13;
+        window['futureAudio'+convoNum] = futureAudio13;
+        window['audioTimes'+convoNum] = audioTimes13;
+        window['futureImages'+convoNum] = futureImages13;
+    }
+    else if (interventionNumber == 2) {
+        moreConvo = true;
+        window['futureConversation'+convoNum] = futureConversation1;
+        window['futureSpeaker'+convoNum] = futureSpeaker1;
+        window['futureAudio'+convoNum] = futureAudio1;
+        window['audioTimes'+convoNum] = audioTimes1;
+        window['futureImages'+convoNum] = futureImages1;
+    }
 };
 
 IDE_Morph.prototype.replayConversation = function () {
@@ -6694,116 +6873,174 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall, forcedRatio) {
 };
 
 IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
-    if (this.conversationPause){
-        this.isOriginalAgent = !this.isOriginalAgent;
-        var moreConvo= false;
-        var audio = '/audio/';
-        var image;
-        var audioLength;
-
-        var convoAndTime;
-
-        if (convoNum === null || activity_name.includes('activity1')) {
-            image = 11; 
-            this.agentPanel.destroy(); 
-            this.speechBubblePanel.destroy();
-        }
-        else {
-            if (window['futureConversation'+convoNum].length > 0) {
-                audio = audio + window['futureAudio'+convoNum][0];
-                audioLength = window['audioTimes'+convoNum][0];
-                moreConvo = true;
+    console.log("In AAAAAA: interventionNumber is:" + interventionNumber);
+    if (intervention == false){
+        if (this.conversationPause){
+            this.isOriginalAgent = !this.isOriginalAgent;
+            var moreConvo= false;
+            var audio = '/audio/';
+            var image;
+            var audioLength;
+    
+            var convoAndTime;
+    
+            if (convoNum === null || activity_name.includes('activity1')) {
+                image = 11; 
+                this.agentPanel.destroy(); 
+                this.speechBubblePanel.destroy();
             }
-            image = window['futureImages'+convoNum][0];
-        }
-        return [moreConvo,audioLength];
-    }
-    else {
-        console.log("In IDE_Morph.prototype.toggleAgentImage");
-        console.log("conversation pause status is : "+this.conversationPause);
-        //This is where we move the conversation forward (audio, text, images) and
-        //where we keep track of conversation history
-
-        this.isOriginalAgent = !this.isOriginalAgent;
-        var moreConvo= false;
-        var audio = '/audio/';
-        var image;
-        var audioLength;
-
-        //The return object that contains whether the conversations are complete
-        // and how much time the next clip is
-        var convoAndTime;
-
-        if (convoNum === null || activity_name.includes('activity1')) {
-            image = 11; 
-            this.agentPanel.destroy(); 
-            this.speechBubblePanel.destroy();
+            else {
+                if (window['futureConversation'+convoNum].length > 0) {
+                    audio = audio + window['futureAudio'+convoNum][0];
+                    audioLength = window['audioTimes'+convoNum][0];
+                    moreConvo = true;
+                }
+                image = window['futureImages'+convoNum][0];
+            }
+            return [moreConvo,audioLength];
         }
         else {
-            if (window['futureConversation'+convoNum].length > 0) {
-                //get the upcoming utterance from futureConversation and store it in currentUtterance
-                var currentUtterance = window['futureConversation'+convoNum][0];
-                window['futureConversation'+convoNum].shift();
-                if (currentUtterance != "") {
-                    conversationHistory.push(currentUtterance);
-                    console.log(conversationHistory.length);
-                    if (conversationHistory.length > 2) {
-                        conversationHistory.shift();
+            console.log("In IDE_Morph.prototype.toggleAgentImage");
+            console.log("conversation pause status is : "+this.conversationPause);
+            //This is where we move the conversation forward (audio, text, images) and
+            //where we keep track of conversation history
+    
+            this.isOriginalAgent = !this.isOriginalAgent;
+            var moreConvo= false;
+            var audio = '/audio/';
+            var image;
+            var audioLength;
+    
+            //The return object that contains whether the conversations are complete
+            // and how much time the next clip is
+            var convoAndTime;
+    
+            if (convoNum === null || activity_name.includes('activity1')) {
+                image = 11; 
+                this.agentPanel.destroy(); 
+                this.speechBubblePanel.destroy();
+            }
+            else {
+                if (window['futureConversation'+convoNum].length > 0) {
+                    //get the upcoming utterance from futureConversation and store it in currentUtterance
+                    var currentUtterance = window['futureConversation'+convoNum][0];
+                    window['futureConversation'+convoNum].shift();
+                    if (currentUtterance != "") {
+                        conversationHistory.push(currentUtterance);
+                        console.log(conversationHistory.length);
+                        if (conversationHistory.length > 2) {
+                            conversationHistory.shift();
+                        }
                     }
+                    audio = audio + window['futureAudio'+convoNum][0];
+                    window['futureAudio'+convoNum].shift();
+                    audioLength = window['audioTimes'+convoNum][0];
+                    window['audioTimes'+convoNum].shift()
+                    moreConvo = true;
                 }
-                audio = audio + window['futureAudio'+convoNum][0];
-                window['futureAudio'+convoNum].shift();
-                audioLength = window['audioTimes'+convoNum][0];
-                window['audioTimes'+convoNum].shift()
-                moreConvo = true;
-            }
-            if (window['futureImages'+convoNum].length == 0) {image = 11;} else {image = window['futureImages'+convoNum][0];}
-            window['futureImages'+convoNum].shift();
-
-            if (window['futureSpeaker'+convoNum].length > 0) {
-                var currentSpeaker = window['futureSpeaker'+convoNum][0];
-                window['futureSpeaker'+convoNum].shift();
-                speakerHistory.push(currentSpeaker);
-                if (speakerHistory.length > 2) {
-                    speakerHistory.shift();
+                if (window['futureImages'+convoNum].length == 0) {
+                    image = 11;
+                    this.initiateIntervention();
+                } else {
+                    image = window['futureImages'+convoNum][0];
                 }
-                // one of these three lines is causing our delay, now we are trying to identify or confirm which line it is
-                start = Date.now()
-                console.log('Start Time is ' + start)
-                console.log('Before audio play')
-                console.log('Next Agent Frame Index is : ' + image)
-                BlockMorph.prototype.snapSound = document.createElement('audio');
-                BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
-                BlockMorph.prototype.snapSound.play();
-                stop = Date.now()+
-                console.log('Stop Time is ' + stop)
-                duration = stop - start
-                console.log('After audio play')
-                console.log('Total duration is ' + duration)
-                // add a console.log that prints the current agent frame, before we play the audio,
-                // can we print out what the previous and after agent frames are 
-                // also prints time duration before and after the audio play,
-                //      eg. stop = time.now()
-                //          duration = stop - start
-                //          console.log(duration)
-                // also check the network panel in F12 of 
-                // we have to count the downlowding time of the audio, which above line is related to this?
-                // Another task: See if you can load audio files at the start similar to graphics
+                window['futureImages'+convoNum].shift();
+    
+                if (window['futureSpeaker'+convoNum].length > 0) {
+                    var currentSpeaker = window['futureSpeaker'+convoNum][0];
+                    window['futureSpeaker'+convoNum].shift();
+                    speakerHistory.push(currentSpeaker);
+                    if (speakerHistory.length > 2) {
+                        speakerHistory.shift();
+                    }
+                    BlockMorph.prototype.snapSound = document.createElement('audio');
+                    BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
+                    BlockMorph.prototype.snapSound.play();
+                }
             }
+            this.createSpeechBubblePanel();
+            this.createAgentPanel(parseInt(image)-1);
+    
+            var windowWidth = window.screen.height * window.devicePixelRatio;
+    
+            console.log("Window Resolution: " + windowWidth);
+    
+            //if (windowWidth < 1000) {
+            SnapActions.setStageSize(480, 380);
+    
+            this.fixLayout();
+    
+            return [moreConvo,audioLength];
         }
-        this.createSpeechBubblePanel();
-        this.createAgentPanel(parseInt(image)-1);
-
-        var windowWidth = window.screen.height * window.devicePixelRatio;
-
-        console.log("Window Resolution: " + windowWidth);
-
-        //if (windowWidth < 1000) {
-        SnapActions.setStageSize(480, 380);
-
-        this.fixLayout();
-
-        return [moreConvo,audioLength];
+    }
+    else{
+        // this.initiateIntervention(interventionNumber);
+        console.log("play intervention music!")
+        console.log("window['futureAudio'+convoNum].shift();" + window['futureAudio'+convoNum]);
+        var audio = '/audio/';
+            var image;
+            var audioLength;
+    
+            //The return object that contains whether the conversations are complete
+            // and how much time the next clip is
+            var convoAndTime;
+    
+            if (convoNum === null || activity_name.includes('activity1')) {
+                image = 11; 
+                this.agentPanel.destroy(); 
+                this.speechBubblePanel.destroy();
+            }
+            else {
+                if (window['futureConversation'+convoNum].length > 0) {
+                    //get the upcoming utterance from futureConversation and store it in currentUtterance
+                    var currentUtterance = window['futureConversation'+convoNum][0];
+                    window['futureConversation'+convoNum].shift();
+                    if (currentUtterance != "") {
+                        conversationHistory.push(currentUtterance);
+                        console.log(conversationHistory.length);
+                        if (conversationHistory.length > 2) {
+                            conversationHistory.shift();
+                        }
+                    }
+                    audio = audio + window['futureAudio'+convoNum][0];
+                    window['futureAudio'+convoNum].shift();
+                    audioLength = window['audioTimes'+convoNum][0];
+                    window['audioTimes'+convoNum].shift()
+                    moreConvo = true;
+                }
+                if (window['futureImages'+convoNum].length == 0) {
+                    image = 11;
+                    this.initiateIntervention();
+                } else {
+                    image = window['futureImages'+convoNum][0];
+                }
+                window['futureImages'+convoNum].shift();
+    
+                if (window['futureSpeaker'+convoNum].length > 0) {
+                    var currentSpeaker = window['futureSpeaker'+convoNum][0];
+                    window['futureSpeaker'+convoNum].shift();
+                    speakerHistory.push(currentSpeaker);
+                    if (speakerHistory.length > 2) {
+                        speakerHistory.shift();
+                    }
+                    BlockMorph.prototype.snapSound = document.createElement('audio');
+                    BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
+                    BlockMorph.prototype.snapSound.play();
+                }
+            }
+            this.createSpeechBubblePanel();
+            this.createAgentPanel(parseInt(image)-1);
+    
+            var windowWidth = window.screen.height * window.devicePixelRatio;
+    
+            console.log("Window Resolution: " + windowWidth);
+    
+            //if (windowWidth < 1000) {
+            SnapActions.setStageSize(480, 380);
+    
+            this.fixLayout();
+    
+            return [moreConvo,audioLength];
     }
 };
 
