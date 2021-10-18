@@ -96,6 +96,9 @@ var interventionNumber = null;
 
 var SERVER_URL = SERVER_URL || window.location.origin;
 var SERVER_ADDRESS = SERVER_URL.replace(/^.*\/\//, '');
+
+
+
 function ensureFullUrl(url) {
     // if it's not a full path attach serverURL to the front
     // regex is checking to see if the protocol is there (eg http://, ws://)
@@ -1474,8 +1477,10 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         console.log("iFrameURL ", iFrameURL);        
         console.log("iFrameURL.Facilitator ", iFrameURL.Facilitator );
 
+        // console.log("process.env.NETSBLOX_HOST", process.env.NETSBLOX_HOST)
 
-        var callFacilitatorAPILink = "http://localhost:8888/api/wizard/facilitator/" + dict2.Facilitator + "/activity/"+dict2.ProjectID
+
+        var callFacilitatorAPILink = "https://flecks.csc.ncsu.edu/api/wizard/facilitator/" + dict2.Facilitator + "/activity/"+dict2.ProjectID
         console.log("callFacilitatorAPILink: ", callFacilitatorAPILink)
 
         callIntervention(callFacilitatorAPILink) 
