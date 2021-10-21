@@ -1352,23 +1352,17 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         dict = SnapCloud.parseDict(querystring);
     }
-    // console.log("loc.href1: "+ JSON.stringify(loc.href))
+
     console.log("NetsbloxURL: ", loc.href);
+    console.log("dict", dict); 
 
-
-    // ---START Receiving wizard message every 10sec 
-
-    dict2 = {}
-    if (iFrameURL.indexOf('?') > -1) {
-        var querystring2 = iFrameURL
-            // .replace(/^.*\?/, '')
-            // .replace('#' + iFrameURL, '');
-        dict2 = SnapCloud.parseDict(querystring2);
-    }
-
-    console.log("iFrameURL dict2", dict2);        
-    console.log("iFrameURL.Facilitator dict2", dict2.Facilitator );
-
+    console.log("    Username: ", dict.Username, '\n',
+                "Facilitator: ", dict.Facilitator, '\n',
+                "ProjectName: ", dict.ProjectName, '\n',
+                "ProjectID:", dict.ProjectID, '\n',
+                "action: ", dict.action, '\n',
+                "    "
+    )
 
     async function callIntervention(aURL) {
         console.log("test: ", aURL)
@@ -1377,7 +1371,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             mode: 'cors', // no-cors, *cors, same-origin
             headers: {
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "http://localhost:8888", // update to match the domain you will make the request from
+            // "Access-Control-Allow-Origin": "http://localhost:8888", // update to match the domain you will make the request from
             "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
             }   
         })
@@ -1472,15 +1466,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     setInterval(function(){ 
         console.log("Calling setInterval");
-  
-        // iFrameURL variable comes from the action.js
-        console.log("iFrameURL ", iFrameURL);        
-        console.log("iFrameURL.Facilitator ", iFrameURL.Facilitator );
 
         // console.log("process.env.NETSBLOX_HOST", process.env.NETSBLOX_HOST)
 
 
-        var callFacilitatorAPILink = "https://flecks.csc.ncsu.edu/api/wizard/facilitator/" + dict2.Facilitator + "/activity/"+dict2.ProjectID
+        var callFacilitatorAPILink = "https://flecks.csc.ncsu.edu/api/wizard/facilitator/" + dict.Facilitator + "/activity/"+dict.ProjectID
         console.log("callFacilitatorAPILink: ", callFacilitatorAPILink)
 
         callIntervention(callFacilitatorAPILink) 
@@ -1528,27 +1518,21 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         this.runScripts();
 
     } else if (loc.hash.substr(0, 9) === '#present:' || dict.action === 'present') {
+        console.log("In Present")  
         myself.showMessage('Fetching project...');
 
+        // console.log("dict: "+ JSON.stringify(dict))        
+        // console.log("dict.ProjectName: "+ JSON.stringify(dict.ProjectName))
 
-        console.log("JSON.stringify(dict.ProjectName).length: "+ JSON.stringify(dict.ProjectName).length)
+        ProjName = (JSON.stringify(dict.ProjectName)).toLowerCase();
 
+        // if (ProjName.includes("activity")){
+        //     let index1=ProjName.indexOf("activity")
+        //     activity_name = "activity"+ProjName[index1+8]
+        //     console.log("activity_name:",activity_name)
+        // }
 
-
-        if (JSON.stringify(dict.ProjectName).length===17){
-            activity_name = JSON.stringify(dict.ProjectName).substring(7,16);
-            console.log('long activity_name:'+activity_name)
-
-        }else{
-            activity_name = JSON.stringify(dict.ProjectName).substring(5,14);
-            console.log('short activity_name:'+activity_name)
-
-        }
-
-
-        
         user_name = JSON.stringify(dict.Username)
-        console.log("dict is: "+dict);
 
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
             isLoggedIn = SnapCloud.username !== null;
@@ -1558,22 +1542,19 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             SnapCloud.reconnect() // I added this.
             return;
         }
-
-        console.log("dict: "+ JSON.stringify(dict))
-        
+    
         // Activity 2,3,4 
-        if ((dict.Username).length>3 && ((dict.ProjectName).length==13) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
-            console.log("-- Student opens the project. Owner: facilitator and collaborator: student.")
-            console.log("dict.ProjectName: "+dict.ProjectName)
-            console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
-            projectUsername = (SnapCloud.username).substr(0,3)    
+        if ((dict.Facilitator!==undefined) && (SnapCloud.username !==(dict.Facilitator))) 
+        {
+            console.log("-- Owner: facilitator. Collaborator: student. Student opens the project.")
+
+            projectUsername = dict.Facilitator    
+            console.log("projectUsername: ", projectUsername)
             SnapCloud.getProjectId(
                 projectUsername,
                 dict.ProjectName,
                 function (ID) {
                     var projectID = Object.keys(ID)[0]
-                    // console.log(projectID)
-
                     myself.nextSteps([
                         function () {nop(); }, // yield (bug in Chrome)
                         function () {
@@ -1600,89 +1581,9 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             );
         } 
 
-        // // We don't have this case yet
-        // else if ((dict.Username).length==3 && ((dict.ProjectName).length==15) && ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {  
-        //     console.log("-- Facilitator opens the project. Owner: Student and collaborator: Facilitator.")
-        //     console.log("dict.ProjectName: "+dict.ProjectName)
-        //     console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
-        //     projectUsername = (dict.ProjectName).substr(0,5)    
-        //     SnapCloud.getProjectId(
-        //     projectUsername,
-        //     dict.ProjectName,
-        //     function (ID) {
-        //         var projectID = Object.keys(ID)[0]
-        //         // console.log(projectID)
+        else if (SnapCloud.username ==(dict.Username)) {
+            console.log("-- Opening own project ")
 
-        //         myself.nextSteps([
-        //             function () {nop(); }, // yield (bug in Chrome)
-        //             function () {
-        //                 SnapCloud.joinActiveProject(        
-        //                         projectID,
-        //                         function(xml) {
-        //                             // console.log("xml1: " + JSON.stringify(xml))
-        //                             var action = myself.rawLoadCloudProject(xml, "true");      
-    
-        //                             if (action) {
-        //                                         action.then(function() {
-        //                                             applyFlags(dict);
-        //                                         });
-        //                                     } else {
-        //                                         applyFlags(dict);
-        //                                     }
-        //                         },
-        //                         myself.cloudError()
-        //                 );
-        //             }
-        //         ]);
-        //     },
-        //     myself.cloudError()
-        // );
-        // } 
-
-        else if ((dict.Username).length==3 && ((dict.Username).substr(0,3)==(SnapCloud.username).substr(0,3)) && ((dict.ProjectName).length==13) &&  ((dict.Username).substr(0,3) == (dict.ProjectName).substr(0,3))) {
-            console.log("-- Facilitator opens the project: Owner: facilitator. ")
-
-            // console.log("SnapCloud.username).substr(0,3): " + (SnapCloud.username).substr(0,3))
-            // console.log("((dict.Username).substr(0,3): "+ (dict.Username).substr(0,3))
-            myself.nextSteps([
-                function () {
-                    msg = myself.showMessage('Opening ' + name);     
-                },
-                function () {nop(); }, // yield (bug in Chrome)
-                function () {
-                    SnapCloud.getProjectByName(
-                        SnapCloud.username,
-                        dict.ProjectName,
-                        function (xml) {
-                            msg.destroy();
-                            var action = myself.rawLoadCloudProject(xml);
-                            // console.log('-----action: '+JSON.stringify(action))
-                            
-                            location.hash = '?action=present&Username=' +
-                                encodeURIComponent(SnapCloud.username) +
-                                '&ProjectName=' +
-                                encodeURIComponent(dict.ProjectName);
-                            console.log("5encodeURIComponent: "+JSON.stringify(location.hash))
-                            
-                            if (action) {
-                                action.then(function() {
-                                    applyFlags(dict);
-                                });
-                            } else {
-                                applyFlags(dict);
-                            }
-                        },
-                        myself.cloudError()
-                    );
-                }
-            ]);
-        }
-
-        else if ((dict.Username).length==5 && ((dict.ProjectName).length=15) && (SnapCloud.username ==(dict.Username).substr(0,5)) && ((dict.Username).substr(0,5) == (dict.ProjectName).substr(0,5))) {
-            console.log("-- Student opens the project: Owner: Student. ")
-            console.log("dict.ProjectName: "+dict.ProjectName)
-            console.log("dict.ProjectNamelenght: "+(dict.ProjectName).length)
-            console.log("SnapCloud.username: "+ SnapCloud.username)
             myself.nextSteps([
                 function () {
                     msg = myself.showMessage('Opening ' + name);     
@@ -3142,7 +3043,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
             height,
             left;
 
-        console.log("Window height: " + windowHeight);
+        // console.log("Window height: " + windowHeight);
         if (windowHeight < 600) {
             width = this.cachedTexture.width * .65,
                 height = this.cachedTexture.height * .55 ;
@@ -3160,8 +3061,8 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
             width = this.cachedTexture.width,
                 height = this.cachedTexture.height;
         }
-        console.log(width);
-        console.log(windowHeight);
+        // console.log(width);
+        // console.log(windowHeight);
 
         left = (480-width)/2;
 
