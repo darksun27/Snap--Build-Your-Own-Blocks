@@ -516,41 +516,57 @@ ActionManager.prototype.restartAgent = function () {
     console.log("In ActionManager.prototype.restartAgent");
     // activity_dialogues = activity_3_dialogues;
     if (interventionNumber == 1){
-        activity_dialogues = activity_1_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_2_object;
     }
     else if (interventionNumber == 2){
-        activity_dialogues = activity_2_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_3_object;
     }
     else if (interventionNumber == 3){
-        activity_dialogues = activity_2_additional_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_4_object;
     }
     else if (interventionNumber == 4){
-        activity_dialogues = activity_3_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_floudering;
     }
     else if (interventionNumber == 5){
-        activity_dialogues = activity_3_additional_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_2_hint;
     }
     else if (interventionNumber == 6){
-        activity_dialogues = activity_4_dialogues;
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_3_hint;
+    }
+    else if (interventionNumber == 7){
+        activity_dialogues = intervention_dialogues_CONFUSION_activity_4_hint;
     }
     else if (interventionNumber == 8){
-        activity_dialogues = activity_5_additional_dialogues;
+        activity_dialogues = intervention_dialogues_INACTIVITY_inactive_coding;
     }
     else if (interventionNumber == 9){
-        activity_dialogues = activity_6_additional_dialogues;
+        activity_dialogues = intervention_dialogues_INACTIVITY_inactive_talking;
     }
     else if (interventionNumber == 10){
-        activity_dialogues = activity_7_additional_dialogues;
+        activity_dialogues = intervention_dialogues_INACTIVITY_distraction;
     }
     else if (interventionNumber == 11){
-        activity_dialogues = activity_8_additional_dialogues;
+        activity_dialogues = intervention_dialogues_GOOD_TEAMWORK_asking_why;
     }
     else if (interventionNumber == 12){
-        activity_dialogues = activity_9_additional_dialogues;
+        activity_dialogues = intervention_dialogues_GOOD_TEAMWORK_sharing_ideas;
+    }
+    else if (interventionNumber == 13){
+        activity_dialogues = intervention_dialogues_GOOD_TEAMWORK_listening_to_each_other;
+    }
+    else if (interventionNumber == 14){
+        activity_dialogues = intervention_dialogues_CONFLICT_not_asking_why;
+    }
+    else if (interventionNumber == 15){
+        activity_dialogues = intervention_dialogues_CONFLICT_not_sharing_ideas;
+    }
+    else if (interventionNumber == 16){
+        activity_dialogues = intervention_dialogues_CONFLICT_not_listening_to_each_other;
     }
     else {
         console.log("Intervention Number is Null!");
     }
+
     convoNum = activity_dialogues[0];
     var myself = this,
         world = this.world(),
