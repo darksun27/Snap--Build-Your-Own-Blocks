@@ -1817,13 +1817,19 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     setInterval(function(){ 
         console.log("Calling setInterval");
 
-        // console.log("process.env.NETSBLOX_HOST", process.env.NETSBLOX_HOST)
+        // Loading env to the client on Node.js is messy so instead we are using a simpler way
 
-
-        var callFacilitatorAPILink = "https://flecks.csc.ncsu.edu/api/wizard/facilitator/" + dict.Facilitator + "/activity/"+dict.ProjectID
-        console.log("callFacilitatorAPILink: ", callFacilitatorAPILink)
-
-        callIntervention(callFacilitatorAPILink) 
+        let addressURL = "";
+        if ((loc.href).includes("localhost")){
+            addressURL = "http://localhost:8888";
+        } else {
+            addressURL = "https://flecks.csc.ncsu.edu";
+        }
+        // console.log("addressURL: ", addressURL)
+        
+        var callFacilitatorAPIURL = addressURL + "/api/wizard/facilitator/" + dict.Facilitator + "/activity/"+dict.ProjectID
+        // console.log("callFacilitatorAPIURL: ", callFacilitatorAPIURL)
+        callIntervention(callFacilitatorAPIURL) 
 
     }, 10000);
 
