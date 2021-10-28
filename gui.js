@@ -1034,7 +1034,10 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         "./new_images/SplashArt_WeDidIt.jpg",
         "./new_images/SomeTimeLaterCard.jpg",
         "./new_images/TitleCard_2.jpg",
-        "./new_images/TitleCard_3.jpg"
+        "./new_images/TitleCard_3.jpg",
+        "./new_images/switch.png",
+        "./new_images/switchConfirm.jpg"
+        
     ];
 
     for (i = 0; i < new_files.length; i++) {
@@ -1636,6 +1639,11 @@ IDE_Morph.prototype.openIn = function (world) {
 IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
+    // setTimeout(function(){
+    //     // alert("Switch Roles"); 
+    //     myself.switchRoles1();
+        
+    //    }, 5000);
     // console.log("iFrameURL: ", iFrameURL);
 
     var myself = this,
@@ -1726,13 +1734,15 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 else{
                     console.log("Invalid Activity Number!");
                 }
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             } 
             else if (response.vignette == "confusion-floundering"){
                 intervention = true;
                 interventionNumber = 4;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "confusion-bottom-out-hint"){
@@ -1749,61 +1759,71 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 else{
                     console.log("Invalid Activity Number!");
                 }
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-inactive-coding"){
                 intervention = true;
                 interventionNumber = 8;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-inactive-talking"){
                 intervention = true;
                 interventionNumber = 9;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-distraction"){
                 intervention = true;
                 interventionNumber = 10;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-asking-why-questions"){
                 intervention = true;
                 interventionNumber = 11;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-sharing-ideas"){
                 intervention = true;
                 interventionNumber = 12;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-listening-to-each-other"){
                 intervention = true;
                 interventionNumber = 13;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-asking-why-questions"){
                 intervention = true;
                 interventionNumber = 14;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-sharing-ideas"){
                 intervention = true;
                 interventionNumber = 15;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-listening-to-each-other"){
                 intervention = true;
                 interventionNumber = 16;
-                SnapActions.restartAgent();
+                // SnapActions.restartAgent();
+                myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else{
@@ -1882,11 +1902,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         ProjName = (JSON.stringify(dict.ProjectName)).toLowerCase();
 
-        // if (ProjName.includes("activity")){
-        //     let index1=ProjName.indexOf("activity")
-        //     activity_name = "activity"+ProjName[index1+8]
-        //     console.log("activity_name:",activity_name)
-        // }
+        if (ProjName.includes("activity")){
+            let index1=ProjName.indexOf("activity")
+            activity_name = "activity"+ProjName[index1+8]
+            console.log("-----activity_name:",activity_name)
+        }
 
         user_name = JSON.stringify(dict.Username)
 
@@ -7338,6 +7358,43 @@ IDE_Morph.prototype.createNewProject = function () {
     );
 };
 
+IDE_Morph.prototype.switchRoles = function () {
+    var myself = this;
+    this.switchRolesAsk(
+        'It is time to switch roles! \n When you are ready, switch your seats',
+        'Switch Roles',
+        function () {
+            console.log("Confirmed switching roles")
+            myself.exitReplayMode();
+            myself.confirmSwitchRoles()
+        }
+    );
+};
+IDE_Morph.prototype.confirmSwitchRoles = function () {
+    var myself = this;
+    this.finalConfirmswitchRolesAsk(
+        'Are you ready?',
+        'Are you ready?',
+        function () {
+            myself.exitReplayMode();
+            console.log("Confirmed switching roles")
+            SnapActions.restartAgent();
+        }
+    );
+};
+IDE_Morph.prototype.joinIntervention = function () {
+    var myself = this;
+    this.joinInterventionAsk(
+        'Hey! Can we join the conversation?',
+        'Asking for Permission Roles',
+        function () {
+            myself.exitReplayMode();
+            SnapActions.restartAgent()
+        }
+    );
+};
+
+
 IDE_Morph.prototype.openProjectsBrowser = function () {
     new ProjectDialogMorph(this, 'open').popUp();
 };
@@ -8122,6 +8179,36 @@ IDE_Morph.prototype.confirm = function (message, title, action) {
         this.world()
     );
 };
+
+
+IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
+    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
+    new DialogBoxMorph(null, action).askProceedSwitch(
+        title,
+        localize(message),
+        this.world(),
+        switch1
+        );
+};
+IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, action) {
+    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-1]; //asking image
+    new DialogBoxMorph(null, action).askProceedSwitch(
+        title,
+        localize(message),
+        this.world(),
+        switch1
+        );
+};
+IDE_Morph.prototype.joinInterventionAsk = function (message, title, action) {
+    var switch2 = agentPanelTextureArray[agentPanelTextureArray.length-4]; //asking image
+    new DialogBoxMorph(null, action).askProceedSwitch(
+        title,
+        localize(message),
+        this.world(),
+        switch2
+        );
+};
+
 
 IDE_Morph.prototype.prompt = function (message, callback, choices, key) {
     (new DialogBoxMorph(null, callback)).withKey(key).prompt(
