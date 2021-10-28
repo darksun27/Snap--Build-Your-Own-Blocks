@@ -131,6 +131,26 @@ var activity_3_additional_dialogues = [7, 8, 9];
 var activity_4_dialogues = [10];
 var activity_4_additional_dialogues = [11, 12];
 var activity_5_dialogues = [13];
+var intervention_dialogues_INACTIVITY_inactive_coding = [14];
+var intervention_dialogues_INACTIVITY_inactive_talking = [15];
+var intervention_dialogues_INACTIVITY_distraction = [16];
+
+var intervention_dialogues_GOOD_TEAMWORK_asking_why = [17]
+var intervention_dialogues_GOOD_TEAMWORK_sharing_ideas = [18]
+var intervention_dialogues_GOOD_TEAMWORK_listening_to_each_other = [19]
+
+var intervention_dialogues_CONFLICT_not_asking_why = [20]
+var intervention_dialogues_CONFLICT_not_sharing_ideas = [21]
+var intervention_dialogues_CONFLICT_not_listening_to_each_other = [22]
+
+var intervention_dialogues_CONFUSION_activity_1_object = [23]
+var intervention_dialogues_CONFUSION_activity_2_object = [24]
+var intervention_dialogues_CONFUSION_activity_3_object = [25]
+var intervention_dialogues_CONFUSION_floudering = [26]
+var intervention_dialogues_CONFUSION_activity_1_hint = [27]
+var intervention_dialogues_CONFUSION_activity_2_hint = [28]
+var intervention_dialogues_CONFUSION_activity_3_hint = [29]
+// Here are all agent dialogues, audios, and animations
 
 // Here are all agent dialogues, audios, and animations
 
@@ -521,7 +541,317 @@ var futureAudio13 = [
 var audioTimes13 = [0.998, 0.780, 1.528, 0.967, 2.526, 0.889, 0.629, 1.466, 0.925, 2.653];
 var futureImages13 = [21, 21, 20, 20, 21, 22, 22, 18, 18, 22];
 
+/* Conversation 14 -- INACTIVITY / Inactive Coding */
+var futureConversation14 = [
+    null,
+    "When I’m coding, I need to press the Green Flag to see what our code’s doing first!",
+    null,
+    "Yeah, why not try pressing the Green Flag? That helps us think about what to do next!",
+    null
+];
+var futureSpeaker14 = [null, 'j', null, 'v', null];
+var futureAudio14 = [
+    null,
+    "1_Wizard_InactiveCoding_Jeremy.mp3",
+    null,
+    "2_Wizard_InactiveCoding_Viviana.mp3",
+    null
+];
+var audioTimes14 = [1, 2.700, 1.399, 2.346, 1.847];
+var futureImages14 = [1, 34, 33, 32, 46];
+
+/* Conversation 15 -- INACTIVITY / Inactive Talking */
+var futureConversation15 = [
+    null,
+    "Teamwork is all about communication. If you two shared your ideas with each other, maybe it’d get the ball rolling!",
+    null,
+    null
+];
+var futureSpeaker15 = [null, 'j', null, null];
+var futureAudio15 = [
+    null,
+    "1_Wizard_InactiveTalking_Jeremy.mp3",
+    null,
+    null
+];
+var audioTimes15 = [1, 2.025, 1.838, 1.19];
+var futureImages15 = [1, 34, 33];
+
+/* Conversation 16 -- INACTIVITY / Distraction */
+var futureConversation16 = [
+    null,
+    "Hey! Are you two still coding? Where were we?",
+    null
+];
+var futureSpeaker16 = [null, 'v', null];
+var futureAudio16 = [
+    null,
+    "1_Wizard_Distracted_Viviana.mp3",
+    null
+];
+var audioTimes16 = [1, 2.084, 0.73];
+var futureImages16 = [1, 34, 33];
+
+/* Conversation 17 -- GOOD TEAMWORK / Asking Why Questions */
+var futureConversation17 = [
+    null,
+    "Nice work asking why questions to each other!",
+];
+var futureSpeaker17 = [null, 'v', null];
+var futureAudio17 = [
+    null,
+    "1_Wizard_PraiseWhy_Viviana.mp3"
+];
+var audioTimes17 = [1, 2.507];
+var futureImages17 = [1, 34];
+
+/* Conversation 18 -- GOOD TEAMWORK / Sharing Ideas */
+var futureConversation18 = [
+    null,
+    "Great job sharing your ideas with each other! You make an awesome team!",
+    null
+];
+var futureSpeaker18 = [null, 'j', null];
+var futureAudio18 = [
+    null,
+    "1_Wizard_PraiseSharing_Jeremy.mp3",
+    null
+];
+var audioTimes18 = [1, 2.065, 1.268];
+var futureImages18 = [1, 32, 46];
+
+/* Conversation 19 -- GOOD TEAMWORK / Listening to Each Other */
+var futureConversation19 = [
+    null,
+    "You two are the best team ever! Great job listening to each other!",
+    null
+];
+var futureSpeaker19 = [null, 'v', null];
+var futureAudio19 = [
+    null,
+    "1_Wizard_PraiseListening_Viviana.mp3",
+    null
+];
+var audioTimes19 = [1, 2.066, 1.744];
+var futureImages19 = [1, 34, 33];
+
+/* Conversation 20 -- CONFLICT / Not Asking Why */
+var futureConversation20 = [
+    null,
+    "Our teacher Ms. Diaz said that it's very important to ask “why” questions to each other.",
+    null,
+    "Yes. So we ask questions like: “Why do you think that?”",
+    null
+    
+];
+var futureSpeaker20 = [null, 'j', null, 'v'];
+var futureAudio20 = [
+    null,
+    "1_Wizard_EncourageWhy1_Jeremy.mp3",
+    null,
+    "2_Wizard_EncourageWhy1_Viviana.mp3",
+    null
+];
+var audioTimes20 = [1, 2.630, 1.439, 2.405, 1.004];
+var futureImages20 = [1, 42, 41, 48, 38];
+
+/* Conversation 21 -- CONFLICT / Not Sharing Ideas */
+var futureConversation21 = [
+    null,
+    "I’ve learned Jeremy has great ideas that I would've never thought of in a million years!",
+    null,
+    null,
+    "You too! So try and share your ideas, even if you aren’t sure.",
+    null,
+    null
+];
+var futureSpeaker21 = [null, 'v', null, null, 'j', null, null];
+var futureAudio21 = [
+    null,
+    "1_Wizard_EncourageSharing1_Viviana.mp3",
+    null,
+    null,
+    "2_Wizard_EncourageSharing1_Jeremy.mp3",
+    null,
+    null
+];
+var audioTimes21 = [1, 2.133, 1.534, 1.296, 0.770, 1.713, 0.910];
+var futureImages21 = [1, 34, 34, 33, 32, 46, 42];
+
+/* Conversation 22 -- CONFLICT / Not Listening to Each Other */
+var futureConversation22 = [
+    null,
+    "When I’m coding, sometimes I want to take over the world and forget to listen to Vivi.",
+    null,
+    "Yeah, he missed a really good idea I had earlier.",
+    null,
+    "Yeah… Listening to your partner is pretty important.",
+    null
+];
+var futureSpeaker22 = [null, 'v', null, null, 'j', null, null];
+var futureAudio22 = [
+    null,
+    "1_Wizard_EncourageListening_Jeremy.mp3",
+    null,
+    "2_Wizard_EncourageListening_Viviana.mp3",
+    null,
+    "3_Wizard_EncourageListening_Jeremy.mp3",
+    null
+];
+var audioTimes22 = [1, 3.000, 1.272, 0.690, 2.318, 1.752, 2.141];
+var futureImages22 = [1, 24, 25, 34, 28, 23, 24];
+
+/* Conversation 23 -- CONFUSION (ACTIVITY 1) / Objective */
+var futureConversation23 = [
+    null,
+    "Hmm. Looks like in this one you need to make Alonzo move in a square.",
+    null,
+    "I wonder how you could make him move the right way.",
+    null
+];
+var futureSpeaker23 = [null, 'v', null, 'j', null];
+var futureAudio23 = [
+    null,
+    "1_Activity1_Overview_Viviana.mp3",
+    null,
+    "2_Activity1_Overview_Jeremy.mp3",
+    null
+];
+var audioTimes23 = [1, 0.810, 3.722, 0.885, 0.825];
+var futureImages23 = [1, 34, 33, 32, 46];
+
+/* Conversation 24 -- CONFUSION (ACTIVITY 2) / Objective */
+var futureConversation24 = [
+    null,
+    "It looks like you need to make Kitty, Alonzo and Ladybug all move forever.",
+    null,
+    "Hope they get to take a nap after that!"
+];
+var futureSpeaker24 = [null, 'j', null, 'v'];
+var futureAudio24 = [
+    null,
+    "1_Activity2_Overview_Jeremy.mp3",
+    null,
+    "2_Activity2_Overview_Viviana.mp3"
+];
+var audioTimes24 = [1, 2.680, 0.99, 2.269];
+var futureImages24 = [1, 34, 33, 32];
+
+/* Conversation 25 -- CONFUSION (ACTIVITY 3) / Objective */
+var futureConversation25 = [
+    null,
+    "Looks like you need to make all of your sprites talk when they touch each other.",
+    null,
+    "That’s gonna look awesome!"
+];
+var futureSpeaker25 = [null, 'j', null, 'v'];
+var futureAudio25 = [
+    null,
+    "1_Activity3_Overview_Jeremy.mp3",
+    null,
+    "2_Activity3_Overview_Viviana.mp3"
+];
+var audioTimes25 = [1, 2.250, 0.911, 1.848];
+var futureImages25 = [1, 34, 33, 32];
+
+/* Conversation 26 -- CONFUSION / Floudering */
+var futureConversation26 = [
+    null,
+    "Our teacher Ms. Diaz told us: “You always need a plan of action with your teammate!”",
+    null,
+    "She says: “How can you break this big problem into smaller pieces? What is the next step?”",
+    null,
+    null
+];
+var futureSpeaker26 = [null, 'j', null, 'v'];
+var futureAudio26 = [
+    null,
+    "1_Activity3_Overview_Jeremy.mp3",
+    null,
+    "2_Activity3_Overview_Viviana.mp3"
+];
+var audioTimes26 = [1, 1.860, 2.853, 1.088, 3.150, 1.011];
+var futureImages26 = [1, 34, 33, 32, 46, 42];
+
+/* Conversation 27 -- CONFUSION (ACTIVITY 1) / Bottom out Hint */
+var futureConversation27 = [
+    null,
+    "I remember getting stuck trying to make Alonzo move where I wanted him to. We had to play with the X and Y coordinates a lot.",
+    null,
+    "Our teacher Ms. Diaz told us X is for horizontal movement, and Y is for vertical movement.",
+    null
+];
+var futureSpeaker27 = [null, 'j', null, 'v', null];
+var futureAudio27 = [
+    null,
+    "1_Activity1_Hint_Jeremy.mp3",
+    null,
+    "2_Activity1_Hint_Viviana.mp3",
+    null
+];
+var audioTimes27 = [1, 3.720, 2.073, 4.405, 2.041];
+var futureImages27 = [1, 34, 33, 32, 46];
+
+/* Conversation 28 -- CONFUSION (ACTIVITY 2) / Bottom out Hint */
+var futureConversation28 = [
+    null,
+    "When we did something like this, we didn’t know where to put the forever block. We realized we had to put “Forever” on top of the code, and all the blocks we wanted to loop inside it.",
+    null,
+    null,
+    "Yeah, everything you put inside the Forever block will loop, well… forever!",
+    null,
+    null
+];
+var futureSpeaker28 = [null, 'j', null, 'v', null];
+var futureAudio28 = [
+    null,
+    "1_Activity2_Hint_Viviana.mp3",
+    null,
+    null,
+    "2_Activity2_Hint_Jeremy.mp3",
+    null,
+    null
+];
+var audioTimes28 = [1, 3.390, 3.384, 2.768, 0.480, 2.310, 1.109];
+var futureImages28 = [1, 34, 34, 33, 32, 46, 42];
+
+/* Conversation 29 -- CONFUSION (ACTIVITY 3) / Bottom out Hint */
+var futureConversation29 = [
+    null,
+    "If-Else was a bit confusing before Ms. Diaz explained it to us. She said: “‘IF’ happens when the condition happens, and ‘ELSE’ happens if the condition does not happen.”",
+    null,
+    null,
+    "Yeah I remember! She said: “For example: Imagine you’re going to soccer practice. IF it’s sunny, you’ll get to play! But ELSE, if it rains, you’ll have to stay home. Either way, one of those two will happen!”",
+    null,
+    null,
+    null,
+    null,
+    "Hmm. So with these sprites… “IF” should have what happens if the sprites touch. And “ELSE” what should happen when they’re not touching?",
+    null,
+    null,
+    "That’s right!"
+];
+var futureSpeaker29 = [null, 'v', null, null, 'j', null, null, null, null, null, 'v', null, null, 'j'];
+var futureAudio29 = [
+    null,
+    "1_Activity3_Hint_Viviana.mp3",
+    null,
+    null,
+    "2_Activity3_Hint_Jeremy.mp3",
+    null,
+    null,
+    null,
+    null,
+    "3_Activity3_Hint_Viviana.mp3",
+    null,
+    null,
+    "4_Activity3_Hint_Jeremy.mp3"
+];
+var audioTimes29 = [1, 3.900, 3.670, 3.286, 1.440, 3.598, 2.498, 3.055, 2.208, 2.100, 3.164, 3.303, 0.480];
+var futureImages29 = [1, 34, 34, 33, 32, 46, 42, 42, 42, 42, 42, 42, 42];
+
 // End of the agent dialogues, audios, and animations
+
 
 
 var subTasks = ['subtask 1: run the code', 'subtask2: review the code and find the bug'];
@@ -708,7 +1038,9 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         "./new_images/TitleCard_2.jpg",
         "./new_images/TitleCard_3.jpg",
         "./new_images/switch.png",
-        "./new_images/switchConfirm.jpg"
+        "./new_images/switchConfirm.jpg",
+        "./new_images/joinDialogue.jpg"
+        
         
     ];
 
@@ -1313,12 +1645,11 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
 
 
-    // setTimeout(function(){
-    //     // alert("Switch Roles"); 
-    //     myself.switchRoles1();
+    setTimeout(function(){
+        // alert("Switch Roles"); 
+        myself.switchRoles();
         
-    //    }, 5000);
-    // console.log("iFrameURL: ", iFrameURL);
+       }, 5000);
 
     var myself = this,
         urlLanguage,
@@ -1399,13 +1730,13 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             if (response.vignette == "confusion-confusion-about-objective"){
                 
                 intervention = true;
-                if (activity_name == 2){
+                if (activity_name == "activity2"){
                     interventionNumber = 1;
                 }
-                else if (activity_name == 3){
+                else if (activity_name == "activity3"){
                     interventionNumber = 2;
                 }
-                else if (activity_name == 4){
+                else if (activity_name == "activity4"){
                     interventionNumber = 3;
                 }
                 else{
@@ -1424,13 +1755,13 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             }
             else if (response.vignette == "confusion-bottom-out-hint"){
                 intervention = true;
-                if (activity_name == 2){
+                if (activity_name == "activity2"){
                     interventionNumber = 5;
                 }
-                else if (activity_name == 3){
+                else if (activity_name == "activity3"){
                     interventionNumber = 6;
                 }
-                else if (activity_name == 4){
+                else if (activity_name == "activity4"){
                     interventionNumber = 7;
                 }
                 else{
@@ -7879,7 +8210,7 @@ IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
 
 
 IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
-    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
+    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-3]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
         title,
         localize(message),
@@ -7888,7 +8219,7 @@ IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
         );
 };
 IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, action) {
-    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-1]; //asking image
+    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
         title,
         localize(message),
@@ -7897,7 +8228,7 @@ IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, actio
         );
 };
 IDE_Morph.prototype.joinInterventionAsk = function (message, title, action) {
-    var switch2 = agentPanelTextureArray[agentPanelTextureArray.length-4]; //asking image
+    var switch2 = agentPanelTextureArray[agentPanelTextureArray.length-1]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
         title,
         localize(message),
