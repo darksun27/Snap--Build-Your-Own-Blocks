@@ -1629,6 +1629,46 @@ DialogBoxMorph.prototype.askYesNo = function (
     this.popUp(world);
 };
 
+
+
+DialogBoxMorph.prototype.askProceedSwitch = function (
+    title,
+    textString,
+    world,
+    pic
+) {
+    var txt = new TextMorph(
+        textString,
+        this.fontSize,
+        this.fontStyle,
+        true,
+        false,
+        'center',
+        null,
+        null,
+        MorphicPreferences.isFlat ? null : new Point(1, 1),
+        new Color(255, 255, 255)
+    );
+
+    if (!this.key) {
+        this.key = 'decide' + title + textString;
+    }
+
+    this.labelString = title;
+    this.createLabel();
+    if (pic) {this.setPicture(pic); }
+    this.addBody(txt);
+    this.addButton('ok', 'OK');
+    // this.addButton('cancel', 'No');
+    this.fixLayout();
+    this.drawNew();
+    this.fixLayout();
+    this.popUp(world);
+};
+
+
+
+
 DialogBoxMorph.prototype.prompt = function (
     title,
     defaultString,

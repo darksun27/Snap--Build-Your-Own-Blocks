@@ -419,6 +419,9 @@ ActionManager.prototype.pressStartAgent = function () {
 
     // user_name = 'h01'
     // activity_name = 'activity3'
+    
+
+    user_name = SnapCloud.username
 
     console.log("username is :"+ user_name);
     console.log("activity name is :"+ activity_name);
@@ -429,28 +432,16 @@ ActionManager.prototype.pressStartAgent = function () {
         activity_dialogues = activity_1_dialogues;
         convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity2' && user_name.includes('s1')){
+    if (activity_name === 'activity2'){
         activity_dialogues = activity_2_dialogues;
         convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity2' && user_name.includes('s2')){
-        activity_dialogues = activity_2_additional_dialogues;
-        convoNum = activity_dialogues[0];
-    }
-    if (activity_name === 'Activity3' && user_name.includes('s1')){
-        activity_dialogues = activity_3_additional_dialogues;
-        convoNum = activity_dialogues[0];
-    }
-    if (activity_name === 'activity3' && user_name.includes('s2')){
+    if (activity_name === 'activity3'){
         activity_dialogues = activity_3_dialogues;
         convoNum = activity_dialogues[0];
     }
-    if (activity_name === 'activity4' && user_name.includes('s1')){
+    if (activity_name === 'activity4'){
         activity_dialogues = activity_4_dialogues;
-        convoNum = activity_dialogues[0];
-    }
-    if (activity_name === 'activity4' && user_name.includes('s2')){
-        activity_dialogues = activity_4_additional_dialogues;
         convoNum = activity_dialogues[0];
     }
 
@@ -565,8 +556,21 @@ ActionManager.prototype.restartAgent = function () {
     }
     else {
         console.log("Intervention Number is Null!");
+        console.log("activity_name:", activity_name);
+        if (activity_name === 'activity1'){
+            activity_dialogues = activity_2_additional_dialogues;
+        }
+        if (activity_name === 'activity2'){
+            console.log("activity_name is 2");
+            activity_dialogues = activity_3_additional_dialogues;
+        }
+        if (activity_name === 'activity3'){
+            activity_dialogues = activity_4_additional_dialogues;
+        }
+        if (activity_name === 'activity4'){
+            activity_dialogues = activity_5_additional_dialogues;
+        }
     }
-
     convoNum = activity_dialogues[0];
     var myself = this,
         world = this.world(),
