@@ -1311,23 +1311,13 @@ IDE_Morph.prototype.openIn = function (world) {
 IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
     // setTimeout(function(){
     //     // alert("Switch Roles"); 
     //     myself.switchRoles1();
         
     //    }, 5000);
-<<<<<<< Updated upstream
-=======
-
-
-
-
-
->>>>>>> Stashed changes
     // console.log("iFrameURL: ", iFrameURL);
 
     var myself = this,
@@ -1409,7 +1399,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             if (response.vignette == "confusion-confusion-about-objective"){
                 
                 intervention = true;
-<<<<<<< Updated upstream
                 if (activity_name == 2){
                     interventionNumber = 1;
                 }
@@ -1422,27 +1411,19 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 else{
                     console.log("Invalid Activity Number!");
                 }
-=======
-                interventionNumber = 1;
->>>>>>> Stashed changes
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             } 
             else if (response.vignette == "confusion-floundering"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 4;
-=======
-                interventionNumber = 2;
->>>>>>> Stashed changes
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "confusion-bottom-out-hint"){
                 intervention = true;
-<<<<<<< Updated upstream
                 if (activity_name == 2){
                     interventionNumber = 5;
                 }
@@ -1457,118 +1438,69 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 }
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 3;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-inactive-coding"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 8;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 4;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-inactive-talking"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 9;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 5;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "inactivity-distraction"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 10;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 6;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-asking-why-questions"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 11;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 7;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-sharing-ideas"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 12;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 8;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "good-teamwork-listening-to-each-other"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 13;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 9;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-asking-why-questions"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 14;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 10;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-sharing-ideas"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 15;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 11;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else if (response.vignette == "conflict-not-listening-to-each-other"){
                 intervention = true;
-<<<<<<< Updated upstream
                 interventionNumber = 16;
                 // SnapActions.restartAgent();
                 myself.joinIntervention();
-=======
-                interventionNumber = 12;
-                // SnapActions.restartAgent();
->>>>>>> Stashed changes
                 console.log("interventionNumber: ", interventionNumber);
             }
             else{
@@ -7116,11 +7048,6 @@ IDE_Morph.prototype.switchRoles = function () {
         }
     );
 };
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.confirmSwitchRoles = function () {
     var myself = this;
     this.finalConfirmswitchRolesAsk(
@@ -7128,19 +7055,11 @@ IDE_Morph.prototype.confirmSwitchRoles = function () {
         'Are you ready?',
         function () {
             myself.exitReplayMode();
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             console.log("Confirmed switching roles")
             SnapActions.restartAgent();
         }
     );
 };
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.joinIntervention = function () {
     var myself = this;
     this.joinInterventionAsk(
@@ -7154,12 +7073,6 @@ IDE_Morph.prototype.joinIntervention = function () {
 };
 
 
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.openProjectsBrowser = function () {
     new ProjectDialogMorph(this, 'open').popUp();
 };
@@ -7965,7 +7878,6 @@ IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
 };
 
 
-<<<<<<< Updated upstream
 IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
     var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
@@ -7975,12 +7887,6 @@ IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
         switch1
         );
 };
-=======
-
-
-
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, action) {
     var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-1]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
@@ -7990,11 +7896,6 @@ IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, actio
         switch1
         );
 };
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.joinInterventionAsk = function (message, title, action) {
     var switch2 = agentPanelTextureArray[agentPanelTextureArray.length-4]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
@@ -8006,14 +7907,6 @@ IDE_Morph.prototype.joinInterventionAsk = function (message, title, action) {
 };
 
 
-<<<<<<< Updated upstream
-=======
-
-
-
-
-
->>>>>>> Stashed changes
 IDE_Morph.prototype.prompt = function (message, callback, choices, key) {
     (new DialogBoxMorph(null, callback)).withKey(key).prompt(
         message,
