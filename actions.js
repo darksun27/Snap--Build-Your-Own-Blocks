@@ -557,18 +557,18 @@ ActionManager.prototype.restartAgent = function () {
     else {
         console.log("Intervention Number is Null!");
         console.log("activity_name:", activity_name);
-        if (activity_name === 'activity1'){
-            activity_dialogues = activity_2_additional_dialogues;
-        }
+        // if (activity_name === 'activity1'){
+        //     activity_dialogues = activity_1_additional_dialogues;
+        // }
         if (activity_name === 'activity2'){
             console.log("activity_name is 2");
-            activity_dialogues = activity_3_additional_dialogues;
+            activity_dialogues = activity_2_additional_dialogues;
         }
         if (activity_name === 'activity3'){
-            activity_dialogues = activity_4_additional_dialogues;
+            activity_dialogues = activity_3_additional_dialogues;
         }
         if (activity_name === 'activity4'){
-            activity_dialogues = activity_5_additional_dialogues;
+            activity_dialogues = activity_4_additional_dialogues;
         }
     }
     convoNum = activity_dialogues[0];

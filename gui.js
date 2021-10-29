@@ -1037,8 +1037,8 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         "./new_images/SomeTimeLaterCard.jpg",
         "./new_images/TitleCard_2.jpg",
         "./new_images/TitleCard_3.jpg",
-        "./new_images/switch.png",
-        "./new_images/switchConfirm.jpg",
+        "./new_images/RoleSwitchRequest.png",
+        "./new_images/RoleSwitchConfirm.png",
         "./new_images/joinDialogue.jpg"
         
         
@@ -1639,17 +1639,22 @@ IDE_Morph.prototype.openIn = function (world) {
 
 
 // IDE_Morph construction
-
+var activity_name;
 IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
-
-
+    
+    var stateofSwitchRoles;
+    
+    console.log("Calling switchRole function")
     setTimeout(function(){
-        // alert("Switch Roles"); 
-        myself.switchRoles();
-        
-       }, 5000);
+        console.log("stateofSwitchRoles: ", stateofSwitchRoles)
+        if ((stateofSwitchRoles != 1) && ((activity_name == "activity1") || (activity_name != null))){ 
+                     
+            console.log("In  setTimeout(function()")
+            myself.switchRoles();  
+        }      
+       }, 10000);
 
     var myself = this,
         urlLanguage,
@@ -1834,6 +1839,16 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 myself.joinIntervention();
                 console.log("interventionNumber: ", interventionNumber);
             }
+
+            else if (response.vignette == "switch-roles"){
+                myself.switchRoles();     
+                stateofSwitchRoles = 1
+                console.log("switchRoles notification");
+            }
+
+
+            
+
             else{
                 console.log("Invalid response vignette!");
             } 
@@ -1844,8 +1859,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     setInterval(function(){ 
         console.log("Calling setInterval");
-
-        
         // Loading env to the client on Node.js is messy so instead we are using a simpler way
 
         let addressURL = "";
@@ -1860,7 +1873,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         // console.log("callFacilitatorAPIURL: ", callFacilitatorAPIURL)
         callIntervention(callFacilitatorAPIURL) 
 
-    }, 10000);
+    }, 5000);
 
 // --- End Receiving wizard message every 10 sec
 
@@ -1908,14 +1921,21 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         // console.log("dict: "+ JSON.stringify(dict))        
         // console.log("dict.ProjectName: "+ JSON.stringify(dict.ProjectName))
+        
 
-        ProjName = (JSON.stringify(dict.ProjectName)).toLowerCase();
+        
 
-        if (ProjName.includes("activity")){
-            let index1=ProjName.indexOf("activity")
-            activity_name = "activity"+ProjName[index1+8]
-            console.log("-----activity_name:",activity_name)
-        }
+            ProjName = (JSON.stringify(dict.ProjectName)).toLowerCase();
+            if (ProjName.includes("activity")){
+                console.log("-----ProjName includes activity ")
+                let index1=ProjName.indexOf("activity")
+                activity_name = "activity"+ProjName[index1+8]
+                console.log("-----activity_name:",activity_name)
+            }
+            else{
+                activity_name == "activity0"
+            }
+
 
         user_name = JSON.stringify(dict.Username)
 
@@ -7175,7 +7195,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     
             var convoAndTime;
     
-            if (convoNum === null || activity_name.includes('activity1')) {
+            if (convoNum === null || activity_name == null) {
                 image = 11; 
                 this.agentPanel.destroy(); 
                 this.speechBubblePanel.destroy();
@@ -7370,7 +7390,8 @@ IDE_Morph.prototype.createNewProject = function () {
 IDE_Morph.prototype.switchRoles = function () {
     var myself = this;
     this.switchRolesAsk(
-        'It is time to switch roles! \n When you are ready, switch your seats',
+        // 'It is time to switch roles! \n When you are ready, switch your seats',
+        'When you are ready, switch your seats',
         'Switch Roles',
         function () {
             console.log("Confirmed switching roles")
