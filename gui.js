@@ -1660,17 +1660,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
     
-    var stateofSwitchRoles;
-    
-    console.log("Calling switchRole function")
-    setTimeout(function(){
-        console.log("stateofSwitchRoles: ", stateofSwitchRoles)
-        if ((stateofSwitchRoles != 1) && ((activity_name == "activity1") || (activity_name != null))){ 
-                     
-            console.log("In  setTimeout(function()")
-            myself.switchRoles();  
-        }      
-       }, 10000);
 
     var myself = this,
         urlLanguage,
@@ -1931,6 +1920,20 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             console.log("Activity name undefined or 0: Skip calling the API")
         } 
         else {
+
+            var stateofSwitchRoles;
+    
+            console.log("Calling switch role function")
+            setTimeout(function(){
+                console.log("stateofSwitchRoles: ", stateofSwitchRoles)
+                if ((stateofSwitchRoles != 1) && ((activity_name == "activity1") || (activity_name != null))){ 
+                            
+                    console.log("In setTimeout(function()")
+                    myself.switchRoles();  
+                }      
+            }, 900000); //Every 15min
+
+
             setInterval(function(){ 
                 console.log("Calling setInterval");
                 // Loading env to the client on Node.js is messy so instead we are using a simpler way
