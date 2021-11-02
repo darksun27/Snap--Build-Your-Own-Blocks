@@ -1733,7 +1733,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             mode: 'cors', // no-cors, *cors, same-origin
             headers: {
             'Content-Type': 'application/json',
-            // "Access-Control-Allow-Origin": "http://localhost:8888", // update to match the domain you will make the request from
+            "Access-Control-Allow-Origin": "http://flecks.csc.ncsu.edu", // update to match the domain you will make the request from
             "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
             }   
         })
@@ -1862,38 +1862,12 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 console.log("switchRoles notification");
             }
 
-
-            
-
             else{
                 console.log("Invalid response vignette!");
             } 
         })
         .catch(err => console.log(err));
     }
-
-
-    setInterval(function(){ 
-        console.log("Calling setInterval");
-        // Loading env to the client on Node.js is messy so instead we are using a simpler way
-
-        let addressURL = "";
-        if ((loc.href).includes("localhost")){
-            addressURL = "http://localhost:8888";
-        } else {
-            addressURL = "https://flecks.csc.ncsu.edu";
-        }
-        // console.log("addressURL: ", addressURL)
-        
-        var callFacilitatorAPIURL = addressURL + "/api/wizard/facilitator/" + dict.Facilitator + "/activity/"+dict.ProjectID
-        // console.log("callFacilitatorAPIURL: ", callFacilitatorAPIURL)
-        callIntervention(callFacilitatorAPIURL) 
-
-    }, 5000);
-
-// --- End Receiving wizard message every 10 sec
-
-
 
     if (loc.hash.substr(0, 6) === '#open:') {
         hash = loc.hash.substr(6);
@@ -1938,9 +1912,6 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
         // console.log("dict: "+ JSON.stringify(dict))        
         // console.log("dict.ProjectName: "+ JSON.stringify(dict.ProjectName))
         
-
-        
-
             ProjName = (JSON.stringify(dict.ProjectName)).toLowerCase();
             if (ProjName.includes("activity")){
                 console.log("-----ProjName includes activity ")
@@ -1952,8 +1923,35 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
                 activity_name == "activity0"
             }
 
-
         user_name = JSON.stringify(dict.Username)
+
+    // --- Start Receiving wizard message every 10 sec
+
+        if (activity_name == null){
+            console.log("Activity name undefined or 0: Skip calling the API")
+        } 
+        else {
+            setInterval(function(){ 
+                console.log("Calling setInterval");
+                // Loading env to the client on Node.js is messy so instead we are using a simpler way
+    
+                let addressURL = "";
+                if ((loc.href).includes("localhost")){
+                    addressURL = "http://localhost:8888";
+                } else {
+                    addressURL = "https://flecks.csc.ncsu.edu";
+                }
+                // console.log("addressURL: ", addressURL)
+                
+                var callFacilitatorAPIURL = addressURL + "/api/wizard/facilitator/" + dict.Facilitator + "/activity/"+dict.ProjectID
+                // console.log("callFacilitatorAPIURL: ", callFacilitatorAPIURL)
+                callIntervention(callFacilitatorAPIURL) 
+    
+            }, 5000);
+        }
+    
+    // --- End Receiving wizard message every 10 sec
+
 
         var name = dict ? dict.ProjectName : loc.hash.substr(9),
             isLoggedIn = SnapCloud.username !== null;
