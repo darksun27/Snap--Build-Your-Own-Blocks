@@ -1168,7 +1168,7 @@ IDE_Morph.prototype.setDefaultDesign();
 
 // IDE_Morph instance creation:
 
-function IDE_Morph(isAutoFill) {
+function headerIDE_Morph(isAutoFill) {
     this.init(isAutoFill);
 }
 
@@ -8990,8 +8990,7 @@ ProjectDialogMorph.prototype.openProject = function () {
     var proj = this.listField.selected,
         src;
     console.log("1proj: "+JSON.stringify(proj))
-    // var proj = {"ProjectName":"t1_public","Public":"true","Updated":"Tue Mar 09 2021 23:34:19 GMT-0500 (Eastern Standard Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/t1/t1_public/thumbnail","Owner":"t1","ID":"60484bb0bb6bcc17072fb542"}
-
+    
     if (!proj) {return; }
     this.ide.source = this.source;
     if (this.source === 'cloud') {
