@@ -1168,7 +1168,7 @@ IDE_Morph.prototype.setDefaultDesign();
 
 // IDE_Morph instance creation:
 
-function headerIDE_Morph(isAutoFill) {
+function IDE_Morph(isAutoFill) {
     this.init(isAutoFill);
 }
 
@@ -1660,6 +1660,17 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
     console.log("IDE_Morph.prototype.interpretUrlAnchors");
     
+    var stateofSwitchRoles;
+    
+    console.log("Calling switchRole function")
+    setTimeout(function(){
+        console.log("stateofSwitchRoles: ", stateofSwitchRoles)
+        if ((stateofSwitchRoles != 1) && ((activity_name == "activity1") || (activity_name != null))){ 
+                     
+            console.log("In  setTimeout(function()")
+            myself.switchRoles();  
+        }      
+       }, 10000);
 
     var myself = this,
         urlLanguage,
@@ -1914,26 +1925,12 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
 
         user_name = JSON.stringify(dict.Username)
 
-    // --- Start Receiving wizard message every 10 sec
+    // --- End Receiving wizard message every 10 sec
 
         if (activity_name == null){
             console.log("Activity name undefined or 0: Skip calling the API")
         } 
         else {
-
-            var stateofSwitchRoles;
-    
-            console.log("Calling switch role function")
-            setTimeout(function(){
-                console.log("stateofSwitchRoles: ", stateofSwitchRoles)
-                if ((stateofSwitchRoles != 1) && ((activity_name == "activity1") || (activity_name != null))){ 
-                            
-                    console.log("In setTimeout(function()")
-                    myself.switchRoles();  
-                }      
-            }, 900000); //Every 15min
-
-
             setInterval(function(){ 
                 console.log("Calling setInterval");
                 // Loading env to the client on Node.js is messy so instead we are using a simpler way
@@ -8990,7 +8987,8 @@ ProjectDialogMorph.prototype.openProject = function () {
     var proj = this.listField.selected,
         src;
     console.log("1proj: "+JSON.stringify(proj))
-    
+    // var proj = {"ProjectName":"t1_public","Public":"true","Updated":"Tue Mar 09 2021 23:34:19 GMT-0500 (Eastern Standard Time)","Notes":"","Thumbnail":"http://localhost:8080/api/projects/t1/t1_public/thumbnail","Owner":"t1","ID":"60484bb0bb6bcc17072fb542"}
+
     if (!proj) {return; }
     this.ide.source = this.source;
     if (this.source === 'cloud') {
