@@ -143,13 +143,13 @@ var intervention_dialogues_CONFLICT_not_asking_why = [20]
 var intervention_dialogues_CONFLICT_not_sharing_ideas = [21]
 var intervention_dialogues_CONFLICT_not_listening_to_each_other = [22]
 
-var intervention_dialogues_CONFUSION_activity_1_object = [23]
-var intervention_dialogues_CONFUSION_activity_2_object = [24]
-var intervention_dialogues_CONFUSION_activity_3_object = [25]
+var intervention_dialogues_CONFUSION_activity_2_object = [23]
+var intervention_dialogues_CONFUSION_activity_3_object = [24]
+var intervention_dialogues_CONFUSION_activity_4_object = [25]
 var intervention_dialogues_CONFUSION_floudering = [26]
-var intervention_dialogues_CONFUSION_activity_1_hint = [27]
-var intervention_dialogues_CONFUSION_activity_2_hint = [28]
-var intervention_dialogues_CONFUSION_activity_3_hint = [29]
+var intervention_dialogues_CONFUSION_activity_2_hint = [27]
+var intervention_dialogues_CONFUSION_activity_3_hint = [28]
+var intervention_dialogues_CONFUSION_activity_4_hint = [29]
 // Here are all agent dialogues, audios, and animations
 
 // Here are all agent dialogues, audios, and animations
