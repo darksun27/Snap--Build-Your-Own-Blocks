@@ -230,6 +230,22 @@ var futureAudio2 = [
 var audioTimes2 = [1, 0.659, 2.039, 1.039, 3.129, 1.887, 2, 2, 2, 1.403, 2.149, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
 var futureImages2 = [1, 4, 5, 3, 2, 6, 1, 71, 56, 57, 62, 67, 51, 67, 66, 78, 74, 74];
 
+
+// /* TEST Conversation 2 -- Vignette 1 */
+// var futureConversation2 = [
+//     null,
+//     "Jeremy, we did debugging in school too, right?"
+// ];
+// var futureSpeaker2 = [null, 'v'];
+// var futureAudio2 = [
+//     null,
+//     "1_Vivi_Activity_Intro_1_1.mp3"
+// ];
+// // var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
+// var audioTimes2 = [1, 0.659];
+// var futureImages2 = [1, 4];
+
+
 /* Conversation 3 -- Additional Dialogue 1.1 */
 var futureConversation3 = [
     null,
@@ -7088,7 +7104,7 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             world.keyboardReceiver.stopEditing();
         }
     } else {
-        window.parent.postMessage('myMessage1','*');
+        window.parent.postMessage('appModeExit','*');
 
         if (this.wasSingleStepping && !Process.prototype.enableSingleStepping) {
             this.toggleSingleStepping();

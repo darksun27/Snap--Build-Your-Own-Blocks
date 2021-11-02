@@ -6,12 +6,6 @@ var logger = {
     error: console.error.bind(console)
 };
 
-// iFrameURL from FLECKS side;
-window.addEventListener('message', ({ data }) => {
-    iFrameURL = data
-  });
-
-
 var firstAction = true;
 var convoNum;
 
@@ -423,8 +417,8 @@ ActionManager.prototype.pressStartAgent = function () {
 
     user_name = SnapCloud.username
 
-    console.log("username is :"+ user_name);
-    console.log("activity name is :"+ activity_name);
+    // console.log("username is :"+ user_name);
+    // console.log("activity name is :"+ activity_name);
     
     // This is the code block for updating conversation flows according to different activities
     var activity_dialogues;
@@ -459,12 +453,12 @@ ActionManager.prototype.pressStartAgent = function () {
 
     moreConvo = convoAndTime[0];
     time = convoAndTime[1] * 1000;
-    console.log("TIME: " + time);
+    // console.log("TIME: " + time);
 
     if (moreConvo && !conversationReplay) { // dialogue flow remains in the same conversation
-        console.log("convoNum is "+convoNum);
+        // console.log("convoNum is "+convoNum);
         window.setTimeout(function(){myself.pressStartAgent()},time);
-        console.log("Current Activity Dialogues contains: " + activity_dialogues);
+        // console.log("Current Activity Dialogues contains: " + activity_dialogues);
     }
     else {
         if(convoNum == 1){ // dialogue flow moves forward to the next conversation, but still in the same activity dialogues
@@ -474,37 +468,38 @@ ActionManager.prototype.pressStartAgent = function () {
             // convoNum++; // This is a bug: note that in the beginning of this function, convoNum is always updated with activity_dialogues[0], therefore we should update activity_dialogues instead of convoNum
             activity_dialogues.shift(); // remove the very beginning element, the convoNum will be updated accordingly. 'convoNum ++' is not correct here to use
             console.log("Current Activity Dialogues contains: " + activity_dialogues);
-            // window.setTimeout(function(){ide.pauseConversation()}, 20000);
-
-
 
             window.addEventListener('message', startDebuggingConversation, false) 
             function startDebuggingConversation(e) {
-            // if(((e.origin == 'http://flecks.csc.ncsu.edu:8888/activities-task1?') || (e.origin == 'http://flecks.csc.ncsu.edu:8888/')) && (e.data=="startDebuggingConversation")){
-            // if((e.origin == 'http://localhost:8888') && (e.data=="startDebuggingConversation")){  
-            if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
-
-            ide.pauseConversation();
-            window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
+                if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
+                    ide.pauseConversation();
+                    window.removeEventListener("message", startDebuggingConversation,false); //destroy the listener
                 } 
             }
-            console.log("convoNum is "+convoNum);
+            // console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
         else if (convoNum < 50 && !conversationReplay) {
             // convoNum++; // same here
             activity_dialogues.shift();
-            console.log("Current Activity Dialogues contains: " + activity_dialogues);
-            console.log("convoNum is "+convoNum);
+            if (activity_dialogues.length == 0) {
+                console.log("===activity_dialogues.length: ",activity_dialogues.length)
+                window.parent.postMessage('disableiFrameOverlay','*');
+            }
+            // console.log("Current Activity Dialogues contains: " + activity_dialogues);
+            // console.log("convoNum is "+convoNum);
             window.setTimeout(function(){myself.pressStartAgent()}, 1000);
         }
     }
   }, 1);
+
+
 };
 
 ActionManager.prototype.restartAgent = function () {
     //one soluton is inside the restart agent funtion, we don't use array.shift, so that we can keep the dialogues reusable forever.
     console.log("In ActionManager.prototype.restartAgent");
+    window.parent.postMessage('enableiFrameOverlay','*');
     // activity_dialogues = activity_3_dialogues;
     if (interventionNumber == 1){
         activity_dialogues = intervention_dialogues_CONFUSION_activity_2_object;
@@ -561,7 +556,7 @@ ActionManager.prototype.restartAgent = function () {
         //     activity_dialogues = activity_1_additional_dialogues;
         // }
         if (activity_name === 'activity2'){
-            console.log("activity_name is 2");
+            // console.log("activity_name is 2");
             activity_dialogues = activity_2_additional_dialogues;
         }
         if (activity_name === 'activity3'){
@@ -586,25 +581,20 @@ ActionManager.prototype.restartAgent = function () {
             window.setTimeout(function(){myself.restartAgent()},time);
         }
         else {
-            if(convoNum == 1){ 
-                ide.pauseConversation();
-                window.parent.postMessage('pauseConversation','*');
-                activity_dialogues.shift(); 
-                window.addEventListener('message', startDebuggingConversation, false) 
-                function startDebuggingConversation(e) {
-                if((e.origin.startsWith("http://localhost") || e.origin.startsWith("http://flecks.csc.ncsu.edu") || e.origin.startsWith("https://flecks.csc.ncsu.edu")) && (e.data=="startDebuggingConversation")) {
-                ide.pauseConversation();
-                window.removeEventListener("message", startDebuggingConversation,false);
-                    } 
-                }
-                console.log("convoNum is "+convoNum);
-                window.setTimeout(function(){myself.restartAgent()}, 1000);
-            }
-            else if (convoNum < 15 && !conversationReplay) {
+
+            console.log("======Here Yingbo")
+            if (convoNum < 50 && !conversationReplay) {
                 activity_dialogues.shift();
-                console.log("Current Activity Dialogues contains: " + activity_dialogues);
-                console.log("convoNum is "+convoNum);
+                if (activity_dialogues.length == 0) {
+                    console.log("=intervention stop =activity_dialogues.length: ",activity_dialogues.length)
+                    window.parent.postMessage('disableiFrameOverlay','*');
+                }
+                // console.log("Current Activity Dialogues contains: " + activity_dialogues);
+                // console.log("convoNum is "+convoNum);
+
+                else{
                 window.setTimeout(function(){myself.restartAgent()}, 1000);
+                }
             }
         }
     }, 1);
