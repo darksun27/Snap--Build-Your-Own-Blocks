@@ -1670,7 +1670,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             console.log("In  setTimeout(function()")
             myself.switchRoles();  
         }      
-       }, 10000);
+       }, 9000000);
 
     var myself = this,
         urlLanguage,
@@ -7102,7 +7102,18 @@ IDE_Morph.prototype.toggleAppMode = function (appMode) {
             world.keyboardReceiver.stopEditing();
         }
     } else {
-        window.parent.postMessage('appModeExit','*');
+
+        console.log("appModeExit activity no: ", activity_name)
+
+        if (activity_name === "activity2") {
+            window.parent.postMessage('appModeExit','*');
+            console.log("It is", activity_name, "---sending the post message")
+        
+        } else{
+            console.log("It is", activity_name, " ---not sending the post message")
+
+        }
+        
 
         if (this.wasSingleStepping && !Process.prototype.enableSingleStepping) {
             this.toggleSingleStepping();
