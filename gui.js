@@ -1670,7 +1670,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             console.log("In  setTimeout(function()")
             myself.switchRoles();  
         }      
-       }, 9000000);
+       }, 900000);
 
     var myself = this,
         urlLanguage,
@@ -7433,6 +7433,7 @@ IDE_Morph.prototype.confirmSwitchRoles = function () {
         function () {
             myself.exitReplayMode();
             console.log("Confirmed switching roles")
+            SnapActions.switchRoles();
             SnapActions.restartAgent();
         }
     );

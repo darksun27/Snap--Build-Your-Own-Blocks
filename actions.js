@@ -176,6 +176,7 @@ ActionManager.prototype.initializeEventMethods = function() {
         'stopAllScripts',
         'startScript',
         'setSpritePosition',
+        'switchRoles',
         'togglePause'
     );
 };
