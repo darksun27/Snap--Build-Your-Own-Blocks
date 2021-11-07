@@ -125,12 +125,12 @@ var activity_dialogues;
 // here we define the dialogues included in each activity
 var activity_1_dialogues = [null];
 var activity_2_dialogues = [1, 2];
-var activity_2_additional_dialogues = [3, 4, 5];
-var activity_3_dialogues = [6];
-var activity_3_additional_dialogues = [7, 8, 9];
-var activity_4_dialogues = [10];
-var activity_4_additional_dialogues = [11, 12];
-var activity_5_dialogues = [13];
+var activity_2_additional_dialogues = [3];
+var activity_3_dialogues = [4];
+var activity_3_additional_dialogues = [5];
+var activity_4_dialogues = [6];
+var activity_4_additional_dialogues = [7];
+
 var intervention_dialogues_INACTIVITY_inactive_coding = [14];
 var intervention_dialogues_INACTIVITY_inactive_talking = [15];
 var intervention_dialogues_INACTIVITY_distraction = [16];
@@ -161,7 +161,7 @@ var futureConversation1 = [
     null,
     "My name's Jeremy, but you can call me Jay.",
     null,
-    "We heard you would be coding today.",
+    "We heard you will be coding today.",
     "We did some coding at our school too!",
     "We were partners, and you're gonna have a partner too.",
     null,
@@ -170,27 +170,27 @@ var futureConversation1 = [
 var futureSpeaker1 = [null, 'v', null,'j', null, 'v', 'j', 'v', null, 'j'];
 var futureAudio1 = [
     null,
-    "1_Vivi_Introduction_1.mp3",
+    "1_Introduction_Viviana.mp3",
     null,
-    "2_Jay_Introduction_2.mp3",
+    "2_Introduction_Jeremy.mp3",
     null,
-    "3_Vivi_Introduction_3.mp3",
-    "4_Jay_Introduction_4.mp3",
-    "5_Vivi_Introduction_5.mp3",
+    "3_Introduction_Viviana.mp3",
+    "4_Introduction_Jeremy.mp3",
+    "5_Introduction_Viviana.mp3",
     null,
-    "6_Jay_Introduction_6.mp3"
+    "6_Introduction_Jeremy.mp3"
 ];
 // var audioTimes1 = [1, 2.372, 1, 3.596, 1, 1.633, 2.616, 2.722, 1, 1.512];
-var audioTimes1 = [1, 1.118, 1.254, 1.792, 1.804, 1.633, 2.616, 0.975, 1.747, 1.512];
-var futureImages1 = [11, 16, 13, 9, 7, 12, 8, 15, 14, 10];
+var audioTimes1 = [2, 1.260, 1.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
+var futureImages1 = [45, 60, 22, 38, 32, 64, 37, 52, 18, 63];
 
-/* Conversation 2 -- Vignette 1 */
+/* Conversation 2 -- Activity 1 - Vignette 1 */
 var futureConversation2 = [
     null,
     "Jeremy, we did debugging in school too, right?",
     null,
-    "Yeah, we did.",
-    "I remember we couldn’t figure out that one activity, but we eventually got it.",
+    "Yeah, we did. I remember we couldn’t figure out that one activity, but we eventually got it.",
+    null,
     null,
     null,
     null,
@@ -198,128 +198,74 @@ var futureConversation2 = [
     "Aagh. We need to change our code.",
     null,
     "But, why?",
-    "Cause, see? It's-- It's not working.",
+    "Cause, see? It's not working.",
     "Yeah. Let's try to figure it out block by block.",
     null,
     null,
     "Ooh. I think I see the problem.",
     "We just had to ask “why” to figure it out."
 ];
-var futureSpeaker2 = [null, 'v', null, 'j', 'j', null, null, null, null, 'j', null, 'v', 'j', 'v', null, null, 'j', 'v'];
+var futureSpeaker2 = [null, 'v', null, 'j', null, null, null, null, null, 'j', null, 'v', 'j', 'v', null, null, 'j', 'v'];
 var futureAudio2 = [
     null,
-    "1_Vivi_Activity_Intro_1_1.mp3",
+    "1_Activity1_ActivityIntro_Viviana.mp3",
     null,
-    "2_Jay_Activity_Intro_1_2.mp3",
-    "3_Jay_Activity_Intro_1_3.mp3",
-    null,
+    "2_Activity1_ActivityIntro_Jeremy.mp3",
     null,
     null,
     null,
-    "1_Jay_Vignette_1_1.mp3",
-    null,
-    "2_Vivi_Vignette_1_2.mp3",
-    "3_Jay_Vignette_1_3.mp3",
-    "4_Vivi_Vignette_1_4.mp3",
     null,
     null,
-    "5_Jay_Vignette_1_5.mp3",
-    "6_Vivi_Vignette_1_6.mp3"
+    "1_Activity1_Vignette1_Jeremy.mp3",
+    null,
+    "2_Activity1_Vignette1_Viviana.mp3",
+    "3_Activity1_Vignette1_Jeremy.mp3",
+    "4_Activity1_Vignette1_Viviana.mp3",
+    null,
+    null,
+    "5_Activity1_Vignette1_Jeremy.mp3",
+    "6_Activity1_Vignette1_Viviana.mp3"
 ];
 // var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
-var audioTimes2 = [1, 0.659, 2.039, 1.039, 3.129, 1.887, 2, 2, 2, 1.403, 2.149, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
-var futureImages2 = [1, 4, 5, 3, 2, 6, 1, 71, 56, 57, 62, 67, 51, 67, 66, 78, 74, 74];
+var audioTimes2 = [2, 0.609, 1.999, 1.204, 2.380, 1.068, 2, 2, 2, 1.095, 2.102, 0.510, 3.221, 1.200, 2.304, 3, 3.022, 2.088];
+var futureImages2 = [35, 53, 9, 36, 33, 61, 35, 91, 86, 80, 77, 70, 82, 70, 90, 100, 96, 96];
 
-
-// /* TEST Conversation 2 -- Vignette 1 */
-// var futureConversation2 = [
-//     null,
-//     "Jeremy, we did debugging in school too, right?"
-// ];
-// var futureSpeaker2 = [null, 'v'];
-// var futureAudio2 = [
-//     null,
-//     "1_Vivi_Activity_Intro_1_1.mp3"
-// ];
-// // var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
-// var audioTimes2 = [1, 0.659];
-// var futureImages2 = [1, 4];
-
-
-/* Conversation 3 -- Additional Dialogue 1.1 */
+/* Conversation 3 -- Activity 1 - Vignette 2 */
 var futureConversation3 = [
     null,
-    "Sometimes when I come up with an idea, Jeremy asks me “why”?",
+    "(Laughs) Jeremy, I don’t understand. *Whyy* is it so important to ask “whyy” questions?",
     null,
-    "Well, we need to ask each other “why” to help us think!",
-    null
+    null,
+    "That's a great question! We have to ask 'why' so we can understand each other's ideas.",
+    null,
+    null,
+    "Like for example: 'Whyyy did you use that block'?",
+    null,
+    "You got it!"
 ];
-var futureSpeaker3 = [null, 'v', null, 'j', null];
+var futureSpeaker3 = [null, 'v', null, null, 'j', null, null, 'v', null, 'j'];
 var futureAudio3 = [
     null,
-    "1_Vivi_Additional_Dialogue_1.1_1.mp3",
+    "1_Activity1_Vignette2_Viviana.mp3",
     null,
-    "2_Jay_Additional_Dialogue_1.1_2.mp3",
-    null
+    null,
+    "2_Activity1_Vignette2_Jeremy.mp3",
+    null,
+    null,
+    "3_Activity1_Vignette2_Viviana.mp3",
+    null,
+    "4_Activity1_Vignette2_Jeremy.mp3"
 ];
 // var audioTimes3 = [1, 3.557, 1, 4.224, 1];
-var audioTimes3 = [1.920, 1.637, 2, 2.860, 1.360];
-var futureImages3 = [1, 48, 39, 44, 43];
+var audioTimes3 = [1, 0.734, 0.288, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
+var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63];
 
-/* Conversation 4 -- Additional Dialogue 1.2 */
+/* Conversation 4 -- Activity 2 - Vignette 1 */
 var futureConversation4 = [
     null,
-    "Our teacher told us it’s important to ask “why” questions to each other.",
+    "Hey, I remember doing an activity like this one at school!",
     null,
-    "Right. So we ask each other: “*Why* do you think that?”",
-    null
-];
-var futureSpeaker4 = [null, 'j', null, 'v', null];
-var futureAudio4 = [
-    null,
-    "1_Jay_Additional_Dialogue_1.2_1.mp3",
-    null,
-    "2_Vivi_Additional_Dialogue_1.2_2.mp3",
-    null
-];
-// var audioTimes4 = [1, 4.296, 1, 3.161, 1];
-var audioTimes4 = [2.602, 1.694, 2, 1.878, 1.238];
-var futureImages4 = [1, 42, 41, 48, 38];
-
-/* Conversation 5 -- Additional Dialogue 1.3 */
-var futureConversation5 = [
-    null,
-    "Jeremy, *whyy* is it important to ask “why” questions?",
-    null,
-    "Nice one. Well, asking *why* to each other helps us make sense of each other’s ideas",
-    null,
-    null,
-    "Like: “*Whyy* did you use that block?” Like that?",
-    null,
-    "Right."
-];
-var futureSpeaker5 = [null, 'v', null, 'j', null, null, 'v', null, 'j'];
-var futureAudio5 = [
-    null,
-    "1_Vivi_Additional_Dialogue_1.3_1-2.mp3",
-    null,
-    "2_Jay_Additional_Dialogue_1.3_2.mp3",
-    null,
-    null,
-    "3_Vivi_Additional_Dialogue_1.3_3.mp3",
-    null,
-    "4_Jay_Additional_Dialogue_1.3_4.mp3"
-];
-// var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
-var audioTimes5 = [1, 0.788, 3.462, 2.560, 2.055, 2.385, 3.284, 2.609, 1.680];
-var futureImages5 = [1, 4, 38, 37, 45, 42, 40, 39, 10];
-
-/* Conversation 6 -- Vignette 2 */
-var futureConversation6 = [
-    null,
-    "Hey, I remember doing an activity like this one at school.",
-    null,
-    "Oh yeah. It was tough for us at first, but we figured it out.",
+    "Me too. It was hard at first, but we figured it out!”",
     null,
     null,
     null,
@@ -328,119 +274,84 @@ var futureConversation6 = [
     "Hmm. Why isn’t our code working?",
     "Here, I can fix it!",
     "Hey! I was working on it.",
-    "Sorry, I shouldn't have tried to take over.",
+    "Sorry. I shouldn't have tried to take over.",
     "Don’t worry Jay. I think I will change these numbers.",
     null,
     "Well, I had this idea...",
     null,
     "Hey, your idea was pretty good!",
-    "Thanks Vivi! That actually worked!"
+    "Thanks Viviana! That actually worked!"
 ];
-var futureSpeaker6 = [null, 'j', null, 'v', null, null, null, null, null, 'v', 'j', 'v', 'j', 'v', null, 'j', null, 'v', 'j'];
-var futureAudio6 = [
+var futureSpeaker4 = [null, 'j', null, 'v', null, null, null, null, null, 'v', 'j', 'v', 'j', 'v', null, 'j', null, 'v', 'j'];
+var futureAudio4 = [
     null,
-    "1_Jay_Activity_Intro_2_1.mp3",
+    "1_Activity2_ActivityIntro_Jeremy.mp3",
     null,
-    "2_Vivi_Activity_Intro_2_2.mp3",
-    null,
-    null,
+    "2_Activity2_ActivityIntro_Viviana.mp3",
     null,
     null,
     null,
-    "1_Vivi_Vignette_2_1.mp3",
-    "2_Jay_Vignette_2_2.mp3",
-    "3_Vivi_Vignette_2_3.mp3",
-    "4_Jay_Vignette_2_4.mp3",
-    "5_Vivi_Vignette_2_5.mp3",
     null,
-    "6_Jay_Vignette_2_6.mp3",
     null,
-    "7_Vivi_Vignette_2_7.mp3",
-    "8_Jay_Vignette_2_8.mp3"
+    "1_Activity2_Vignette1_Viviana.mp3",
+    "2_Activity2_Vignette1_Jeremy.mp3",
+    "3_Activity2_Vignette1_Viviana.mp3",
+    "4_Activity2_Vignette1_Jeremy.mp3",
+    "5_Activity2_Vignette1_Viviana.mp3",
+    null,
+    "6_Activity2_Vignette1_Jeremy.mp3",
+    null,
+    "7_Activity2_Vignette1_Viviana.mp3",
+    "8_Activity2_Vignette1_Jeremy.mp3"
 ];
-// var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
-var audioTimes6 = [1, 1.024, 4.4, 0.860, 2.38, 2, 2, 2, 1, 2.887, 1.368, 2.806, 2.747, 0.944, 2.59, 2.165, 1, 2.090, 2.843];
-var futureImages6 = [1, 1, 2, 4 , 36 , 14 , 1 , 79 ,56 ,69 ,68 ,58 ,59 ,55, 70 ,63 ,78 ,76 ,76];
+// var audioTimes4 = [1, 4.296, 1, 3.161, 1];
+var audioTimes4 = [2, 0.955, 2.386, 0.840, 1.022, 2, 1, 1, 1, 2.677, 1.185, 2.256, 2.142, 0.963, 2.613, 1.751, 2, 1.790, 2.283];
+var futureImages4 = [35, 35, 33, 53, 14, 18, 35, 92, 86, 73, 81, 71, 79, 76, 74, 84, 100, 98, 98];
 
-/* Conversation 7 -- Additional Dialogue 2.1 */
-var futureConversation7 = [
+/* Conversation 5 -- Activity 2 - Vignette 2 */
+var futureConversation5 = [
     null,
-    "I’ve learned that sometimes Jeremy thinks of things I would’ve never thought of.",
+    "It isn't just me who likes to share ideas. I ask Vivi for her ideas.",
     null,
-    "Yeah, so try sharing your ideas while you work together, even if you’re not sure about them.",
+    "Totally man! It goes something like this: *Ahem* 'Vivi, do you know what we should do?'",
     null,
+    null,
+    "And she goes:'Dude, I have like a bajillion ideas!'",
+    null,
+    "I never said that! I say I have a *thousand* ideas, there is a difference.",
+    null,
+    null,
+    null,
+    "But you should try sharing ideas with your partner too. It can come in handy a lot!",
     null
 ];
-var futureSpeaker7 = [null, 'v', null, 'j', null, null];
-var futureAudio7 = [
+var futureSpeaker5 = [null, 'j', null, 'v', null, null, 'j', null, 'v', null, null, null, 'v', null];
+var futureAudio5 = [
     null,
-    "1_Vivi_Additional_Dialogue_2.1_1.mp3",
+    "1_Activity2_Vignette2_Jeremy.mp3",
     null,
-    "2_Jay_Additional_Dialogue_2.1_2.mp3",
+    "2_Activity2_Vignette2_Viviana.mp3",
     null,
+    null,
+    "3_Activity2_Vignette2_Jeremy.mp3",
+    null,
+    "4_Activity2_Vignette2_Viviana.mp3",
+    null,
+    null,
+    "4.5_Activity2_Vignette2_Both.mp3",
+    "5_Activity2_Vignette2_Viviana.mp3",
     null
 ];
-// var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
-var audioTimes7 = [2.223, 1.219, 2, 0.939, 4.011, 2.637];
-var futureImages7 = [1, 34, 33, 32 , 46 , 42];
+// var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
+var audioTimes5 = [2, 2.352, 1.652, 2.454, 0.825, 1.620, 1.908, 1.826, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
+var futureImages5 = [35, 46, 49, 57, 16, 55, 27, 28, 15, 57, 12, 27, 57, 58];
 
-/* Conversation 8 -- Additional Dialogue 2.2 */
-var futureConversation8 = [
+/* Conversation 6 -- Activity 3 - Vignette 1 */
+var futureConversation6 = [
     null,
-    "It isn’t just me who likes to share ideas. I ask Vivi for her ideas too.",
+    "Hey, we worked on something just like this too.",
     null,
-    "Yeah! It goes something like: (In Jeremy’s voice) “Vivi, what do you think we should do?",
-    null,
-    "And then she’d go: (In Viviana’s voice) “I have like ten thousand ideas!",
-    null,
-    "I don’t *always* have that many ideas!",
-    "But you should try sharing your ideas with each other while you work."
-];
-var futureSpeaker8 = [null, 'j', null, 'v', null, 'j', null, 'v', 'v'];
-var futureAudio8 = [
-    null,
-    "1_Jay_Additional_Dialogue_2.2_1.mp3",
-    null,
-    "2_Vivi_Additional_Dialogue_2.2_2.mp3",
-    null,
-    "3_Jay_Additional_Dialogue_2.2_3.mp3",
-    null,
-    "4_Vivi_Additional_Dialogue_2.2_4.mp3",
-    "5_Vivi_Additional_Dialogue_2.2_5.mp3"
-];
-// var audioTimes8 = [1, 5.304, 1, 3.860, 1, 4.704, 1, 2.816, 3.464];
-var audioTimes8 = [2, 3.013, 2, 1.864, 2, 1.707, 2, 2.816, 3.464];
-var futureImages8 = [1, 45, 46, 48, 31, 37, 30, 36, 48];
-
-/* Conversation 9 -- Additional Dialogue 2.3 */
-var futureConversation9 = [
-    null,
-    "Sometimes I have a suggestion, but Jay has a different one.",
-    null,
-    "It’s good when we share different ideas.",
-    "Yeah, it ends up making our code better when we both share.",
-    null,
-    null
-];
-var futureSpeaker9 = [null, 'v', null, 'j', 'v', null, null];
-var futureAudio9 = [
-    null,
-    "1_Vivi_Additional_Dialogue_2.3_1.mp3",
-    null,
-    "2_Jay_Additional_Dialogue_2.3_2.mp3",
-    "3_Vivi_Additional_Dialogue_2.3_3.mp3",
-    null,
-    null
-];
-var audioTimes9 = [1, 3.372, 1, 2.040, 2.806, 1, 1];
-// var audioTimes9 = [1.777, 1.595, 2, 2.040, 2.806, 0.341, 2.214];
-var futureImages9 = [1, 45, 42, 33, 29, 10, 29];
-
-/* Conversation 10 -- Vignette 3 */
-var futureConversation10 = [
-    null,
-    "Hey, we did an activity kind of like this one too.",
-    "It was a hard one but we worked through it together.",
+    "It was kinda hard, but we worked it out.",
     null,
     null,
     null,
@@ -452,81 +363,60 @@ var futureConversation10 = [
     null,
     "We should put it over there, because that will make it work.",
     null,
-    "Oh, you’re right.",
-    "Let me drag it over here, and…",
+    "Oh, you’re right. Let me drag it over here, and…",
+    null,
     "It worked! Nice one, Vivi!",
-    "Yeah! Thanks for taking my suggestion!"
+    "Yeah! Thanks for taking my suggestion!",
 ];
-var futureSpeaker10 = [null, 'v', 'j', null, null, null, null, 'j', null, 'v', 'j', null, 'v', null, 'j', 'j', 'j', 'v'];
-var futureAudio10 = [
+var futureSpeaker6 = [null, 'v', null, 'j', null, null, null, null, 'j', null, 'v', 'j', null, 'v', null, 'j', null, 'j', 'v'];
+var futureAudio6 = [
     null,
-    "1_Vivi_Activity_Intro_3_1.mp3",
-    "2_Jay_Activity_Intro_3_2.mp3",
+    "1_Activity3_ActivityIntro_Viviana.mp3",
+    null,
+    "2_Activity3_ActivityIntro_Jeremy.mp3",
     null,
     null,
     null,
     null,
-    "1_Jay_Vignette_3_1.mp3",
+    "1_Activity3_Vignette1_Jeremy.mp3",
     null,
-    "2_Vivi_Vignette_3_2.mp3",
-    "3_Jay_Vignette_3_3.mp3",
+    "2_Activity3_Vignette1_Viviana.mp3",
+    "3_Activity3_Vignette1_Jeremy.mp3",
     null,
-    "4_Vivi_Vignette_3_4.mp3",
+    "4_Activity3_Vignette1_Viviana.mp3",
     null,
-    "5_Jay_Vignette_3_5.mp3",
-    "6_Jay_Vignette_3_6.mp3",
-    "7_Jay_Vignette_3_7.mp3",
-    "8_Vivi_Vignette_3_8.mp3"
+    "5_Activity3_Vignette1_Jeremy.mp3",
+    null,
+    "6_Activity3_Vignette1_Jeremy.mp3",
+    "8_Activity3_Vignette1_Viviana.mp3",
 ];
-// var audioTimes10 = [1, 3.024, 2.889, 1, 1, 1, 1, 3.432, 1, 3.029, 2.330, 1, 2.937, 1, 1.059, 2.784, 1.996, 2.034];
-var audioTimes10 = [1, 3.024, 1.403, 1.486, 2, 2, 2, 3.432, 0.872, 2.515, 3.029, 1.157, 1.173, 1.577, 1.38, 1.059, 2.784, 1.996, 2.034];
-var futureImages10 = [1, 28, 27, 6, 1, 80, 56, 64, 63, 58, 61, 59, 67, 65, 63, 60, 76, 76];
+// var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
+var audioTimes6 = [2, 0.525, 2.352, 1.343, 0.625, 2, 2, 2, 1.276, 1.549, 2.880, 1.265, 0.8, 1.650, 1.350, 1.271, 1.961, 1.505, 1.895];
+var futureImages6 = [35, 10, 58, 44, 61, 35, 93, 86, 85, 84, 71, 78, 79, 70, 89, 84, 87, 98, 98];
 
-/* Conversation 11 -- Additional Dialogue 3.1 */
-var futureConversation11 = [
+/* Conversation 7 -- Activity 3 - Vignette 2 */
+var futureConversation7 = [
     null,
-    "When I’m in coding mode, sometimes I forget to listen to Jay.",
+    "Sometimes when I am focused, I forget to listen to Jeremy.",
     null,
-    "Yeah. But sometimes I’ll see something Vivi missed.",
+    "But sometimes I’ll see something Vivi missed.",
     null,
-    "You should make time to listen to your partner’s ideas.",
-];
-var futureSpeaker11 = [null, 'v', null, 'j', null, 'v'];
-var futureAudio11 = [
-    null,
-    "1_Vivi_Additional_Dialogue_3.1_1.mp3",
-    null,
-    "2_Jay_Additional_Dialogue_3.1_2.mp3",
-    null,
-    "3_Vivi_Additional_Dialogue_3.1_3.mp3",
-];
-// var audioTimes11 = [1, 4.285, 1, 4.320, 1, 3.244];
-var audioTimes11 = [1, 1.695, 2.59, 1.195, 3.125, 3.244];
-var futureImages11 = [1, 26, 49, 27, 42, 48];
-
-/* Conversation 12 -- Additional Dialogue 3.2 */
-var futureConversation12 = [
-    null,
-    "When I’m coding, sometimes I want to do everything and forget to listen to Vivi",
-    null,
-    "Yeah, he missed a really good idea I had earlier.",
-    null,
-    "Yeah… Listening to your partner is really important.",
+    "Yeah. You should listen to your partner’s ideas.",
     null
 ];
-var futureSpeaker12 = [null, 'j', null, 'v', null, 'j', null];
-var futureAudio12 = [
+var futureSpeaker7 = [null, 'v', null, 'j', null, 'v', null];
+var futureAudio7 = [
     null,
-    "1_Jay_Additional_Dialogue_3.2_1.mp3",
+    "1_Activity3_Vignette2_Viviana.mp3",
     null,
-    "2_Vivi_Additional_Dialogue_3.2_2.mp3",
+    "2_Activity3_Vignette2_Jeremy.mp3",
     null,
-    "3_Jay_Additional_Dialogue_3.2_3.mp3",
+    "3_Activity3_Vignette2_Viviana.mp3",
     null
 ];
-// var audioTimes12 = [1, 6.672, 1, 3.029, 1, 3.444, 1];
-var audioTimes12 = [1, 4.352, 2.32, 0.704, 2.505, 1.080, 2.364];
-var futureImages12 = [1, 24, 25, 34, 28, 23, 24];
+// var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
+var audioTimes7 = [2, 1.950, 1.956, 1.035, 1.297, 0.674, 1.969];
+var futureImages7 = [35, 8, 15, 44, 48, 59, 57];
 
 /* Conversation 13 -- Praise */
 var futureConversation13 = [
@@ -560,7 +450,7 @@ var futureImages13 = [21, 21, 20, 20, 21, 22, 22, 18, 18, 22];
 /* Conversation 14 -- INACTIVITY / Inactive Coding */
 var futureConversation14 = [
     null,
-    "When I’m coding, I need to press the Green Flag to see what our code’s doing first!",
+    "When I’m coding, I need to press the Green Flag to see what our code’s doing first.",
     null,
     "Yeah, why not try pressing the Green Flag? That helps us think about what to do next!",
     null
@@ -573,8 +463,8 @@ var futureAudio14 = [
     "2_Wizard_InactiveCoding_Viviana.mp3",
     null
 ];
-var audioTimes14 = [1, 2.700, 1.399, 2.346, 1.847];
-var futureImages14 = [1, 34, 33, 32, 46];
+var audioTimes14 = [2, 2.288, 1.416, 2.346, 1.847];
+var futureImages14 = [35, 50, 49, 56, 54];
 
 /* Conversation 15 -- INACTIVITY / Inactive Talking */
 var futureConversation15 = [
@@ -590,8 +480,8 @@ var futureAudio15 = [
     null,
     null
 ];
-var audioTimes15 = [1, 2.025, 1.838, 1.19];
-var futureImages15 = [1, 34, 33];
+var audioTimes15 = [2, 2.004, 1.829, 1.209];
+var futureImages15 = [35, 48, 50, 47];
 
 /* Conversation 16 -- INACTIVITY / Distraction */
 var futureConversation16 = [
@@ -606,20 +496,20 @@ var futureAudio16 = [
     null
 ];
 var audioTimes16 = [1, 2.084, 0.73];
-var futureImages16 = [1, 34, 33];
+var futureImages16 = [35, 59, 11];
 
 /* Conversation 17 -- GOOD TEAMWORK / Asking Why Questions */
 var futureConversation17 = [
     null,
     "Nice work asking why questions to each other!",
 ];
-var futureSpeaker17 = [null, 'v', null];
+var futureSpeaker17 = [null, 'v'];
 var futureAudio17 = [
     null,
     "1_Wizard_PraiseWhy_Viviana.mp3"
 ];
-var audioTimes17 = [1, 2.507];
-var futureImages17 = [1, 34];
+var audioTimes17 = [2, 2.507];
+var futureImages17 = [35, 54];
 
 /* Conversation 18 -- GOOD TEAMWORK / Sharing Ideas */
 var futureConversation18 = [
@@ -633,8 +523,8 @@ var futureAudio18 = [
     "1_Wizard_PraiseSharing_Jeremy.mp3",
     null
 ];
-var audioTimes18 = [1, 2.065, 1.268];
-var futureImages18 = [1, 32, 46];
+var audioTimes18 = [2, 1.922, 1.252];
+var futureImages18 = [35, 62, 25];
 
 /* Conversation 19 -- GOOD TEAMWORK / Listening to Each Other */
 var futureConversation19 = [
@@ -649,18 +539,17 @@ var futureAudio19 = [
     null
 ];
 var audioTimes19 = [1, 2.066, 1.744];
-var futureImages19 = [1, 34, 33];
+var futureImages19 = [35, 23, 54];
 
-/* Conversation 20 -- CONFLICT / Not Asking Why */
+/* Conversation 20 -- CONFLICT / Not Asking Why 1 */
 var futureConversation20 = [
     null,
     "Our teacher Ms. Diaz said that it's very important to ask “why” questions to each other.",
     null,
     "Yes. So we ask questions like: “Why do you think that?”",
     null
-    
 ];
-var futureSpeaker20 = [null, 'j', null, 'v'];
+var futureSpeaker20 = [null, 'j', null, 'v', null];
 var futureAudio20 = [
     null,
     "1_Wizard_EncourageWhy1_Jeremy.mp3",
@@ -668,8 +557,8 @@ var futureAudio20 = [
     "2_Wizard_EncourageWhy1_Viviana.mp3",
     null
 ];
-var audioTimes20 = [1, 2.630, 1.439, 2.405, 1.004];
-var futureImages20 = [1, 42, 41, 48, 38];
+var audioTimes20 = [2, 2.352, 1.717, 2.405, 1.044];
+var futureImages20 = [35, 48, 47, 57, 11];
 
 /* Conversation 21 -- CONFLICT / Not Sharing Ideas */
 var futureConversation21 = [
@@ -691,31 +580,33 @@ var futureAudio21 = [
     null,
     null
 ];
-var audioTimes21 = [1, 2.133, 1.534, 1.296, 0.770, 1.713, 0.910];
-var futureImages21 = [1, 34, 34, 33, 32, 46, 42];
+var audioTimes21 = [2, 2.133, 1.534, 1.296, 0.765, 1.897, 0.901];
+var futureImages21 = [35, 59, 58, 23, 39, 49, 48];
 
 /* Conversation 22 -- CONFLICT / Not Listening to Each Other */
 var futureConversation22 = [
     null,
     "When I’m coding, sometimes I want to take over the world and forget to listen to Vivi.",
     null,
+    null,
     "Yeah, he missed a really good idea I had earlier.",
     null,
     "Yeah… Listening to your partner is pretty important.",
     null
 ];
-var futureSpeaker22 = [null, 'v', null, null, 'j', null, null];
+var futureSpeaker22 = [null, 'j', null, null, 'v', null, 'j', null];
 var futureAudio22 = [
     null,
     "1_Wizard_EncourageListening_Jeremy.mp3",
+    null,
     null,
     "2_Wizard_EncourageListening_Viviana.mp3",
     null,
     "3_Wizard_EncourageListening_Jeremy.mp3",
     null
 ];
-var audioTimes22 = [1, 3.000, 1.272, 0.690, 2.318, 1.752, 2.141];
-var futureImages22 = [1, 24, 25, 34, 28, 23, 24];
+var audioTimes22 = [2, 1.820, 1.758, 1.675, 0.690, 2.318, 1.302, 2.591];
+var futureImages22 = [35, 40, 39, 41, 59, 10, 43, 40];
 
 /* Conversation 23 -- CONFUSION (ACTIVITY 1) / Objective */
 var futureConversation23 = [
@@ -733,8 +624,8 @@ var futureAudio23 = [
     "2_Activity1_Overview_Jeremy.mp3",
     null
 ];
-var audioTimes23 = [1, 0.810, 3.722, 0.885, 0.825];
-var futureImages23 = [1, 34, 33, 32, 46];
+var audioTimes23 = [2, 0.810, 3.722, 1.148, 0.906];
+var futureImages23 = [35, 31, 10, 44, 49];
 
 /* Conversation 24 -- CONFUSION (ACTIVITY 2) / Objective */
 var futureConversation24 = [
@@ -750,8 +641,8 @@ var futureAudio24 = [
     null,
     "2_Activity2_Overview_Viviana.mp3"
 ];
-var audioTimes24 = [1, 2.680, 0.99, 2.269];
-var futureImages24 = [1, 34, 33, 32];
+var audioTimes24 = [2, 2.943, 0.918, 2.269];
+var futureImages24 = [35, 44, 48, 12];
 
 /* Conversation 25 -- CONFUSION (ACTIVITY 3) / Objective */
 var futureConversation25 = [
@@ -767,8 +658,8 @@ var futureAudio25 = [
     null,
     "2_Activity3_Overview_Viviana.mp3"
 ];
-var audioTimes25 = [1, 2.250, 0.911, 1.848];
-var futureImages25 = [1, 34, 33, 32];
+var audioTimes25 = [2, 2.201, 0.960, 1.848];
+var futureImages25 = [35, 44, 48, 23];
 
 /* Conversation 26 -- CONFUSION / Floudering */
 var futureConversation26 = [
@@ -779,15 +670,17 @@ var futureConversation26 = [
     null,
     null
 ];
-var futureSpeaker26 = [null, 'j', null, 'v'];
+var futureSpeaker26 = [null, 'v', null, 'j', null, null];
 var futureAudio26 = [
     null,
-    "1_Activity3_Overview_Jeremy.mp3",
+    "1_Wizard_Floundering_Viviana.mp3",
     null,
-    "2_Activity3_Overview_Viviana.mp3"
+    "2_Wizard_Floundering_Jeremy.mp3",
+    null,
+    null
 ];
-var audioTimes26 = [1, 1.860, 2.853, 1.088, 3.150, 1.011];
-var futureImages26 = [1, 34, 33, 32, 46, 42];
+var audioTimes26 = [2, 1.860, 2.853, 0.939, 3.192, 1.156];
+var futureImages26 = [35, 59, 57, 50, 47, 46];
 
 /* Conversation 27 -- CONFUSION (ACTIVITY 1) / Bottom out Hint */
 var futureConversation27 = [
@@ -805,8 +698,8 @@ var futureAudio27 = [
     "2_Activity1_Hint_Viviana.mp3",
     null
 ];
-var audioTimes27 = [1, 3.720, 2.073, 4.405, 2.041];
-var futureImages27 = [1, 34, 33, 32, 46];
+var audioTimes27 = [2, 3.677, 2.334, 3.405, 2.041];
+var futureImages27 = [35, 41, 49, 57, 58];
 
 /* Conversation 28 -- CONFUSION (ACTIVITY 2) / Bottom out Hint */
 var futureConversation28 = [
@@ -818,7 +711,7 @@ var futureConversation28 = [
     null,
     null
 ];
-var futureSpeaker28 = [null, 'j', null, 'v', null];
+var futureSpeaker28 = [null, 'v', null, null, 'j', null, null];
 var futureAudio28 = [
     null,
     "1_Activity2_Hint_Viviana.mp3",
@@ -828,8 +721,8 @@ var futureAudio28 = [
     null,
     null
 ];
-var audioTimes28 = [1, 3.390, 3.384, 2.768, 0.480, 2.310, 1.109];
-var futureImages28 = [1, 34, 34, 33, 32, 46, 42];
+var audioTimes28 = [2, 3.390, 3.384, 2.768, 0.701, 2.145, 1.228];
+var futureImages28 = [35, 7, 58, 57, 50, 37, 49];
 
 /* Conversation 29 -- CONFUSION (ACTIVITY 3) / Bottom out Hint */
 var futureConversation29 = [
@@ -847,7 +740,7 @@ var futureConversation29 = [
     null,
     "That’s right!"
 ];
-var futureSpeaker29 = [null, 'v', null, null, 'j', null, null, null, null, null, 'v', null, null, 'j'];
+var futureSpeaker29 = [null, 'v', null, null, 'j', null, null, null, null, 'v', null, null, 'j'];
 var futureAudio29 = [
     null,
     "1_Activity3_Hint_Viviana.mp3",
@@ -863,9 +756,8 @@ var futureAudio29 = [
     null,
     "4_Activity3_Hint_Jeremy.mp3"
 ];
-var audioTimes29 = [1, 3.900, 3.670, 3.286, 1.440, 3.598, 2.498, 3.055, 2.208, 2.100, 3.164, 3.303, 0.480];
-var futureImages29 = [1, 34, 34, 33, 32, 46, 42, 42, 42, 42, 42, 42, 42];
-
+var audioTimes29 = [2, 3.900, 3.670, 3.286, 1.614, 3.184, 2.356, 2.990, 1.797, 2.100, 3.164, 3.303, 0.709];
+var futureImages29 = [35, 8, 57, 58, 46, 48, 48, 49, 47, 48, 7, 64, 13, 26];
 // End of the agent dialogues, audios, and animations
 
 
@@ -921,54 +813,113 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     IDE_Morph.prototype.scriptsPaneTexture = this.scriptsTexture();
 
     // This is the old agent animations
-    var files = ["./images/Start_2.png",
-        "./images/Nml_EyesToEachOther_JayTalks_ThoughtfulNeutral.jpg",
-        "./images/Nml_EyesToEachOther_JayTalks.jpg",
-        "./images/Nml_EyesToEachOther_ViviTalks.jpg",
-        "./images/Nml_EyesToJay_ViviTalksThoughtful.jpg",
-        "./images/Nml_EyesToVivi_JayTalks_FistBump_ViviSmile.jpg",
-        "./images/Nml_Jeyesclosed_Jopensmile_Jintrobody.jpg",
-        "./images/Nml_Jeyestostudent_Jopensmile_Jfingerup.jpg",
-        "./images/Nml_Jeyestostudent_Jopensmile_Jintrobody.jpg",
-        "./images/Nml_Jeyestostudent_Jopensmile_Jthumbsup.jpg",
-        "./images/Nml_JVeyestostudent_closedsmile_neutralbody.jpg",
-        "./images/Nml_JVeyestostudent_Vopensmile_Vthoughtful.jpg",
-        "./images/Nml_Veyesclosed_Vopensmile_Vintrobody.jpg",
-        "./images/Nml_Veyesclosed_Vopensmile_Vthumbsup.jpg",
-        "./images/Nml_VeyestoJ_Vopensmile_Vfistbump.jpg",
-        "./images/Nml_Veyestostudent_Vopensmile_Vintrobody.jpg",
-        "/images/SplashArt_HappyDance_wHeadset.jpg",
-        "/images/SplashArt_HappyDance.jpg",
-        "/images/SplashArt_TopView_wHeadset.jpg",
-        "/images/SplashArt_TopView.jpg",
-        "/images/SplashArt_WeDidIt_wHeadset.jpg",
-        "/images/SplashArt_WeDidIt.jpg",
-        "/images/Vign_EyesToEachOther_Idle.jpg",
-        "/images/Vign_EyesToEachOther_JayFrustradedArmsUp.jpg",
-        "/images/Vign_EyesToEachOther_JayIDontKnow_ViviWorried.jpg",
-        "/images/Vign_EyesToEachOther_JayTalks_HandBehindNeck.jpg",
-        "/images/Vign_EyesToEachOther_JayTalks_ThoughtfulSmile.jpg",
-        "/images/Vign_EyesToEachOther_JayTalksconfused.jpg",
-        "/images/Vign_EyesToEachOther_JayTalksIDontKnow.jpg",
-        "/images/Vign_EyesToEachOther_JayTalksNeutral_Thoughtful.jpg",
-        "/images/Vign_EyesToEachOther_JayTalksNeutral.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk1.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalks_IdleTalk2.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalks_Joyful.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalks_JoyfulSmile_IdleTalk2.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalksNeutral_Doubtful_IDontKnow.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalksNeutral_IdleTalk2_JayWorried.jpg",
-        "/images/Vign_EyesToEachOther_ViviTalksNeutral_Thoughtful.jpg",
-        "/images/Vign_Jeyesclosed_Jopensmile_JYay.jpg",
-        "/images/Vign_Jeyestostudent_Jneutraltalk_Jneutralbody.jpg",
-        "/images/Vign_JeyestoV_Jneutraltalk_Jarmsup.jpg",
-        "/images/Vign_JeyestoV_Jneutraltalk_Jhandup.jpg",
-        "/images/Vign_JVeyestoeachother_closedsmile_neutralbody.jpg",
-        "/images/Vign_JVeyestoeachother_Jopensmile_Jfingerup.jpg",
-        "/images/Vign_VeyestoJ_Vclosedsmile_Vhandup.jpg",
-        "/images/Vign_VeyestoJ_Vneutraltalk_Varmbehindhead.jpg",
-        "/images/Vign_VeyestoJ_Vopensmile_Vfingerup.jpg",
-        "/images/TitleCard_1.jpg"];
+    var files = [
+        "./new_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/AreYouReady.png",
+        "./WoZ_images/AreYouReady-2.png",
+        "./WoZ_images/AreYouReady-3.png",
+        "./WoZ_images/AreYouReady-4.png",
+        "./WoZ_images/AreYouReady-5.png",
+        "./WoZ_images/AreYouReady-6.png",
+        "./WoZ_images/Nml_Vivi-Confused-NeutralTalk-EyeS-Hmm_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-NeutralTalk-EyeS-Neck_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeA-Hmm_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeS-Hmm_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeS-IDK_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeS-IdleH_Jay-Joyful-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeS-IdleH_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Confused-SmileTalk-EyeS-Neck_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-NeutralTalk-EyeS-Neck_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-Smile-EyeS-Intro_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-2Thumb_Jay-Joyful-ToothySmile-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-2Thumb_Jay-Neutral-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-Hmm_Jay-Joyful-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-IDK_Jay-Joyful-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-IdleN_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-Intro_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-Yay_Jay-Joyful-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-SmileTalk-EyeS-Yay_Jay-Joyful-ToothySmile-EyeS-Yay.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-2Thumb_Jay-Joyful-SmileTalk-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-IdleN_Jay-Joyful-SmileTalk-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-IdleN_Jay-Joyful-SmileTalk-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-IdleN_Jay-Joyful-SmileTalk-EyeS-Yay.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-Hmm.jpg",
+        "./WoZ_images/Nml_Vivi-Joyful-ToothySmile-EyeS-Yay_Jay-Joyful-SmileTalk-EyeS-Yay.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Doubtful-EyeS-Hmm_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Joyful-SmileTalk-EyeS-Intro.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-NeutralTalk-EyeA-Hmm.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-NeutralTalk-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-SmileTalk-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-SmileTalk-EyeS-IdleF.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-SmileTalk-EyeS-Intro.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleH_Jay-Joyful-SmileTalk-EyeS-Neck.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Confused-NeutralTalk-EyeS-IdleH.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Confused-NeutralTalk-EyeS-Neck.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Confused-SmileTalk-EyeS-IDK.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Joyful-NeutralTalk-EyeS-Neck.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-NeutralTalk-EyeS-Hmm.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-Hmm.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-IDK.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-IdleF.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-IdleH.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-Smile-EyeS-Perm2Talk_Jay-Neutral-Smile-EyeS-Perm2Talk.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeA-Fist_Jay-Neutral-Smile-EyeA-Fist.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-2Thumb_Jay-Neutral-ToothySmile-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-IDK_Jay-Joyful-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-IDK_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-IdleF_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-IdleH_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-IdleN_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-SmileTalk-EyeS-Intro_Jay-Neutral-Smile-EyeS-IdleN.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-ToothySmile-EyeA-Fist_Jay-Joyful-SmileTalk-EyeA-Fist.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-ToothySmile-EyeS-2Thumb_Jay-Neutral-SmileTalk-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Neutral-ToothySmile-EyeS-IdleN_Jay-Neutral-SmileTalk-EyeS-2Thumb.jpg",
+        "./WoZ_images/Nml_Vivi-Raised-SmileTalk-EyeS-Hmm_Jay-Neutral-ToothySmile-EyeS-IdleN.jpg",
+        "./WoZ_images/RoleSwitch.png",
+        "./WoZ_images/RoleSwitch-2.png",
+        "./WoZ_images/RoleSwitch-3.png",
+        "./WoZ_images/RoleSwitch-4.png",
+        "./WoZ_images/RoleSwitch-5.png",
+        "./WoZ_images/Vign_Vivi-Confused-NeutralTalk-EyeA-Hmm_Jay-Neutral-Doubtful-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-NeutralTalk-EyeA-IDK_Jay-Neutral-Doubtful-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-NeutralTalk-EyeA-IDK_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-NeutralTalk-EyeA-Neck_Jay-Confused-Doubtful-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-SmileTalk-EyeA-Hmm_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-SmileTalk-EyeA-IdleF_Jay-Confused-Doubtful-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Confused-SmileTalk-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Doubtful-EyeA-IdleN_Jay-Confused-NeutralTalk-EyeA-IDK.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Doubtful-EyeA-IdleN_Jay-Confused-NeutralTalk-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Doubtful-EyeA-IdleN_Jay-Confused-NeutralTalk-EyeA-Neck.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Doubtful-EyeA-IdleN_Jay-Joyful-NeutralTalk-EyeA-Yay.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Doubtful-EyeA-IdleN_Jay-Raised-SmileTalk-EyeA-IdleF.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Confused-NeutralTalk-EyeA-IDK.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Confused-NeutralTalk-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-NeutralTalk-EyeA-Hmm.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-NeutralTalk-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Neutral-ToothySmile-EyeA-Hmm.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-Smile-EyeA-IdleN_Jay-Raised-SmileTalk-EyeA-IdleF.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-SmileTalk-EyeA-IdleF_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/Vign_Vivi-Neutral-SmileTalk-EyeA-IdleH_Jay-Neutral-Smile-EyeA-IdleN.jpg",
+        "./WoZ_images/TitleCard_1.jpg",
+        "./WoZ_images/TitleCard_2.jpg",
+        "./WoZ_images/TitleCard_3.jpg",
+        "./WoZ_images/SplashArt_HappyDance_wHeadset.jpg",
+        "./WoZ_images/SplashArt_HappyDance.jpg",
+        "./WoZ_images/SplashArt_TopView_wHeadset.jpg",
+        "./WoZ_images/SplashArt_TopView.jpg",
+        "./WoZ_images/SplashArt_WeDidIt_wHeadset.jpg",
+        "./WoZ_images/SplashArt_WeDidIt.jpg",
+        "./WoZ_images/SomeTimeLaterCard.jpg",
+        "./WoZ_images/SomeTimeLaterCard-2.jpg",
+        "./WoZ_images/SomeTimeLaterCard-3.jpg",
+        "./WoZ_images/SomeTimeLaterCard-5.jpg"
+    ];
+
 
     // This is the new agent animations
     var new_files = [
@@ -1056,12 +1007,10 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         "./new_images/RoleSwitchRequest.png",
         "./new_images/RoleSwitchConfirm.png",
         "./new_images/joinDialogue.jpg"
-        
-        
     ];
 
-    for (i = 0; i < new_files.length; i++) {
-        agentPanelTextureArray.push(IDE_Morph.prototype.agentPanelTexture = this.agentTexture(new_files[i]));
+    for (i = 0; i < files.length; i++) {
+        agentPanelTextureArray.push(IDE_Morph.prototype.agentPanelTexture = this.agentTexture(files[i]));
 
         //IDE_Morph.prototype.agentPanelTexture);
     }
@@ -7214,14 +7163,14 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         if (this.conversationPause){
             this.isOriginalAgent = !this.isOriginalAgent;
             var moreConvo= false;
-            var audio = '/audio/';
+            var audio = '/WoZ_audios/';
             var image;
             var audioLength;
     
             var convoAndTime;
     
             if (convoNum === null || activity_name == null) {
-                image = 11; 
+                image = 45; 
                 this.agentPanel.destroy(); 
                 this.speechBubblePanel.destroy();
             }
@@ -7243,7 +7192,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
     
             this.isOriginalAgent = !this.isOriginalAgent;
             var moreConvo= false;
-            var audio = '/audio/';
+            var audio = '/WoZ_audios/';
             var image;
             var audioLength;
     
@@ -7252,7 +7201,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
             var convoAndTime;
     
             if (convoNum === null || activity_name.includes('activity1')) {
-                image = 11; 
+                image = 45; 
                 this.agentPanel.destroy(); 
                 this.speechBubblePanel.destroy();
             }
@@ -7275,7 +7224,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
                     moreConvo = true;
                 }
                 if (window['futureImages'+convoNum].length == 0) {
-                    image = 11;
+                    image = 45;
                     this.initiateIntervention();
                 } else {
                     image = window['futureImages'+convoNum][0];
@@ -7295,7 +7244,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
                 }
             }
             this.createSpeechBubblePanel();
-            this.createAgentPanel(parseInt(image)-1);
+            this.createAgentPanel(parseInt(image));
     
             var windowWidth = window.screen.height * window.devicePixelRatio;
     
