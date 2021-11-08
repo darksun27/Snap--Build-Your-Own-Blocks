@@ -917,7 +917,10 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         "./WoZ_images/SomeTimeLaterCard.jpg",
         "./WoZ_images/SomeTimeLaterCard-2.jpg",
         "./WoZ_images/SomeTimeLaterCard-3.jpg",
-        "./WoZ_images/SomeTimeLaterCard-5.jpg"
+        "./WoZ_images/SomeTimeLaterCard-5.jpg",
+        "./WoZ_images/RoleSwitchRequest.png",
+        "./WoZ_images/RoleSwitchConfirm.png",
+        "./WoZ_images/joinDialogue.jpg"
     ];
 
 
@@ -7251,6 +7254,8 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
             console.log("Window Resolution: " + windowWidth);
     
             //if (windowWidth < 1000) {
+
+            // FLECKS - Added this line to avoid saving setStageSize to the project-actions logs repeatedly.
             SnapActions.setStageSize(480, 380);
     
             this.fixLayout();
@@ -7262,7 +7267,7 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
         // this.initiateIntervention(interventionNumber);
         console.log("play intervention music!")
         console.log("window['futureAudio'+convoNum].shift();" + window['futureAudio'+convoNum]);
-        var audio = '/audio/';
+        var audio = '/WoZ_audios/';
             var image;
             var audioLength;
     
@@ -8195,17 +8200,6 @@ IDE_Morph.prototype.confirm = function (message, title, action) {
 };
 
 IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
-    var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
-    new DialogBoxMorph(null, action).askProceedSwitch(
-        title,
-        localize(message),
-        this.world(),
-        switch1
-        );
-};
-
-
-IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
     var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-3]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
         title,
@@ -8214,6 +8208,8 @@ IDE_Morph.prototype.switchRolesAsk = function (message, title, action) {
         switch1
         );
 };
+
+
 IDE_Morph.prototype.finalConfirmswitchRolesAsk = function (message, title, action) {
     var switch1 = agentPanelTextureArray[agentPanelTextureArray.length-2]; //asking image
     new DialogBoxMorph(null, action).askProceedSwitch(
