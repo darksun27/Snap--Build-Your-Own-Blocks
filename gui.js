@@ -1809,6 +1809,7 @@ IDE_Morph.prototype.interpretUrlAnchors = function (loc) {
             }
 
             else if (response.vignette == "switch-roles"){
+                interventionNumber = null;
                 myself.switchRoles();     
                 stateofSwitchRoles = 1
                 console.log("switchRoles notification");
