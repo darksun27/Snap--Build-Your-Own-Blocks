@@ -7387,8 +7387,9 @@ IDE_Morph.prototype.confirmSwitchRoles = function () {
         function () {
             myself.exitReplayMode();
             console.log("Confirmed switching roles")
-            SnapActions.switchRoles();
             SnapActions.restartAgent();
+            SnapActions.switchRoles();
+
         }
     );
 };
@@ -7396,7 +7397,7 @@ IDE_Morph.prototype.joinIntervention = function () {
     var myself = this;
     this.joinInterventionAsk(
         'Hey! Can we join the conversation?',
-        'Asking for Permission Roles',
+        'Asking to Join the Conversation',
         function () {
             myself.exitReplayMode();
             SnapActions.restartAgent()
