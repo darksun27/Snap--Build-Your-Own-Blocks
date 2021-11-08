@@ -181,7 +181,7 @@ var futureAudio1 = [
     "6_Introduction_Jeremy.mp3"
 ];
 // var audioTimes1 = [1, 2.372, 1, 3.596, 1, 1.633, 2.616, 2.722, 1, 1.512];
-var audioTimes1 = [2, 1.260, 1.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
+var audioTimes1 = [2, 1.260, 2.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
 var futureImages1 = [45, 60, 22, 38, 32, 64, 37, 52, 18, 63];
 
 /* Conversation 2 -- Activity 1 - Vignette 1 */
@@ -227,7 +227,7 @@ var futureAudio2 = [
     "6_Activity1_Vignette1_Viviana.mp3"
 ];
 // var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
-var audioTimes2 = [2, 0.609, 1.999, 1.204, 2.380, 1.068, 2, 2, 2, 1.095, 2.102, 0.510, 3.221, 1.200, 2.304, 3, 3.022, 2.088];
+var audioTimes2 = [2, 0.609, 2.999, 1.204, 2.380, 1.068, 2, 2, 2, 1.095, 2.102, 0.510, 3.721, 1.200, 2.304, 3, 3.722, 2.088];
 var futureImages2 = [35, 53, 9, 36, 33, 61, 35, 91, 86, 80, 77, 70, 82, 70, 90, 100, 96, 96];
 
 /* Conversation 3 -- Activity 1 - Vignette 2 */
@@ -257,7 +257,7 @@ var futureAudio3 = [
     "4_Activity1_Vignette2_Jeremy.mp3"
 ];
 // var audioTimes3 = [1, 3.557, 1, 4.224, 1];
-var audioTimes3 = [1, 0.734, 0.288, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
+var audioTimes3 = [2, 0.734, 0.288, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
 var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63];
 
 /* Conversation 4 -- Activity 2 - Vignette 1 */
@@ -305,7 +305,7 @@ var futureAudio4 = [
     "8_Activity2_Vignette1_Jeremy.mp3"
 ];
 // var audioTimes4 = [1, 4.296, 1, 3.161, 1];
-var audioTimes4 = [2, 0.955, 2.386, 0.840, 1.022, 2, 1, 1, 1, 2.677, 1.185, 2.256, 2.142, 0.963, 2.613, 1.751, 2, 1.790, 2.283];
+var audioTimes4 = [2, 0.955, 2.886, 0.840, 1.022, 2, 1, 1, 1, 3.677, 1.685, 2.756, 2.642, 1.963, 2.613, 1.751, 2, 2.290, 2.283];
 var futureImages4 = [35, 35, 33, 53, 14, 18, 35, 92, 86, 73, 81, 71, 79, 76, 74, 84, 100, 98, 98];
 
 /* Conversation 5 -- Activity 2 - Vignette 2 */
@@ -343,7 +343,7 @@ var futureAudio5 = [
     null
 ];
 // var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
-var audioTimes5 = [2, 2.352, 1.652, 2.454, 0.825, 1.620, 1.908, 1.826, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
+var audioTimes5 = [2, 2.352, 2.152, 2.454, 0.825, 1.620, 1.908, 2.326, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
 var futureImages5 = [35, 46, 49, 57, 16, 55, 27, 28, 15, 57, 12, 27, 57, 58];
 
 /* Conversation 6 -- Activity 3 - Vignette 1 */
@@ -391,7 +391,7 @@ var futureAudio6 = [
     "8_Activity3_Vignette1_Viviana.mp3",
 ];
 // var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
-var audioTimes6 = [2, 0.525, 2.352, 1.343, 0.625, 2, 2, 2, 1.276, 1.549, 2.880, 1.265, 0.8, 1.650, 1.350, 1.271, 1.961, 1.505, 1.895];
+var audioTimes6 = [2, 0.525, 2.852, 1.343, 0.625, 2, 2, 2, 1.276, 2.549, 3.180, 1.765, 0.8, 1.650, 1.350, 1.271, 2.461, 2.005, 1.895];
 var futureImages6 = [35, 10, 58, 44, 61, 35, 93, 86, 85, 84, 71, 78, 79, 70, 89, 84, 87, 98, 98];
 
 /* Conversation 7 -- Activity 3 - Vignette 2 */
@@ -415,7 +415,7 @@ var futureAudio7 = [
     null
 ];
 // var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
-var audioTimes7 = [2, 1.950, 1.956, 1.035, 1.297, 0.674, 1.969];
+var audioTimes7 = [2, 1.950, 2.456, 1.035, 1.797, 0.674, 1.969];
 var futureImages7 = [35, 8, 15, 44, 48, 59, 57];
 
 /* Conversation 13 -- Praise */
@@ -463,7 +463,7 @@ var futureAudio14 = [
     "2_Wizard_InactiveCoding_Viviana.mp3",
     null
 ];
-var audioTimes14 = [2, 2.288, 1.416, 2.346, 1.847];
+var audioTimes14 = [2, 2.288, 2.416, 2.346, 1.847];
 var futureImages14 = [35, 50, 49, 56, 54];
 
 /* Conversation 15 -- INACTIVITY / Inactive Talking */
@@ -557,7 +557,7 @@ var futureAudio20 = [
     "2_Wizard_EncourageWhy1_Viviana.mp3",
     null
 ];
-var audioTimes20 = [2, 2.352, 1.717, 2.405, 1.044];
+var audioTimes20 = [2, 2.352, 2.717, 2.405, 1.044];
 var futureImages20 = [35, 48, 47, 57, 11];
 
 /* Conversation 21 -- CONFLICT / Not Sharing Ideas */
@@ -580,7 +580,7 @@ var futureAudio21 = [
     null,
     null
 ];
-var audioTimes21 = [2, 2.133, 1.534, 1.296, 0.765, 1.897, 0.901];
+var audioTimes21 = [2, 2.133, 1.534, 2.296, 0.765, 1.897, 0.901];
 var futureImages21 = [35, 59, 58, 23, 39, 49, 48];
 
 /* Conversation 22 -- CONFLICT / Not Listening to Each Other */
@@ -605,7 +605,7 @@ var futureAudio22 = [
     "3_Wizard_EncourageListening_Jeremy.mp3",
     null
 ];
-var audioTimes22 = [2, 1.820, 1.758, 1.675, 0.690, 2.318, 1.302, 2.591];
+var audioTimes22 = [2, 1.820, 1.758, 2.675, 0.690, 2.818, 1.302, 2.591];
 var futureImages22 = [35, 40, 39, 41, 59, 10, 43, 40];
 
 /* Conversation 23 -- CONFUSION (ACTIVITY 1) / Objective */
@@ -624,7 +624,7 @@ var futureAudio23 = [
     "2_Activity1_Overview_Jeremy.mp3",
     null
 ];
-var audioTimes23 = [2, 0.810, 3.722, 1.148, 0.906];
+var audioTimes23 = [2, 0.810, 4.222, 1.148, 0.906];
 var futureImages23 = [35, 31, 10, 44, 49];
 
 /* Conversation 24 -- CONFUSION (ACTIVITY 2) / Objective */
@@ -641,7 +641,7 @@ var futureAudio24 = [
     null,
     "2_Activity2_Overview_Viviana.mp3"
 ];
-var audioTimes24 = [2, 2.943, 0.918, 2.269];
+var audioTimes24 = [2, 2.943, 1.918, 2.269];
 var futureImages24 = [35, 44, 48, 12];
 
 /* Conversation 25 -- CONFUSION (ACTIVITY 3) / Objective */
@@ -658,7 +658,7 @@ var futureAudio25 = [
     null,
     "2_Activity3_Overview_Viviana.mp3"
 ];
-var audioTimes25 = [2, 2.201, 0.960, 1.848];
+var audioTimes25 = [2, 2.201, 1.960, 1.848];
 var futureImages25 = [35, 44, 48, 23];
 
 /* Conversation 26 -- CONFUSION / Floudering */
@@ -679,7 +679,7 @@ var futureAudio26 = [
     null,
     null
 ];
-var audioTimes26 = [2, 1.860, 2.853, 0.939, 3.192, 1.156];
+var audioTimes26 = [2, 1.860, 3.853, 0.939, 3.192, 1.156];
 var futureImages26 = [35, 59, 57, 50, 47, 46];
 
 /* Conversation 27 -- CONFUSION (ACTIVITY 1) / Bottom out Hint */
@@ -698,7 +698,7 @@ var futureAudio27 = [
     "2_Activity1_Hint_Viviana.mp3",
     null
 ];
-var audioTimes27 = [2, 3.677, 2.334, 3.405, 2.041];
+var audioTimes27 = [2, 3.677, 3.334, 3.405, 2.041];
 var futureImages27 = [35, 41, 49, 57, 58];
 
 /* Conversation 28 -- CONFUSION (ACTIVITY 2) / Bottom out Hint */
@@ -721,7 +721,7 @@ var futureAudio28 = [
     null,
     null
 ];
-var audioTimes28 = [2, 3.390, 3.384, 2.768, 0.701, 2.145, 1.228];
+var audioTimes28 = [2, 3.390, 3.384, 3.768, 0.701, 2.145, 1.228];
 var futureImages28 = [35, 7, 58, 57, 50, 37, 49];
 
 /* Conversation 29 -- CONFUSION (ACTIVITY 3) / Bottom out Hint */
@@ -756,7 +756,7 @@ var futureAudio29 = [
     null,
     "4_Activity3_Hint_Jeremy.mp3"
 ];
-var audioTimes29 = [2, 3.900, 3.670, 3.286, 1.614, 3.184, 2.356, 2.990, 1.797, 2.100, 3.164, 3.303, 0.709];
+var audioTimes29 = [2, 3.900, 3.670, 3.786, 1.614, 3.184, 2.356, 2.990, 2.797, 2.100, 3.164, 3.803, 0.709];
 var futureImages29 = [35, 8, 57, 58, 46, 48, 48, 49, 47, 48, 7, 64, 13, 26];
 // End of the agent dialogues, audios, and animations
 
