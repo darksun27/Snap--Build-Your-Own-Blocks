@@ -258,7 +258,8 @@ var futureAudio3 = [
 ];
 // var audioTimes3 = [1, 3.557, 1, 4.224, 1];
 var audioTimes3 = [2, 0.734, 0.288, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
-var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63];
+// var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63]; This is commented out for temporary test
+var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 8, 55, 63];
 
 /* Conversation 4 -- Activity 2 - Vignette 1 */
 var futureConversation4 = [
