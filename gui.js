@@ -150,10 +150,8 @@ var intervention_dialogues_CONFUSION_floudering = [26]
 var intervention_dialogues_CONFUSION_activity_2_hint = [27]
 var intervention_dialogues_CONFUSION_activity_3_hint = [28]
 var intervention_dialogues_CONFUSION_activity_4_hint = [29]
-// Here are all agent dialogues, audios, and animations
 
 // Here are all agent dialogues, audios, and animations
-
 /* Conversation 1 -- Agent Introduction */
 var futureConversation1 = [
     null,
@@ -180,8 +178,7 @@ var futureAudio1 = [
     null,
     "6_Introduction_Jeremy.mp3"
 ];
-// var audioTimes1 = [1, 2.372, 1, 3.596, 1, 1.633, 2.616, 2.722, 1, 1.512];
-var audioTimes1 = [2, 1.260, 2.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
+var audioTimes1 = [2, 1.260, 1.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
 var futureImages1 = [45, 60, 22, 38, 32, 64, 37, 52, 18, 63];
 
 /* Conversation 2 -- Activity 1 - Vignette 1 */
@@ -189,8 +186,8 @@ var futureConversation2 = [
     null,
     "Jeremy, we did debugging in school too, right?",
     null,
-    "Yeah, we did. I remember we couldn’t figure out that one activity, but we eventually got it.",
-    null,
+    "Yeah, we did. I remember we couldn’t figure out that one activity",
+    "But we eventually got it",
     null,
     null,
     null,
@@ -205,7 +202,7 @@ var futureConversation2 = [
     "Ooh. I think I see the problem.",
     "We just had to ask “why” to figure it out."
 ];
-var futureSpeaker2 = [null, 'v', null, 'j', null, null, null, null, null, 'j', null, 'v', 'j', 'v', null, null, 'j', 'v'];
+var futureSpeaker2 = [null, 'v', null, 'j', 'j', null, null, null, null, 'j', null, 'v', 'j', 'v', null, null, 'j', 'v'];
 var futureAudio2 = [
     null,
     "1_Activity1_ActivityIntro_Viviana.mp3",
@@ -226,24 +223,23 @@ var futureAudio2 = [
     "5_Activity1_Vignette1_Jeremy.mp3",
     "6_Activity1_Vignette1_Viviana.mp3"
 ];
-// var audioTimes2 = [1, 2.752, 1, 1.039, 5.016, 1, 1, 1, 1, 3.192, 1, 0.661, 2.496, 3.455, 1, 1, 3.247, 2.030];
-var audioTimes2 = [2, 0.609, 2.999, 1.204, 2.380, 1.068, 2, 2, 2, 1.095, 2.102, 0.510, 3.721, 1.200, 2.304, 3, 3.722, 2.088];
+var audioTimes2 = [2, 0.609, 1.999, 1.204, 2.380, 1.068, 2, 2, 2, 1.095, 2.102, 0.510, 3.221, 1.200, 2.304, 3, 3.022, 2.088];
 var futureImages2 = [35, 53, 9, 36, 33, 61, 35, 91, 86, 80, 77, 70, 82, 70, 90, 100, 96, 96];
 
 /* Conversation 3 -- Activity 1 - Vignette 2 */
 var futureConversation3 = [
     null,
-    "(Laughs) Jeremy, I don’t understand. *Whyy* is it so important to ask “whyy” questions?",
+    "(Laughs) Jeremy, I don’t understand",
+    "*Whyy* is it so important to ask “whyy” questions?",
     null,
+    "That's a great question!",
+    "We have to ask 'why' so we can understand each other's ideas.",
     null,
-    "That's a great question! We have to ask 'why' so we can understand each other's ideas.",
-    null,
-    null,
-    "Like for example: 'Whyyy did you use that block'?",
+    "Like for example: Whyyy did you use that block?",
     null,
     "You got it!"
 ];
-var futureSpeaker3 = [null, 'v', null, null, 'j', null, null, 'v', null, 'j'];
+var futureSpeaker3 = [null, 'v', 'v', null, 'j', 'j', null, 'v', null, 'j'];
 var futureAudio3 = [
     null,
     "1_Activity1_Vignette2_Viviana.mp3",
@@ -256,18 +252,16 @@ var futureAudio3 = [
     null,
     "4_Activity1_Vignette2_Jeremy.mp3"
 ];
-// var audioTimes3 = [1, 3.557, 1, 4.224, 1];
-var audioTimes3 = [2, 0.734, 0.288, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
-// var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63]; This is commented out for temporary test
-var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 8, 55, 63];
+var audioTimes3 = [2, 1.234, 0.788, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
+var futureImages3 = [35, 21, 53, 11, 27, 46, 48, 7, 55, 63];
 
 /* Conversation 4 -- Activity 2 - Vignette 1 */
 var futureConversation4 = [
     null,
     "Hey, I remember doing an activity like this one at school!",
     null,
-    "Me too. It was hard at first, but we figured it out!”",
-    null,
+    "Me too. It was hard at first",
+    "But we figured it out!",
     null,
     null,
     null,
@@ -283,7 +277,7 @@ var futureConversation4 = [
     "Hey, your idea was pretty good!",
     "Thanks Viviana! That actually worked!"
 ];
-var futureSpeaker4 = [null, 'j', null, 'v', null, null, null, null, null, 'v', 'j', 'v', 'j', 'v', null, 'j', null, 'v', 'j'];
+var futureSpeaker4 = [null, 'j', null, 'v', 'v', null, null, null, null, 'v', 'j', 'v', 'j', 'v', null, 'j', null, 'v', 'j'];
 var futureAudio4 = [
     null,
     "1_Activity2_ActivityIntro_Jeremy.mp3",
@@ -305,8 +299,7 @@ var futureAudio4 = [
     "7_Activity2_Vignette1_Viviana.mp3",
     "8_Activity2_Vignette1_Jeremy.mp3"
 ];
-// var audioTimes4 = [1, 4.296, 1, 3.161, 1];
-var audioTimes4 = [2, 0.955, 2.886, 0.840, 1.022, 2, 1, 1, 1, 3.677, 1.685, 2.756, 2.642, 1.963, 2.613, 1.751, 2, 2.290, 2.283];
+var audioTimes4 = [2, 0.955, 2.386, 0.840, 1.022, 2, 1, 1, 1, 2.677, 1.185, 2.256, 2.142, 0.963, 2.613, 1.751, 2, 1.790, 2.283];
 var futureImages4 = [35, 35, 33, 53, 14, 18, 35, 92, 86, 73, 81, 71, 79, 76, 74, 84, 100, 98, 98];
 
 /* Conversation 5 -- Activity 2 - Vignette 2 */
@@ -314,19 +307,19 @@ var futureConversation5 = [
     null,
     "It isn't just me who likes to share ideas. I ask Vivi for her ideas.",
     null,
-    "Totally man! It goes something like this: *Ahem* 'Vivi, do you know what we should do?'",
-    null,
+    "Totally man! It goes something like this:",
+    "*Ahem* 'Vivi, do you know what we should do?'",
     null,
     "And she goes:'Dude, I have like a bajillion ideas!'",
     null,
-    "I never said that! I say I have a *thousand* ideas, there is a difference.",
-    null,
+    "I never said that! I say I have a *thousand* ideas.",
+    "There is a difference.",
     null,
     null,
     "But you should try sharing ideas with your partner too. It can come in handy a lot!",
     null
 ];
-var futureSpeaker5 = [null, 'j', null, 'v', null, null, 'j', null, 'v', null, null, null, 'v', null];
+var futureSpeaker5 = [null, 'j', null, 'v', 'v', null, 'j', null, 'v', 'v', null, null, 'v', null];
 var futureAudio5 = [
     null,
     "1_Activity2_Vignette2_Jeremy.mp3",
@@ -343,8 +336,7 @@ var futureAudio5 = [
     "5_Activity2_Vignette2_Viviana.mp3",
     null
 ];
-// var audioTimes5 = [1, 4.250, 1, 5, 1, 1, 3.284, 1, 1.680];
-var audioTimes5 = [2, 2.352, 2.152, 2.454, 0.825, 1.620, 1.908, 2.326, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
+var audioTimes5 = [2, 2.352, 1.652, 2.454, 0.825, 1.620, 1.908, 1.826, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
 var futureImages5 = [35, 46, 49, 57, 16, 55, 27, 28, 15, 57, 12, 27, 57, 58];
 
 /* Conversation 6 -- Activity 3 - Vignette 1 */
@@ -391,8 +383,7 @@ var futureAudio6 = [
     "6_Activity3_Vignette1_Jeremy.mp3",
     "8_Activity3_Vignette1_Viviana.mp3",
 ];
-// var audioTimes6 = [1, 5.424, 1, 3.240, 1, 1, 1, 1, 1, 2.887, 1.368, 2.806, 2.747, 3.534, 1, 2.165, 1, 2.090, 2.843];
-var audioTimes6 = [2, 0.525, 2.852, 1.343, 0.625, 2, 2, 2, 1.276, 2.549, 3.180, 1.765, 0.8, 1.650, 1.350, 1.271, 2.461, 2.005, 1.895];
+var audioTimes6 = [2, 0.525, 2.352, 1.343, 0.625, 2, 2, 2, 1.276, 1.549, 2.880, 1.265, 0.8, 1.650, 1.350, 1.271, 1.961, 1.505, 1.895];
 var futureImages6 = [35, 10, 58, 44, 61, 35, 93, 86, 85, 84, 71, 78, 79, 70, 89, 84, 87, 98, 98];
 
 /* Conversation 7 -- Activity 3 - Vignette 2 */
@@ -415,8 +406,7 @@ var futureAudio7 = [
     "3_Activity3_Vignette2_Viviana.mp3",
     null
 ];
-// var audioTimes7 = [1, 3.513, 1, 6.648, 1, 1];
-var audioTimes7 = [2, 1.950, 2.456, 1.035, 1.797, 0.674, 1.969];
+var audioTimes7 = [2, 1.950, 1.956, 1.035, 1.297, 0.674, 1.969];
 var futureImages7 = [35, 8, 15, 44, 48, 59, 57];
 
 /* Conversation 13 -- Praise */
@@ -464,17 +454,17 @@ var futureAudio14 = [
     "2_Wizard_InactiveCoding_Viviana.mp3",
     null
 ];
-var audioTimes14 = [2, 2.288, 2.416, 2.346, 1.847];
+var audioTimes14 = [2, 2.288, 1.416, 2.346, 1.847];
 var futureImages14 = [35, 50, 49, 56, 54];
 
 /* Conversation 15 -- INACTIVITY / Inactive Talking */
 var futureConversation15 = [
     null,
-    "Teamwork is all about communication. If you two shared your ideas with each other, maybe it’d get the ball rolling!",
-    null,
+    "Teamwork is all about communication.",
+    "If you two shared your ideas with each other, maybe it’d get the ball rolling!",
     null
 ];
-var futureSpeaker15 = [null, 'j', null, null];
+var futureSpeaker15 = [null, 'j', 'j', null];
 var futureAudio15 = [
     null,
     "1_Wizard_InactiveTalking_Jeremy.mp3",
@@ -558,20 +548,20 @@ var futureAudio20 = [
     "2_Wizard_EncourageWhy1_Viviana.mp3",
     null
 ];
-var audioTimes20 = [2, 2.352, 2.717, 2.405, 1.044];
+var audioTimes20 = [2, 2.352, 1.717, 2.405, 1.044];
 var futureImages20 = [35, 48, 47, 57, 11];
 
 /* Conversation 21 -- CONFLICT / Not Sharing Ideas */
 var futureConversation21 = [
     null,
-    "I’ve learned Jeremy has great ideas that I would've never thought of in a million years!",
+    "I’ve learned Jeremy has great ideas that",
+    "I would've never thought of in a million years!",
     null,
-    null,
-    "You too! So try and share your ideas, even if you aren’t sure.",
-    null,
+    "You too! So try and share your ideas",
+    "even if you aren’t sure.",
     null
 ];
-var futureSpeaker21 = [null, 'v', null, null, 'j', null, null];
+var futureSpeaker21 = [null, 'v', 'v', null, 'j', 'j', null];
 var futureAudio21 = [
     null,
     "1_Wizard_EncourageSharing1_Viviana.mp3",
@@ -581,21 +571,21 @@ var futureAudio21 = [
     null,
     null
 ];
-var audioTimes21 = [2, 2.133, 1.534, 2.296, 0.765, 1.897, 0.901];
+var audioTimes21 = [2, 2.133, 1.534, 1.296, 0.765, 1.897, 0.901];
 var futureImages21 = [35, 59, 58, 23, 39, 49, 48];
 
 /* Conversation 22 -- CONFLICT / Not Listening to Each Other */
 var futureConversation22 = [
     null,
-    "When I’m coding, sometimes I want to take over the world and forget to listen to Vivi.",
-    null,
+    "When I’m coding, sometimes I want to take over the world",
+    "and forget to listen to Vivi.",
     null,
     "Yeah, he missed a really good idea I had earlier.",
     null,
     "Yeah… Listening to your partner is pretty important.",
     null
 ];
-var futureSpeaker22 = [null, 'j', null, null, 'v', null, 'j', null];
+var futureSpeaker22 = [null, 'j', 'j', null, 'v', null, 'j', null];
 var futureAudio22 = [
     null,
     "1_Wizard_EncourageListening_Jeremy.mp3",
@@ -606,7 +596,7 @@ var futureAudio22 = [
     "3_Wizard_EncourageListening_Jeremy.mp3",
     null
 ];
-var audioTimes22 = [2, 1.820, 1.758, 2.675, 0.690, 2.818, 1.302, 2.591];
+var audioTimes22 = [2, 1.820, 1.758, 1.675, 0.690, 2.318, 1.302, 2.591];
 var futureImages22 = [35, 40, 39, 41, 59, 10, 43, 40];
 
 /* Conversation 23 -- CONFUSION (ACTIVITY 1) / Objective */
@@ -625,7 +615,7 @@ var futureAudio23 = [
     "2_Activity1_Overview_Jeremy.mp3",
     null
 ];
-var audioTimes23 = [2, 0.810, 4.222, 1.148, 0.906];
+var audioTimes23 = [2, 0.810, 3.722, 1.148, 0.906];
 var futureImages23 = [35, 31, 10, 44, 49];
 
 /* Conversation 24 -- CONFUSION (ACTIVITY 2) / Objective */
@@ -642,7 +632,7 @@ var futureAudio24 = [
     null,
     "2_Activity2_Overview_Viviana.mp3"
 ];
-var audioTimes24 = [2, 2.943, 1.918, 2.269];
+var audioTimes24 = [2, 2.943, 0.918, 2.269];
 var futureImages24 = [35, 44, 48, 12];
 
 /* Conversation 25 -- CONFUSION (ACTIVITY 3) / Objective */
@@ -659,7 +649,7 @@ var futureAudio25 = [
     null,
     "2_Activity3_Overview_Viviana.mp3"
 ];
-var audioTimes25 = [2, 2.201, 1.960, 1.848];
+var audioTimes25 = [2, 2.201, 0.960, 1.848];
 var futureImages25 = [35, 44, 48, 23];
 
 /* Conversation 26 -- CONFUSION / Floudering */
@@ -667,11 +657,11 @@ var futureConversation26 = [
     null,
     "Our teacher Ms. Diaz told us: “You always need a plan of action with your teammate!”",
     null,
-    "She says: “How can you break this big problem into smaller pieces? What is the next step?”",
+    "She says: “How can you break this big problem into smaller pieces?”",
     null,
-    null
+    "What is the next step?"
 ];
-var futureSpeaker26 = [null, 'v', null, 'j', null, null];
+var futureSpeaker26 = [null, 'v', null, 'j', null, 'j'];
 var futureAudio26 = [
     null,
     "1_Wizard_Floundering_Viviana.mp3",
@@ -680,7 +670,7 @@ var futureAudio26 = [
     null,
     null
 ];
-var audioTimes26 = [2, 1.860, 3.853, 0.939, 3.192, 1.156];
+var audioTimes26 = [2, 1.860, 2.853, 0.939, 3.192, 1.156];
 var futureImages26 = [35, 59, 57, 50, 47, 46];
 
 /* Conversation 27 -- CONFUSION (ACTIVITY 1) / Bottom out Hint */
@@ -699,20 +689,20 @@ var futureAudio27 = [
     "2_Activity1_Hint_Viviana.mp3",
     null
 ];
-var audioTimes27 = [2, 3.677, 3.334, 3.405, 2.041];
+var audioTimes27 = [2, 3.677, 2.334, 3.405, 2.041];
 var futureImages27 = [35, 41, 49, 57, 58];
 
 /* Conversation 28 -- CONFUSION (ACTIVITY 2) / Bottom out Hint */
 var futureConversation28 = [
     null,
-    "When we did something like this, we didn’t know where to put the forever block. We realized we had to put “Forever” on top of the code, and all the blocks we wanted to loop inside it.",
+    "When we did something like this, we didn’t know where to put the forever block.",
+    "We realized we had to put “Forever” on top of the code, and all the blocks we wanted to loop inside it.",
     null,
+    "Yeah, everything you put inside the Forever block will loop",
     null,
-    "Yeah, everything you put inside the Forever block will loop, well… forever!",
-    null,
-    null
+    "well… forever!"
 ];
-var futureSpeaker28 = [null, 'v', null, null, 'j', null, null];
+var futureSpeaker28 = [null, 'v', 'v', null, 'j', null, 'j'];
 var futureAudio28 = [
     null,
     "1_Activity2_Hint_Viviana.mp3",
@@ -722,26 +712,26 @@ var futureAudio28 = [
     null,
     null
 ];
-var audioTimes28 = [2, 3.390, 3.384, 3.768, 0.701, 2.145, 1.228];
+var audioTimes28 = [2, 3.390, 3.384, 2.768, 0.701, 2.145, 1.228];
 var futureImages28 = [35, 7, 58, 57, 50, 37, 49];
 
 /* Conversation 29 -- CONFUSION (ACTIVITY 3) / Bottom out Hint */
 var futureConversation29 = [
     null,
-    "If-Else was a bit confusing before Ms. Diaz explained it to us. She said: “‘IF’ happens when the condition happens, and ‘ELSE’ happens if the condition does not happen.”",
+    "If-Else was a bit confusing before Ms. Diaz explained it to us.",
+    "She said: “‘IF’ happens when the condition happens",
+    "and ‘ELSE’ happens if the condition does not happen.”",
+    "Yeah I remember! She said: “For example: Imagine you’re going to soccer practice.",
     null,
+    "IF it’s sunny, you’ll get to play!",
+    "But ELSE, if it rains, you’ll have to stay home.",
+    "Either way, one of those two will happen!”",
+    "Hmm. So with these sprites… “IF” should have what happens if the sprites touch.",
     null,
-    "Yeah I remember! She said: “For example: Imagine you’re going to soccer practice. IF it’s sunny, you’ll get to play! But ELSE, if it rains, you’ll have to stay home. Either way, one of those two will happen!”",
-    null,
-    null,
-    null,
-    null,
-    "Hmm. So with these sprites… “IF” should have what happens if the sprites touch. And “ELSE” what should happen when they’re not touching?",
-    null,
-    null,
+    "And “ELSE” what should happen when they’re not touching?",
     "That’s right!"
 ];
-var futureSpeaker29 = [null, 'v', null, null, 'j', null, null, null, null, 'v', null, null, 'j'];
+var futureSpeaker29 = [null, 'v', 'v', 'v', 'j', null, 'j', 'j', 'j', 'v', null, 'v', 'j'];
 var futureAudio29 = [
     null,
     "1_Activity3_Hint_Viviana.mp3",
@@ -757,7 +747,7 @@ var futureAudio29 = [
     null,
     "4_Activity3_Hint_Jeremy.mp3"
 ];
-var audioTimes29 = [2, 3.900, 3.670, 3.786, 1.614, 3.184, 2.356, 2.990, 2.797, 2.100, 3.164, 3.803, 0.709];
+var audioTimes29 = [2, 3.900, 3.670, 3.286, 1.614, 3.184, 2.356, 2.990, 1.797, 2.100, 3.164, 3.303, 0.709];
 var futureImages29 = [35, 8, 57, 58, 46, 48, 48, 49, 47, 48, 7, 64, 13, 26];
 // End of the agent dialogues, audios, and animations
 
