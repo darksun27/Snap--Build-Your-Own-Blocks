@@ -3436,7 +3436,7 @@ IDE_Morph.prototype.createAgentPanel = function (imageNum) {
 
     };
 
-    if (countButtonCreated < 4) {
+    if (countButtonCreated < 2) {
         //Start Button
         var button,
         myself = this
