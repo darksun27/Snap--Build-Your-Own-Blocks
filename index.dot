@@ -76,7 +76,7 @@
         <script type="text/javascript" src="main.js"></script>
     </head>
     <body style="margin: 0;">
-        <canvas id="world" tabindex="1" style="position: absolute;" ></canvas>
+        <canvas id="world" style="position: absolute;" ></canvas>
     </body>
 {{ if (it.googleAnalyticsKey) { }}
     <script>
