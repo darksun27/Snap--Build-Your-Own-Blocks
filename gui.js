@@ -167,15 +167,15 @@ var futureConversation1 = [
 ];
 var futureSpeaker1 = [null, 'v', null,'j', null, 'v', 'j', 'v', null, 'j'];
 var futureAudio1 = [
-    null,
+    "null.mp3",
     "1_Introduction_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Introduction_Jeremy.mp3",
-    null,
+    "null.mp3",
     "3_Introduction_Viviana.mp3",
     "4_Introduction_Jeremy.mp3",
     "5_Introduction_Viviana.mp3",
-    null,
+    "null.mp3",
     "6_Introduction_Jeremy.mp3"
 ];
 var audioTimes1 = [2, 1.260, 1.164, 1.497, 0.980, 2.704, 2.673, 1.159, 1.625, 0.613];
@@ -204,22 +204,22 @@ var futureConversation2 = [
 ];
 var futureSpeaker2 = [null, 'v', null, 'j', 'j', null, null, null, null, 'j', null, 'v', 'j', 'v', null, null, 'j', 'v'];
 var futureAudio2 = [
-    null,
+    "null.mp3",
     "1_Activity1_ActivityIntro_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Activity1_ActivityIntro_Jeremy.mp3",
-    null,
-    null,
-    null,
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
     "1_Activity1_Vignette1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity1_Vignette1_Viviana.mp3",
     "3_Activity1_Vignette1_Jeremy.mp3",
     "4_Activity1_Vignette1_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "5_Activity1_Vignette1_Jeremy.mp3",
     "6_Activity1_Vignette1_Viviana.mp3"
 ];
@@ -241,15 +241,15 @@ var futureConversation3 = [
 ];
 var futureSpeaker3 = [null, 'v', 'v', null, 'j', 'j', null, 'v', null, 'j'];
 var futureAudio3 = [
-    null,
+    "null.mp3",
     "1_Activity1_Vignette2_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "2_Activity1_Vignette2_Jeremy.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "3_Activity1_Vignette2_Viviana.mp3",
-    null,
+    "null.mp3",
     "4_Activity1_Vignette2_Jeremy.mp3"
 ];
 var audioTimes3 = [2, 1.234, 0.788, 5.175, 1.858, 0.644, 2.108, 2.190, 2.486, 0.533];
@@ -279,23 +279,23 @@ var futureConversation4 = [
 ];
 var futureSpeaker4 = [null, 'j', null, 'v', 'v', null, null, null, null, 'v', 'j', 'v', 'j', 'v', null, 'j', null, 'v', 'j'];
 var futureAudio4 = [
-    null,
+    "null.mp3",
     "1_Activity2_ActivityIntro_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity2_ActivityIntro_Viviana.mp3",
-    null,
-    null,
-    null,
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
     "1_Activity2_Vignette1_Viviana.mp3",
     "2_Activity2_Vignette1_Jeremy.mp3",
     "3_Activity2_Vignette1_Viviana.mp3",
     "4_Activity2_Vignette1_Jeremy.mp3",
     "5_Activity2_Vignette1_Viviana.mp3",
-    null,
+    "null.mp3",
     "6_Activity2_Vignette1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "7_Activity2_Vignette1_Viviana.mp3",
     "8_Activity2_Vignette1_Jeremy.mp3"
 ];
@@ -321,20 +321,20 @@ var futureConversation5 = [
 ];
 var futureSpeaker5 = [null, 'j', null, 'v', 'v', null, 'j', null, 'v', 'v', null, null, 'v', null];
 var futureAudio5 = [
-    null,
+    "null.mp3",
     "1_Activity2_Vignette2_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity2_Vignette2_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "3_Activity2_Vignette2_Jeremy.mp3",
-    null,
+    "null.mp3",
     "4_Activity2_Vignette2_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "4.5_Activity2_Vignette2_Both.mp3",
     "5_Activity2_Vignette2_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes5 = [2, 2.352, 1.652, 2.454, 0.825, 1.620, 1.908, 1.826, 1.526, 2.643, 0.927, 2, 2.577, 1.750];
 var futureImages5 = [35, 46, 49, 57, 16, 55, 27, 28, 15, 57, 12, 27, 57, 58];
@@ -363,23 +363,23 @@ var futureConversation6 = [
 ];
 var futureSpeaker6 = [null, 'v', null, 'j', null, null, null, null, 'j', null, 'v', 'j', null, 'v', null, 'j', null, 'j', 'v'];
 var futureAudio6 = [
-    null,
+    "null.mp3",
     "1_Activity3_ActivityIntro_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Activity3_ActivityIntro_Jeremy.mp3",
-    null,
-    null,
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
     "1_Activity3_Vignette1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity3_Vignette1_Viviana.mp3",
     "3_Activity3_Vignette1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "4_Activity3_Vignette1_Viviana.mp3",
-    null,
+    "null.mp3",
     "5_Activity3_Vignette1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "6_Activity3_Vignette1_Jeremy.mp3",
     "8_Activity3_Vignette1_Viviana.mp3",
 ];
@@ -398,13 +398,13 @@ var futureConversation7 = [
 ];
 var futureSpeaker7 = [null, 'v', null, 'j', null, 'v', null];
 var futureAudio7 = [
-    null,
+    "null.mp3",
     "1_Activity3_Vignette2_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Activity3_Vignette2_Jeremy.mp3",
-    null,
+    "null.mp3",
     "3_Activity3_Vignette2_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes7 = [2, 1.950, 1.956, 1.035, 1.297, 0.674, 1.969];
 var futureImages7 = [35, 8, 15, 44, 48, 59, 57];
@@ -448,11 +448,11 @@ var futureConversation14 = [
 ];
 var futureSpeaker14 = [null, 'j', null, 'v', null];
 var futureAudio14 = [
-    null,
+    "null.mp3",
     "1_Wizard_InactiveCoding_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Wizard_InactiveCoding_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes14 = [2, 2.288, 1.416, 2.346, 1.847];
 var futureImages14 = [35, 50, 49, 56, 54];
@@ -466,10 +466,10 @@ var futureConversation15 = [
 ];
 var futureSpeaker15 = [null, 'j', 'j', null];
 var futureAudio15 = [
-    null,
+    "null.mp3",
     "1_Wizard_InactiveTalking_Jeremy.mp3",
-    null,
-    null
+    "null.mp3",
+    "null.mp3"
 ];
 var audioTimes15 = [2, 2.004, 1.829, 1.209];
 var futureImages15 = [35, 48, 50, 47];
@@ -482,9 +482,9 @@ var futureConversation16 = [
 ];
 var futureSpeaker16 = [null, 'v', null];
 var futureAudio16 = [
-    null,
+    "null.mp3",
     "1_Wizard_Distracted_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes16 = [1, 2.084, 0.73];
 var futureImages16 = [35, 59, 11];
@@ -496,7 +496,7 @@ var futureConversation17 = [
 ];
 var futureSpeaker17 = [null, 'v'];
 var futureAudio17 = [
-    null,
+    "null.mp3",
     "1_Wizard_PraiseWhy_Viviana.mp3"
 ];
 var audioTimes17 = [2, 2.507];
@@ -510,7 +510,7 @@ var futureConversation18 = [
 ];
 var futureSpeaker18 = [null, 'j', null];
 var futureAudio18 = [
-    null,
+    "null.mp3",
     "1_Wizard_PraiseSharing_Jeremy.mp3",
     null
 ];
@@ -525,9 +525,9 @@ var futureConversation19 = [
 ];
 var futureSpeaker19 = [null, 'v', null];
 var futureAudio19 = [
-    null,
+    "null.mp3",
     "1_Wizard_PraiseListening_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes19 = [1, 2.066, 1.744];
 var futureImages19 = [35, 23, 54];
@@ -542,11 +542,11 @@ var futureConversation20 = [
 ];
 var futureSpeaker20 = [null, 'j', null, 'v', null];
 var futureAudio20 = [
-    null,
+    "null.mp3",
     "1_Wizard_EncourageWhy1_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Wizard_EncourageWhy1_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes20 = [2, 2.352, 1.717, 2.405, 1.044];
 var futureImages20 = [35, 48, 47, 57, 11];
@@ -563,13 +563,13 @@ var futureConversation21 = [
 ];
 var futureSpeaker21 = [null, 'v', 'v', null, 'j', 'j', null];
 var futureAudio21 = [
-    null,
+    "null.mp3",
     "1_Wizard_EncourageSharing1_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "2_Wizard_EncourageSharing1_Jeremy.mp3",
-    null,
-    null
+    "null.mp3",
+    "null.mp3"
 ];
 var audioTimes21 = [2, 2.133, 1.534, 1.296, 0.765, 1.897, 0.901];
 var futureImages21 = [35, 59, 58, 23, 39, 49, 48];
@@ -587,14 +587,14 @@ var futureConversation22 = [
 ];
 var futureSpeaker22 = [null, 'j', 'j', null, 'v', null, 'j', null];
 var futureAudio22 = [
-    null,
+    "null.mp3",
     "1_Wizard_EncourageListening_Jeremy.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "2_Wizard_EncourageListening_Viviana.mp3",
-    null,
+    "null.mp3",
     "3_Wizard_EncourageListening_Jeremy.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes22 = [2, 1.820, 1.758, 1.675, 0.690, 2.318, 1.302, 2.591];
 var futureImages22 = [35, 40, 39, 41, 59, 10, 43, 40];
@@ -609,11 +609,11 @@ var futureConversation23 = [
 ];
 var futureSpeaker23 = [null, 'v', null, 'j', null];
 var futureAudio23 = [
-    null,
+    "null.mp3",
     "1_Activity1_Overview_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Activity1_Overview_Jeremy.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes23 = [2, 0.810, 3.722, 1.148, 0.906];
 var futureImages23 = [35, 31, 10, 44, 49];
@@ -627,9 +627,9 @@ var futureConversation24 = [
 ];
 var futureSpeaker24 = [null, 'j', null, 'v'];
 var futureAudio24 = [
-    null,
+    "null.mp3",
     "1_Activity2_Overview_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity2_Overview_Viviana.mp3"
 ];
 var audioTimes24 = [2, 2.943, 0.918, 2.269];
@@ -644,9 +644,9 @@ var futureConversation25 = [
 ];
 var futureSpeaker25 = [null, 'j', null, 'v'];
 var futureAudio25 = [
-    null,
+    "null.mp3",
     "1_Activity3_Overview_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity3_Overview_Viviana.mp3"
 ];
 var audioTimes25 = [2, 2.201, 0.960, 1.848];
@@ -663,12 +663,12 @@ var futureConversation26 = [
 ];
 var futureSpeaker26 = [null, 'v', null, 'j', null, 'j'];
 var futureAudio26 = [
-    null,
+    "null.mp3",
     "1_Wizard_Floundering_Viviana.mp3",
-    null,
+    "null.mp3",
     "2_Wizard_Floundering_Jeremy.mp3",
-    null,
-    null
+    "null.mp3",
+    "null.mp3"
 ];
 var audioTimes26 = [2, 1.860, 2.853, 0.939, 3.192, 1.156];
 var futureImages26 = [35, 59, 57, 50, 47, 46];
@@ -683,11 +683,11 @@ var futureConversation27 = [
 ];
 var futureSpeaker27 = [null, 'j', null, 'v', null];
 var futureAudio27 = [
-    null,
+    "null.mp3",
     "1_Activity1_Hint_Jeremy.mp3",
-    null,
+    "null.mp3",
     "2_Activity1_Hint_Viviana.mp3",
-    null
+    "null.mp3"
 ];
 var audioTimes27 = [2, 3.677, 2.334, 3.405, 2.041];
 var futureImages27 = [35, 41, 49, 57, 58];
@@ -704,13 +704,13 @@ var futureConversation28 = [
 ];
 var futureSpeaker28 = [null, 'v', 'v', null, 'j', null, 'j'];
 var futureAudio28 = [
-    null,
+    "null.mp3",
     "1_Activity2_Hint_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "2_Activity2_Hint_Jeremy.mp3",
-    null,
-    null
+    "null.mp3",
+    "null.mp3"
 ];
 var audioTimes28 = [2, 3.390, 3.384, 2.768, 0.701, 2.145, 1.228];
 var futureImages28 = [35, 7, 58, 57, 50, 37, 49];
@@ -733,18 +733,18 @@ var futureConversation29 = [
 ];
 var futureSpeaker29 = [null, 'v', 'v', 'v', 'j', null, 'j', 'j', 'j', 'v', null, 'v', 'j'];
 var futureAudio29 = [
-    null,
+    "null.mp3",
     "1_Activity3_Hint_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "2_Activity3_Hint_Jeremy.mp3",
-    null,
-    null,
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
+    "null.mp3",
     "3_Activity3_Hint_Viviana.mp3",
-    null,
-    null,
+    "null.mp3",
+    "null.mp3",
     "4_Activity3_Hint_Jeremy.mp3"
 ];
 var audioTimes29 = [2, 3.900, 3.670, 3.286, 1.614, 3.184, 2.356, 2.990, 1.797, 2.100, 3.164, 3.303, 0.709];
