@@ -760,7 +760,9 @@ var speechRight;
 var speechLeft;
 var firstInterfaceCreation=true;
 
-var agentPanelTextureArray = [];
+var agentPanelTextureArray = []; // this array stores all pre-cached agent images
+var agentAudioArray = []; // this array stores all pre-cached audios
+var audio_files; // audio file list to store audio file names, prepare for pushing audios into agentAudioArray
 
 // IDE_Morph ///////////////////////////////////////////////////////////
 
@@ -1009,6 +1011,106 @@ IDE_Morph.prototype.setDefaultDesign = function () {
         //IDE_Morph.prototype.agentPanelTexture);
     }
 
+    audio_files = [ // details of audio names in the data folder
+        "./WoZ_audios/1_Activity1_ActivityIntro_Viviana.mp3",
+        "./WoZ_audios/1_Activity1_Hint_Jeremy.mp3",
+        "./WoZ_audios/1_Activity1_Overview_Viviana.mp3",
+        "./WoZ_audios/1_Activity1_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/1_Activity1_Vignette2_Viviana.mp3",
+        "./WoZ_audios/1_Activity2_ActivityIntro_Jeremy.mp3",
+        "./WoZ_audios/1_Activity2_Hint_Viviana.mp3",
+        "./WoZ_audios/1_Activity2_Overview_Jeremy.mp3",
+        "./WoZ_audios/1_Activity2_Vignette1_.mp3",
+        "./WoZ_audios/1_Activity2_Vignette1_Viviana.mp3",
+        "./WoZ_audios/1_Activity2_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/1_Activity3_ActivityIntro_Viviana.mp3",
+        "./WoZ_audios/1_Activity3_Hint_Viviana.mp3",
+        "./WoZ_audios/1_Activity3_Overview_Jeremy.mp3",
+        "./WoZ_audios/1_Activity3_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/1_Activity3_Vignette2_Viviana.mp3",
+        "./WoZ_audios/1_Introduction_Viviana.mp3",
+        "./WoZ_audios/1_Praise_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_Distracted_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_EncourageListening_Jeremy.mp3",
+        "./WoZ_audios/1_Wizard_EncourageSharing1_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_EncourageSharing2_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_EncourageWhy1_Jeremy.mp3",
+        "./WoZ_audios/1_Wizard_EncourageWhy2_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_Floundering_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_InactiveCoding_Jeremy.mp3",
+        "./WoZ_audios/1_Wizard_InactiveTalking_Jeremy.mp3",
+        "./WoZ_audios/1_Wizard_PraiseListening_Viviana.mp3",
+        "./WoZ_audios/1_Wizard_PraiseSharing_Jeremy.mp3",
+        "./WoZ_audios/1_Wizard_PraiseWhy_Viviana.mp3",
+        "./WoZ_audios/2_Activity1_ActivityIntro_Jeremy.mp3",
+        "./WoZ_audios/2_Activity1_Hint_Viviana.mp3",
+        "./WoZ_audios/2_Activity1_Overview_Jeremy.mp3",
+        "./WoZ_audios/2_Activity1_Vignette1_Viviana.mp3",
+        "./WoZ_audios/2_Activity1_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/2_Activity2_ActivityIntro_Viviana.mp3",
+        "./WoZ_audios/2_Activity2_Hint_Jeremy.mp3",
+        "./WoZ_audios/2_Activity2_Overview_Viviana.mp3",
+        "./WoZ_audios/2_Activity2_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/2_Activity2_Vignette2_Viviana.mp3",
+        "./WoZ_audios/2_Activity3_ActivityIntro_Jeremy.mp3",
+        "./WoZ_audios/2_Activity3_Hint_Jeremy.mp3",
+        "./WoZ_audios/2_Activity3_Overview_Viviana.mp3",
+        "./WoZ_audios/2_Activity3_Vignette1_Viviana.mp3",
+        "./WoZ_audios/2_Activity3_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/2_Introduction_Jeremy.mp3",
+        "./WoZ_audios/2_Praise_Viviana.mp3",
+        "./WoZ_audios/2_Wizard_EncourageListening_Viviana.mp3",
+        "./WoZ_audios/2_Wizard_EncourageSharing1_Jeremy.mp3",
+        "./WoZ_audios/2_Wizard_EncourageSharing2_Jeremy.mp3",
+        "./WoZ_audios/2_Wizard_EncourageWhy1_Viviana.mp3",
+        "./WoZ_audios/2_Wizard_EncourageWhy2_Jeremy.mp3",
+        "./WoZ_audios/2_Wizard_Floundering_Jeremy.mp3",
+        "./WoZ_audios/2_Wizard_InactiveCoding_Viviana.mp3",
+        "./WoZ_audios/3_Activity1_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/3_Activity1_Vignette2_Viviana.mp3",
+        "./WoZ_audios/3_Activity2_Vignette1_Viviana.mp3",
+        "./WoZ_audios/3_Activity2_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/3_Activity3_Hint_Viviana.mp3",
+        "./WoZ_audios/3_Activity3_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/3_Activity3_Vignette2_Viviana.mp3",
+        "./WoZ_audios/3_Introduction_Viviana.mp3",
+        "./WoZ_audios/3_Praise_Viviana.mp3",
+        "./WoZ_audios/3_Wizard_EncourageListening_Jeremy.mp3",
+        "./WoZ_audios/3_Wizard_EncourageListening_Jeremy_02.mp3",
+        "./WoZ_audios/3_Wizard_EncourageSharing2_Viviana.mp3",
+        "./WoZ_audios/4.5_Activity2_Vignette2_Both.mp3",
+        "./WoZ_audios/4.5_Activity2_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/4_Activity1_Vignette1_Viviana.mp3",
+        "./WoZ_audios/4_Activity1_Vignette2_Jeremy.mp3",
+        "./WoZ_audios/4_Activity2_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/4_Activity2_Vignette2_Viviana.mp3",
+        "./WoZ_audios/4_Activity3_Hint_Jeremy.mp3",
+        "./WoZ_audios/4_Activity3_Vignette1_Viviana.mp3",
+        "./WoZ_audios/4_Introduction_Jeremy.mp3",
+        "./WoZ_audios/4_Praise_Viviana.mp3",
+        "./WoZ_audios/5_Activity1_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/5_Activity2_Vignette1_Viviana.mp3",
+        "./WoZ_audios/5_Activity2_Vignette2_Viviana.mp3",
+        "./WoZ_audios/5_Activity3_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/5_Introduction_Viviana.mp3",
+        "./WoZ_audios/5_Praise_Jeremy.mp3",
+        "./WoZ_audios/6_Activity1_Vignette1_Viviana.mp3",
+        "./WoZ_audios/6_Activity2_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/6_Activity3_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/6_Introduction_Jeremy.mp3",
+        "./WoZ_audios/6_Praise_Jeremy.mp3",
+        "./WoZ_audios/7_Activity2_Vignette1_Viviana.mp3",
+        "./WoZ_audios/7_Praise_Jeremy.mp3",
+        "./WoZ_audios/8_Activity2_Vignette1_Jeremy.mp3",
+        "./WoZ_audios/8_Activity3_Vignette1_Viviana.mp3",
+        "./WoZ_audios/8_Praise_Jeremy.mp3",
+        "./WoZ_audios/null.mp3"
+    ];
+
+    for (i = 0; i < audio_files.length; i++){ // this loop push the pre-downloaded audio file into agentAudioArray, for the details of pre-caching audios, please check the funtion "agentAudioTexture"
+        console.log("agentAudioArray length", agentAudioArray.length);
+        agentAudioArray.push(BlockMorph.prototype.snapSound = this.agentAudioTexture(audio_files[i]));
+    }
 
     IDE_Morph.prototype.padding = 5;
 
@@ -1089,6 +1191,12 @@ IDE_Morph.prototype.agentTexture = function (imageSrc) {
     image.src=imageSrc;
 
     return pic;
+};
+
+IDE_Morph.prototype.agentAudioTexture = function(audioSrc) { // this function pre-download audio data with specific directories.
+    BlockMorph.prototype.snapSound = document.createElement('audio'); // creating an audio object that can be played.
+    BlockMorph.prototype.snapSound.src = audioSrc; // download the audio with the audio srouce (specific directory)
+    return BlockMorph.prototype.snapSound
 };
 
 IDE_Morph.prototype.scriptsTexture = function () {
@@ -7233,9 +7341,13 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
                     if (speakerHistory.length > 2) {
                         speakerHistory.shift();
                     }
-                    BlockMorph.prototype.snapSound = document.createElement('audio');
-                    BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
-                    BlockMorph.prototype.snapSound.play();
+                    // the following three lines download load each audio file when it comes to use it, so we comment them out
+                    // BlockMorph.prototype.snapSound = document.createElement('audio');
+                    // BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0]; 
+                    // BlockMorph.prototype.snapSound.play();
+                    audio_name = '.' + audio;
+                    audio_index = audio_files.indexOf(audio_name); // since we already have all audio files pre-loaded in agentAudioArray, we traces the index of the audio in agentAudioArray
+                    agentAudioArray[audio_index].play(); // find it, and play the audio
                 }
             }
             this.createSpeechBubblePanel();
@@ -7305,9 +7417,13 @@ IDE_Morph.prototype.toggleAgentImage = function (convoNum) {
                     if (speakerHistory.length > 2) {
                         speakerHistory.shift();
                     }
-                    BlockMorph.prototype.snapSound = document.createElement('audio');
-                    BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0];
-                    BlockMorph.prototype.snapSound.play();
+                    // the following three lines download load each audio file when it comes to use it, so we comment them out
+                    // BlockMorph.prototype.snapSound = document.createElement('audio');
+                    // BlockMorph.prototype.snapSound.src = audio;//'/audio/' + futureAudio[0]; 
+                    // BlockMorph.prototype.snapSound.play();
+                    audio_name = '.' + audio;
+                    audio_index = audio_files.indexOf(audio_name); // since we already have all audio files pre-loaded in agentAudioArray, we traces the index of the audio in agentAudioArray
+                    agentAudioArray[audio_index].play(); // find it, and play the audio
                 }
             }
             this.createSpeechBubblePanel();
